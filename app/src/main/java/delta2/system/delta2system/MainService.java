@@ -1,0 +1,61 @@
+package delta2.system.delta2system;
+
+import android.app.Application;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
+import androidx.annotation.Nullable;
+
+public class MainService extends Service {
+    ModuleManager moduleManager;
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        PreferencesHelper.init(this);
+
+        startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);
+
+        moduleManager = new ModuleManager(this);
+        moduleManager.init();
+
+   //     Intent i = new Intent(this, MainActivity.class);
+   //     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+   //     startActivity(i);
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+        moduleManager.destroy();
+    }
+
+    protected  void startForeground(int ico, String title, int notifyId) {
+
+        Notification.Builder builder = new Notification.Builder(this)
+                .setSmallIcon(ico)
+                .setContentTitle(title)
+                .setContentText("")
+                .setOnlyAlertOnce(true)
+                .setOngoing(true);
+        Notification notification;
+
+        notification = builder.build();
+
+        notification.contentIntent = PendingIntent.getActivity(this,
+                0, new Intent(getApplicationContext(), MainService.class)
+                , PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        startForeground(notifyId, notification);
+    }
+}

@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">HardwareInfo</string>
+
+
+    <string name="minimize">minimize</string>
+    <string name="auto_start">Auto start</string>
+    <string name="close">Close</string>
+
+    <string name="msg_power_on">connected to power</string>
+    <string name="msg_bat_voltage">voltage</string>
+    <string name="msg_bat_haelth">health</string>
+    <string name="msg_bat_temperature">temperature</string>
+    <string name="msg_power_off">disconnected from power supply</string>
+
+    <string name="msg_power_full">full</string>
+    <string name="msg_bat_level">charge level</string>
+    <string name="msg_bat_low">the battery is dead</string>
+
+    <string name="msg_bat_levelprc">the battery level</string>
+    <string name="msg_battery">Battery</string>
+
+    <string name="msg_connection_changed">Connection changed</string>
+    <string name="msg_connection_current">Current connection</string>
+
+    <string name="working_time">Uptime</string>
+    <string name="working_time_d">d.</string>
+    <string name="working_time_h">h.</string>
+    <string name="working_time_m">m.</string>
+    <string name="working_time_s">s.</string>
+
+
+    <string name="start_info">start info .... .... .... .. delta2system</string>
+
+    <string name="no_settings">у этого модуля нет настроек</string>
+
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Delta2Main</string>
+
+    <string name="working_time_d">d.</string>
+    <string name="working_time_h">h.</string>
+    <string name="working_time_m">m.</string>
+    <string name="working_time_s">s.</string>
+</resources>

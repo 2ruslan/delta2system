@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="delta2.system.tdropbox" >
+
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application>
+        <activity android:name=".transportdropbox.SettingsActivity" />
+        <activity android:name=".transportdropbox.LoginActivity" />
+        <activity android:name=".transportdropbox.CheckAllActivity" />
+    <activity
+        android:name="com.dropbox.core.android.AuthActivity"
+        android:configChanges="orientation|keyboard"
+        android:launchMode="singleTask">
+        <intent-filter>
+            <data android:scheme="db-uzrwmwm6gkiw3oc" />
+
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.BROWSABLE" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+    </activity>
+
+    </application>
+</manifest>

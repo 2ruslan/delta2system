@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="delta2.system.wmotiondetector" >
+
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <application>
+
+        <activity android:name=".motiondetector.SettingsActivity" />
+        <activity android:name=".motiondetector.CheckAllActivity" />
+    </application>
+
+</manifest>
