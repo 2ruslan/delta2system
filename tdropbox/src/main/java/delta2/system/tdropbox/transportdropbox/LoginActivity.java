@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dropbox.core.android.Auth;
 
+import delta2.system.common.Constants;
+import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.tdropbox.R;
 import delta2.system.tdropbox.transportdropbox.Preferences.DropboxPreferences;
 import delta2.system.tdropbox.transportdropbox.Preferences.PreferencesHelper;
@@ -31,7 +33,6 @@ public class LoginActivity extends Activity {
 
     public void onClick(View view) {
         Auth.startOAuth2Authentication(LoginActivity.this, DropboxPreferences.APP_KEY);
-
     }
 
     @Override
@@ -40,18 +41,26 @@ public class LoginActivity extends Activity {
         getAccessToken();
     }
 
-
-
     public void getAccessToken() {
         String accessToken = Auth.getOAuth2Token(); //generate Access Token
         if (accessToken != null) {
             PreferencesHelper.setToken(accessToken);
 
-            Intent returnIntent = new Intent();
-            setResult(AppCompatActivity.RESULT_OK, returnIntent);
+            callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+
             finish();
         }
 
+    }
+
+    static IAcnivityCallback callback;
+
+    public static void init(IAcnivityCallback c){
+        callback = c;
+    }
+
+    public static void destroy(){
+        callback = null;
     }
 
 }

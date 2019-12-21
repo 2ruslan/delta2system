@@ -11,6 +11,7 @@ import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.interfaces.module.IModuleTransport;
+import delta2.system.ttelegram.transporttelegram.LoginActivity;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.SettingsActivity;
 import delta2.system.ttelegram.transporttelegram.Transport.TelegramTransport;
@@ -67,7 +68,7 @@ public class Module implements IModuleTransport {
 
     @Override
     public void LoginAndStart(IAcnivityCallback callback) {
-        callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+        LoginActivity.init(callback);
     }
 
     @Override

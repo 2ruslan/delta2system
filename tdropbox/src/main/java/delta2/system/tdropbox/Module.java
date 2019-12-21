@@ -11,11 +11,12 @@ import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.interfaces.module.IModuleTransport;
+import delta2.system.tdropbox.transportdropbox.LoginActivity;
 import delta2.system.tdropbox.transportdropbox.Preferences.PreferencesHelper;
 import delta2.system.tdropbox.transportdropbox.SettingsActivity;
 import delta2.system.tdropbox.transportdropbox.Transport.DropBoxTransport;
 
-public class Module implements IModuleTransport {
+public class Module implements IModuleTransport, IAcnivityCallback {
 
     private DropBoxTransport transport;
     private Context context;
@@ -62,14 +63,32 @@ public class Module implements IModuleTransport {
     @Override
     public void init() {
         PreferencesHelper.init(context);
+    }
 
-        transport = new DropBoxTransport(context);
-        transport.init();
+    IAcnivityCallback callback;
+
+    @Override
+    public void LoginAndStart(IAcnivityCallback c) {
+        callback = c;
+
+        if (PreferencesHelper.getToken() == null || PreferencesHelper.getToken().equals("")) {
+            LoginActivity.init(this);
+            context.startActivity(new Intent(context, LoginActivity.class));
+        }
+        else
+            OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
     }
 
     @Override
-    public void LoginAndStart(IAcnivityCallback callback) {
-        callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+    public void OnActivityCallback(Intent intent) {
+        if (intent.getBooleanExtra(Constants._LOGIN_AND_START,false)) {
+            LoginActivity.destroy();
+
+            transport = new DropBoxTransport(context);
+            transport.init();
+
+            callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+        }
     }
 
     @Override
@@ -79,4 +98,6 @@ public class Module implements IModuleTransport {
 
         PreferencesHelper.destroy();
     }
+
+
 }

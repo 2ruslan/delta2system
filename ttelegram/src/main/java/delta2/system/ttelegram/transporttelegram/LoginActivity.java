@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import delta2.system.common.Constants;
+import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.ttelegram.R;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.Transport.TelegramTransport;
@@ -122,10 +124,22 @@ public class LoginActivity extends Activity {
 
         if(_LoginActivity != null)
             _LoginActivity.finish();
+
+        if (callback != null)
+            callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+
+        callback = null;
     }
 
     static TelegramTransport telegramTransport;
     public static void SetTransport(TelegramTransport t){
         telegramTransport = t;
     }
+
+    static IAcnivityCallback callback;
+
+    public static void init(IAcnivityCallback c){
+        callback = c;
+    }
+
 }
