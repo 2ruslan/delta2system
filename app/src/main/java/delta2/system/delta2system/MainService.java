@@ -9,7 +9,7 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
-public class MainService extends Service {
+public class MainService extends Service implements IAppCompleteInit{
     ModuleManager moduleManager;
 
     @Nullable
@@ -22,20 +22,21 @@ public class MainService extends Service {
     public void onCreate() {
         PreferencesHelper.init(this);
 
+        moduleManager = new ModuleManager(this, this);
+        moduleManager.init();
+    }
+
+    @Override
+    public void OnAppCompleteInit() {
         startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);
 
-        moduleManager = new ModuleManager(this);
-        moduleManager.init();
-
-   //     Intent i = new Intent(this, MainActivity.class);
-   //     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-   //     startActivity(i);
-
+        Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 
     @Override
     public void onDestroy() {
-
         moduleManager.destroy();
     }
 
@@ -58,4 +59,6 @@ public class MainService extends Service {
 
         startForeground(notifyId, notification);
     }
+
+
 }

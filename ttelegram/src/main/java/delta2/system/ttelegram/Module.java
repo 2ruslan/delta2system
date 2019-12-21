@@ -6,6 +6,8 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
+import delta2.system.common.Constants;
+import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.interfaces.module.IModuleTransport;
@@ -61,6 +63,11 @@ public class Module implements IModuleTransport {
         PreferencesHelper.init(context);
 
         transport = new TelegramTransport(context);
+    }
+
+    @Override
+    public void LoginAndStart(IAcnivityCallback callback) {
+        callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
     }
 
     @Override

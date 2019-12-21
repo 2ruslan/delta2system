@@ -7,6 +7,8 @@ import android.provider.Settings;
 
 import java.util.ArrayList;
 
+import delta2.system.common.Constants;
+import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleWorker;
@@ -60,6 +62,11 @@ public class Module implements IModuleWorker {
             add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             add(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
         }};
+    }
+
+    @Override
+    public void LoginAndStart(IAcnivityCallback callback) {
+        callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
+import delta2.system.common.Constants;
 import delta2.system.common.Helper;
 import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.IInit;
@@ -12,6 +13,7 @@ import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.messages.MessageText;
@@ -22,13 +24,16 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     Context context;
     IModuleWorker[] ModuleWorkers;
     IModuleTransport[] ModuleTransports;
+    IModule AllModules[];
+    IAppCompleteInit AppCompleteInit;
 
-
-    public ModuleManager(Context c){
+    public ModuleManager(Context c, IAppCompleteInit a){
         context = c;
+        AppCompleteInit = a;
     }
 
-
+    //region init work
+    // 1
     public void init()
     {
         Helper.setWorkDir(context.getFilesDir());
@@ -37,9 +42,9 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         initWorker();
 
         checkPermission();
-
     }
 
+    // 1.1
     private void initTransport(){
         ModuleTransports = new IModuleTransport[]
                 {
@@ -48,6 +53,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
                 } ;
     }
 
+    // 1.2
     private void initWorker(){
         ModuleWorkers = new IModuleWorker[]
                 {
@@ -56,6 +62,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
                 } ;
     }
 
+    //2
     private void checkPermission(){
 
         ArrayList<String> allPermission = new ArrayList<>();
@@ -71,28 +78,54 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
         Intent i = new Intent(context, StarterApp.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.putStringArrayListExtra(StarterApp._ALL_PERMISSION, allPermission);
+        i.putStringArrayListExtra(Constants._ALL_PERMISSION, allPermission);
         context.startActivity(i);
-
     }
 
+    //3
     @Override
     public void OnActivityCallback(Intent intent) {
-        StarterApp.destroy();
+        if (intent.getBooleanExtra(Constants._ALL_PERMISSION, false)) {
+            StarterApp.destroy();
 
-        for( IModuleWorker worker : ModuleWorkers) {
-            worker.init();
-            worker.RegisterRequestSendMessage(this);
+            for (IModuleWorker worker : ModuleWorkers) {
+                worker.init();
+                worker.RegisterRequestSendMessage(this);
+            }
+
+            for (IModuleTransport transport : ModuleTransports) {
+                transport.init();
+                transport.RegisterReceiveMessage(this);
+            }
+
+
+            for(IModule module : ModuleTransports)
+                allModules.add(module);
+            for(IModule module : ModuleWorkers)
+                allModules.add(module);
+
+            LoginAndStart();
         }
-
-        for(IModuleTransport transport : ModuleTransports) {
-            transport.init();
-            transport.RegisterReceiveMessage(this);
+        else if (intent.getBooleanExtra(Constants._LOGIN_AND_START, false)){
+            LoginAndStart();
         }
-
-        //test
-        RequestSendMessage(new MessageText("test"));
     }
+
+    ArrayList<IModule> allModules = new ArrayList<>();
+
+    // 4
+    private void LoginAndStart(){
+        if (allModules != null && !allModules.isEmpty()){
+            IModule module = allModules.get(0);
+            allModules.remove(0);
+            module.LoginAndStart(this);
+            return;
+        }
+        else
+            AppCompleteInit.OnAppCompleteInit();
+    }
+
+    //endregion init work
 
     @Override
     public void destroy() {

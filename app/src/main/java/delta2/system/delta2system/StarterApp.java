@@ -13,11 +13,12 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
 
+import delta2.system.common.Constants;
 import delta2.system.common.interfaces.IAcnivityCallback;
 
 public class StarterApp extends Activity {
 
-    public final static String _ALL_PERMISSION = "_ALL_PERMISSION";
+
     public final static int OVERLAY_PERMISSION_REQ_CODE = 1;
 
     private boolean isCheckPermissionMode = false;
@@ -30,7 +31,7 @@ public class StarterApp extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starter_app);
 
-        allPermission = getIntent().getStringArrayListExtra(_ALL_PERMISSION);
+        allPermission = getIntent().getStringArrayListExtra(Constants._ALL_PERMISSION);
         isCheckPermissionMode = allPermission != null && !allPermission.isEmpty();
 
         checkAllPermission();
@@ -72,7 +73,8 @@ public class StarterApp extends Activity {
             } while (!allPermission.isEmpty());
         }
 
-        startApp();
+        if (allPermission == null || allPermission.isEmpty())
+            startApp();
     }
 
     @Override
@@ -105,7 +107,7 @@ public class StarterApp extends Activity {
 
     private void startApp(){
         if (isCheckPermissionMode)
-            callback.OnActivityCallback(new Intent());
+            callback.OnActivityCallback(new Intent().putExtra(Constants._ALL_PERMISSION, true));
         else
             this.startService(new Intent(this, MainService.class));
 
