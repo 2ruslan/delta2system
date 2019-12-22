@@ -20,7 +20,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import delta2.system.common.Constants;
 import delta2.system.common.Helper;
+import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.messages.MessageFile;
@@ -32,7 +34,7 @@ import delta2.system.ttelegram.transporttelegram.LoginActivity;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.Preferences.TelegramPreferences;
 
-public class TelegramTransport implements Client.ResultHandler, Client.ExceptionHandler{
+public class TelegramTransport implements Client.ResultHandler, Client.ExceptionHandler {
 
     private static final int _ONLINE_INTERVAL = 30 * 60 *1000;
     Context _context;
@@ -53,14 +55,20 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
     long locationMsgId = 0;
 
+    IAcnivityCallback callback;
+
     public TelegramTransport (Context c){
         _context = c;
+
         _client = Client.create(this, this, this);
 
-        connect();
+        ///connect();
     }
 
     IReceiveMessage receiveMessage;
+    public void setAcnivityCallback(IAcnivityCallback c){
+        callback = c;
+    };
 
     public void RegisterReceiveMessage(IReceiveMessage rcv) {
         receiveMessage = rcv;
@@ -309,6 +317,8 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             isSetConnectFlag = true;
 
             initTimertask();
+
+            callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
         }
     }
 

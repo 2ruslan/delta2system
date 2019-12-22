@@ -125,21 +125,11 @@ public class LoginActivity extends Activity {
         if(_LoginActivity != null)
             _LoginActivity.finish();
 
-        if (callback != null)
-            callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
-
-        callback = null;
     }
 
     static TelegramTransport telegramTransport;
     public static void SetTransport(TelegramTransport t){
         telegramTransport = t;
-    }
-
-    static IAcnivityCallback callback;
-
-    public static void init(IAcnivityCallback c){
-        callback = c;
     }
 
 }

@@ -6,12 +6,10 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
-import delta2.system.common.Constants;
 import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.interfaces.module.IModuleTransport;
-import delta2.system.ttelegram.transporttelegram.LoginActivity;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.SettingsActivity;
 import delta2.system.ttelegram.transporttelegram.Transport.TelegramTransport;
@@ -62,13 +60,13 @@ public class Module implements IModuleTransport {
     @Override
     public void init() {
         PreferencesHelper.init(context);
-
         transport = new TelegramTransport(context);
     }
 
     @Override
     public void LoginAndStart(IAcnivityCallback callback) {
-        LoginActivity.init(callback);
+        transport.setAcnivityCallback(callback);
+        transport.connect();
     }
 
     @Override

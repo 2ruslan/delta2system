@@ -76,7 +76,7 @@ public class Module implements IModuleTransport, IAcnivityCallback {
             context.startActivity(new Intent(context, LoginActivity.class));
         }
         else
-            OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+            callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
     }
 
     @Override

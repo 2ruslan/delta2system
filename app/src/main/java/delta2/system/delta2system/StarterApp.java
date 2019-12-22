@@ -87,7 +87,6 @@ public class StarterApp extends Activity {
                     else
                         finish();
                 }
-                return;
             }
         }
     }
@@ -96,7 +95,7 @@ public class StarterApp extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
-            if(resultCode == AppCompatActivity.RESULT_OK){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this)){
                 checkAllPermission();
             }
             else{
