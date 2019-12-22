@@ -16,7 +16,7 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
-import delta2.system.common.messages.MessageText;
+import delta2.system.delta2system.View.StarterApp;
 
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IAcnivityCallback {
@@ -99,10 +99,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             }
 
 
-            for(IModule module : ModuleTransports)
-                allModules.add(module);
-            for(IModule module : ModuleWorkers)
-                allModules.add(module);
+            allModules = GetAllModules();
 
             LoginAndStart();
         }
@@ -111,7 +108,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         }
     }
 
-    ArrayList<IModule> allModules = new ArrayList<>();
+    ArrayList<IModule> allModules;
 
     // 4
     private void LoginAndStart(){
@@ -163,7 +160,16 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         return  new MessageExt();
     }
 
+    public ArrayList<IModule> GetAllModules(){
+        ArrayList<IModule> result = new ArrayList<>();
 
+        for(IModule module : ModuleTransports)
+            result.add(module);
+        for(IModule module : ModuleWorkers)
+            result.add(module);
+
+        return result;
+    }
 
     private class CommandExt{
         public static final String _ALL = "*";

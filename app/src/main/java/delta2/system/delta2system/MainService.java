@@ -1,6 +1,5 @@
 package delta2.system.delta2system;
 
-import android.app.Application;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -8,6 +7,8 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
+
+import delta2.system.delta2system.View.MainActivity;
 
 public class MainService extends Service implements IAppCompleteInit{
     ModuleManager moduleManager;
@@ -30,6 +31,7 @@ public class MainService extends Service implements IAppCompleteInit{
     public void OnAppCompleteInit() {
         startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);
 
+        MainActivity.init(moduleManager);
         Intent i = new Intent(this, MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
@@ -37,6 +39,7 @@ public class MainService extends Service implements IAppCompleteInit{
 
     @Override
     public void onDestroy() {
+        MainActivity.destroy();
         moduleManager.destroy();
     }
 

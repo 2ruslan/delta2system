@@ -1,4 +1,4 @@
-package delta2.system.delta2system;
+package delta2.system.delta2system.View;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 import delta2.system.common.Constants;
 import delta2.system.common.interfaces.IAcnivityCallback;
+import delta2.system.delta2system.MainService;
+import delta2.system.delta2system.R;
 
 public class StarterApp extends Activity {
 
