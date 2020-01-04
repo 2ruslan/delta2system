@@ -13,6 +13,8 @@ public interface IModule extends IInit {
 
     String GetShortName();
     String GetDescription();
+    boolean GetIsActive();
+
     void OpenSettings();
 
 }

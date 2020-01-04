@@ -24,6 +24,8 @@ public class Module implements IModuleWorker {
     Context context;
     MDManager Manager;
 
+    private boolean isActive = false;
+
     public Module(Context c){
         context = c;
     }
@@ -49,6 +51,11 @@ public class Module implements IModuleWorker {
     }
 
     @Override
+    public boolean GetIsActive() {
+        return false;
+    }
+
+    @Override
     public void OpenSettings() {
         Intent s = new Intent(context, SettingsActivity.class);
         s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -67,6 +74,7 @@ public class Module implements IModuleWorker {
     @Override
     public void LoginAndStart(IAcnivityCallback callback) {
         callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+        isActive = true;
     }
 
     @Override
@@ -81,5 +89,6 @@ public class Module implements IModuleWorker {
     public void destroy() {
         MediatorMD.onDestroy();
         Manager.onDestroy();
+        isActive = false;
     }
 }

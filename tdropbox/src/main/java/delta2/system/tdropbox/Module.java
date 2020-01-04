@@ -20,6 +20,7 @@ public class Module implements IModuleTransport, IAcnivityCallback {
 
     private DropBoxTransport transport;
     private Context context;
+    private boolean isActive = false;
 
     public Module(Context c){
         context = c;
@@ -43,6 +44,11 @@ public class Module implements IModuleTransport, IAcnivityCallback {
     @Override
     public String GetDescription() {
         return null;
+    }
+
+    @Override
+    public boolean GetIsActive() {
+        return isActive;
     }
 
     @Override
@@ -88,6 +94,7 @@ public class Module implements IModuleTransport, IAcnivityCallback {
             transport.init();
 
             callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+            isActive = true;
         }
     }
 
@@ -97,6 +104,7 @@ public class Module implements IModuleTransport, IAcnivityCallback {
         transport = null;
 
         PreferencesHelper.destroy();
+        isActive = false;
     }
 
 

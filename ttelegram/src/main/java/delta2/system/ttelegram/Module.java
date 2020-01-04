@@ -19,6 +19,8 @@ public class Module implements IModuleTransport {
     Context context;
     TelegramTransport transport;
 
+    private boolean isActive = false;
+
     public Module(Context c){
         context = c;
     }
@@ -41,6 +43,11 @@ public class Module implements IModuleTransport {
     @Override
     public String GetDescription() {
         return "";
+    }
+
+    @Override
+    public boolean GetIsActive() {
+        return isActive;
     }
 
     @Override
@@ -67,10 +74,12 @@ public class Module implements IModuleTransport {
     public void LoginAndStart(IAcnivityCallback callback) {
         transport.setAcnivityCallback(callback);
         transport.connect();
+        isActive = true;
     }
 
     @Override
     public void destroy() {
-
+        transport.destroy();
+        isActive = false;
     }
 }

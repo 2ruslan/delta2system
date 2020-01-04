@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.MainActivity">
+    tools:context=".View.SelectModulesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,16 +37,16 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="Transport"
-                android:onClick="OnTransportClick"
+                android:text="Cancel"
+                android:onClick="OnCancelClick"
                 />
             <Button
                 android:layout_margin="4dp"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="Worker"
-                android:onClick="OnWorkerClick"
+                android:text="Save"
+                android:onClick="OnSaveClick"
                 />
         </LinearLayout>
 

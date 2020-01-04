@@ -22,8 +22,9 @@ import delta2.system.delta2system.View.StarterApp;
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IAcnivityCallback {
 
     Context context;
-    IModuleWorker[] ModuleWorkers;
-    IModuleTransport[] ModuleTransports;
+    ArrayList<IModuleWorker> ModuleWorkers;
+    ArrayList<IModuleTransport> ModuleTransports;
+
     IModule AllModules[];
     IAppCompleteInit AppCompleteInit;
 
@@ -46,20 +47,16 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     // 1.1
     private void initTransport(){
-        ModuleTransports = new IModuleTransport[]
-                {
-                        new delta2.system.tdropbox.Module(context),
-                        new delta2.system.ttelegram.Module(context)
-                } ;
+        ModuleTransports = new ArrayList<>();
+        ModuleTransports.add(new delta2.system.tdropbox.Module(context));
+        ModuleTransports.add(new delta2.system.ttelegram.Module(context));
     }
 
     // 1.2
     private void initWorker(){
-        ModuleWorkers = new IModuleWorker[]
-                {
-                        new delta2.system.whardwareinfo.Module(context),
-                        new delta2.system.wmotiondetector.Module(context)
-                } ;
+        ModuleWorkers = new ArrayList<>();
+        ModuleWorkers.add(new delta2.system.whardwareinfo.Module(context));
+        ModuleWorkers.add(new delta2.system.wmotiondetector.Module(context));
     }
 
     //2
@@ -171,6 +168,22 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         return result;
     }
 
+    public ArrayList<ModuleInfo> GetTransportModules(){
+        return GetModulesInfo(ModuleTransports);
+    }
+
+    public ArrayList<ModuleInfo> GetWorkerModules(){
+        return GetModulesInfo(ModuleWorkers);
+    }
+
+    private ArrayList<ModuleInfo> GetModulesInfo(ArrayList m){
+        ArrayList<ModuleInfo> result = new ArrayList<>();
+        for(Object module : m)
+            result.add(new ModuleInfo((IModule) module));
+
+        return result;
+    }
+
     private class CommandExt{
         public static final String _ALL = "*";
         public ICommand cmd;
@@ -182,4 +195,5 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         public IMessage msg;
         public String module = _ALL;
     }
+
 }
