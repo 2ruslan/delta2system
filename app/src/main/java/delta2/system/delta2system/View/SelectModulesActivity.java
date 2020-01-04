@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import delta2.system.delta2system.ModuleInfo;
 import delta2.system.delta2system.ModuleManager;
+import delta2.system.delta2system.PreferencesHelper;
 import delta2.system.delta2system.R;
 
 public class SelectModulesActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class SelectModulesActivity extends AppCompatActivity {
 
     private int mode;
     ListView modulesList;
+    private ArrayList<ModuleInfo> modules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class SelectModulesActivity extends AppCompatActivity {
     }
 
     private void connectToAdapter(){
-        ArrayList<ModuleInfo> modules = mode == _SELECT_TRANSPORT ? moduleManager.GetTransportModules() : moduleManager.GetWorkerModules();
+        modules = mode == _SELECT_TRANSPORT ? moduleManager.GetTransportModules() : moduleManager.GetWorkerModules();
         ModuleSelectAdapter adapter = new ModuleSelectAdapter(this, R.layout.list_item_select, modules);
         modulesList = findViewById(R.id.modulsList);
         modulesList.setAdapter(adapter);
@@ -52,10 +54,15 @@ public class SelectModulesActivity extends AppCompatActivity {
 
     public void OnSaveClick(View v){
 
+        for (ModuleInfo mi : modules){
+            PreferencesHelper.setIsActiveModule(mi.GetModuleId(), mi.isActive);
+        }
+
+        finish();
     }
 
     public void OnCancelClick(View v){
-
+        finish();
     }
 
 }

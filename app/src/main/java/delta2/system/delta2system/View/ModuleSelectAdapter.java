@@ -46,8 +46,8 @@ public class ModuleSelectAdapter extends ArrayAdapter<ModuleInfo> {
 
         final ModuleInfo module = plugintList.get(position);
 
-        viewHolder.nameView.setText(module.info);
-        viewHolder.codeView.setText(module.name);
+        viewHolder.nameView.setText(module.GetInfo());
+        viewHolder.codeView.setText(module.GetName());
         viewHolder.isActive.setChecked(module.isActive);
 
         viewHolder.isActive.setOnClickListener(new View.OnClickListener() {

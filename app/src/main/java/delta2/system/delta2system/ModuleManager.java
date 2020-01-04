@@ -42,7 +42,10 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         initTransport();
         initWorker();
 
-        checkPermission();
+        if (GetAllModules().size() == 0)
+            LoginAndStart();
+        else
+            checkPermission();
     }
 
     // 1.1
@@ -65,10 +68,12 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         ArrayList<String> allPermission = new ArrayList<>();
 
         for( IModuleWorker worker : ModuleWorkers) {
-            allPermission.addAll(worker.GetAllPermission());
+            if (PreferencesHelper.getIsActiveModule(worker.GetModuleID()))
+                allPermission.addAll(worker.GetAllPermission());
         }
         for(IModuleTransport transport : ModuleTransports) {
-            allPermission.addAll(transport.GetAllPermission());
+            if (PreferencesHelper.getIsActiveModule(transport.GetModuleID()))
+                allPermission.addAll(transport.GetAllPermission());
         }
 
         StarterApp.setActivityCallback(this);
@@ -86,13 +91,17 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             StarterApp.destroy();
 
             for (IModuleWorker worker : ModuleWorkers) {
-                worker.init();
-                worker.RegisterRequestSendMessage(this);
+                if (PreferencesHelper.getIsActiveModule(worker.GetModuleID())) {
+                    worker.init();
+                    worker.RegisterRequestSendMessage(this);
+                }
             }
 
             for (IModuleTransport transport : ModuleTransports) {
-                transport.init();
-                transport.RegisterReceiveMessage(this);
+                if (PreferencesHelper.getIsActiveModule(transport.GetModuleID())) {
+                    transport.init();
+                    transport.RegisterReceiveMessage(this);
+                }
             }
 
 
@@ -161,9 +170,13 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         ArrayList<IModule> result = new ArrayList<>();
 
         for(IModule module : ModuleTransports)
-            result.add(module);
+            if (PreferencesHelper.getIsActiveModule(module.GetModuleID())) {
+                result.add(module);
+            }
         for(IModule module : ModuleWorkers)
-            result.add(module);
+            if (PreferencesHelper.getIsActiveModule(module.GetModuleID())) {
+                result.add(module);
+            }
 
         return result;
     }
@@ -174,6 +187,16 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     public ArrayList<ModuleInfo> GetWorkerModules(){
         return GetModulesInfo(ModuleWorkers);
+    }
+
+    public void Reinit(){
+        for(IModule module : ModuleTransports)
+            module.destroy();
+        for(IModule module : ModuleWorkers)
+            module.destroy();
+
+        init();
+
     }
 
     private ArrayList<ModuleInfo> GetModulesInfo(ArrayList m){

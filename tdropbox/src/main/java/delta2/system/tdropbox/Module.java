@@ -86,6 +86,11 @@ public class Module implements IModuleTransport, IAcnivityCallback {
     }
 
     @Override
+    public String GetModuleID() {
+        return "eec13a38-8841-45bb-af0c-dff897b4a5d1";
+    }
+
+    @Override
     public void OnActivityCallback(Intent intent) {
         if (intent.getBooleanExtra(Constants._LOGIN_AND_START,false)) {
             LoginActivity.destroy();

@@ -35,4 +35,14 @@ public class PreferencesHelper {
     }
     //endregion AUTO_START
 
+    public static boolean getIsActiveModule(String moduleId){
+        PreferenceValue p = new PreferenceValue(mSettings, moduleId, false);
+        return p.getBool();
+    }
+
+    public static void setIsActiveModule(String moduleId, boolean isActive){
+        PreferenceValue p = new PreferenceValue(mSettings, moduleId, false);
+        p.setBool(isActive);
+    }
+
 }

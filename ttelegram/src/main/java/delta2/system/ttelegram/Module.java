@@ -78,6 +78,11 @@ public class Module implements IModuleTransport {
     }
 
     @Override
+    public String GetModuleID() {
+        return "4568e9c7-f547-41c2-9cd0-8187a4aa32b7";
+    }
+
+    @Override
     public void destroy() {
         transport.destroy();
         isActive = false;

@@ -80,6 +80,11 @@ public class Module implements IModuleWorker {
     }
 
     @Override
+    public String GetModuleID() {
+        return "5628147e-1e1d-4008-b028-cd0f9ee0f4a6";
+    }
+
+    @Override
     public void init() {
         PreferencesHelper.init(context);
 

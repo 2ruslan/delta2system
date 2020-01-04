@@ -11,6 +11,8 @@ public interface IModule extends IInit {
 
     void LoginAndStart(IAcnivityCallback callback);
 
+    String GetModuleID();
+
     String GetShortName();
     String GetDescription();
     boolean GetIsActive();
