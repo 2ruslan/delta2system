@@ -4,15 +4,16 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.provider.Settings;
 
 import java.util.ArrayList;
 
-import delta2.system.common.Constants;
-import delta2.system.common.interfaces.IAcnivityCallback;
+import delta2.system.common.Helper;
+import delta2.system.common.enums.ModuleState;
+import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleWorker;
+import delta2.system.common.permission.CheckPermission;
 import delta2.system.whardwareinfo.hardwareinfo.CommandManager;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
@@ -20,26 +21,21 @@ import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
 import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
 import delta2.system.whardwareinfo.hardwareinfo.SettingsActivity;
 
-public class Module implements IModuleWorker {
+public class Module implements IModuleWorker, IError {
 
     BatteryLevelReceiver batteryLevelReceiver;
     CommandManager commandManager;
     Context context;
-
-    private boolean isActive = false;
+    ModuleState moduleState;
 
     public Module(Context c){
         context = c;
+        moduleState = ModuleState.none;
     }
 
     @Override
-    public void RegisterRequestSendMessage(IRequestSendMessage msg) {
-        MediatorMD.RegisterRequestSendMessage(msg);
-    }
-
-    @Override
-    public void ExecuteCommand(ICommand cmd) {
-        commandManager.ExcuteCommand(cmd);
+    public String GetModuleID() {
+        return "5628147e-1e1d-4008-b028-cd0f9ee0f4a6";
     }
 
     @Override
@@ -49,53 +45,102 @@ public class Module implements IModuleWorker {
 
     @Override
     public String GetDescription() {
-        return "";
+        return "hardware info";
     }
 
     @Override
-    public boolean GetIsActive() {
-        return isActive;
+    public ModuleState GetModuleState() {
+        return moduleState;
+    }
+
+    @Override
+    public void RegisterRequestSendMessage(IRequestSendMessage msg) {
+        MediatorMD.RegisterRequestSendMessage(msg);
+    }
+
+    @Override
+    public void ExecuteCommand(ICommand cmd) {
+        try {
+            commandManager.ExcuteCommand(cmd);
+        }
+        catch (Exception ex){
+            OnError(ex);
+        }
     }
 
     @Override
     public void OpenSettings() {
-        Intent s = new Intent(context, SettingsActivity.class);
-        s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(s);
+        try {
+            Intent s = new Intent(context, SettingsActivity.class);
+            s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(s);
+        }
+        catch (Exception ex){
+            OnError(ex);
+        }
     }
 
     @Override
-    public ArrayList<String> GetAllPermission() {
-        return new ArrayList<String>(){{
-            add(Manifest.permission.ACCESS_NETWORK_STATE);
-            add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            add(Manifest.permission.ACCESS_WIFI_STATE);
-        }};
+    public void Start() {
+        moduleState = ModuleState.work;
     }
 
     @Override
-    public void LoginAndStart(IAcnivityCallback callback) {
-        callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
-        isActive = true;
+    public void Stop() {
+        moduleState = ModuleState.stop;
     }
 
     @Override
-    public String GetModuleID() {
-        return "5628147e-1e1d-4008-b028-cd0f9ee0f4a6";
+    public void Restart() {
+    }
+
+    @Override
+    public void OnError(Exception ex){
+        Helper.Ex2Log(ex);
+        moduleState = ModuleState.error;
     }
 
     @Override
     public void init() {
-        PreferencesHelper.init(context);
+        CheckPermission p = new CheckPermission(context, this);
+        p.SetOnChecked(
+                        new CheckPermission.ICheckedPermission(){
+                               @Override
+                               public void OnChecked(boolean IsOk) {
+                                    if (IsOk && initVars())
+                                        moduleState = ModuleState.init;
+                                    else
+                                        moduleState = ModuleState.error;
+                               }
+                        });
+        p.Check(
+                new ArrayList<String>(){{
+                    add(Manifest.permission.ACCESS_NETWORK_STATE);
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    add(Manifest.permission.ACCESS_WIFI_STATE);
+                }}
+        );
+    }
 
-        WifiReceiver.init(context);
+    private boolean initVars(){
+        try {
+            PreferencesHelper.init(context);
 
-        batteryLevelReceiver = new BatteryLevelReceiver();
-        BatteryLevelReceiver.init(context);
-        context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
+            WifiReceiver.init(context);
 
-        commandManager = new CommandManager(context);
+            batteryLevelReceiver = new BatteryLevelReceiver();
+            BatteryLevelReceiver.init(context);
+            context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+            context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
+
+            commandManager = new CommandManager(context);
+
+            return true;
+        }
+        catch (Exception ex){
+            OnError(ex);
+            return false;
+        }
     }
 
     @Override
@@ -111,6 +156,6 @@ public class Module implements IModuleWorker {
 
         MediatorMD.destroy();
 
-        isActive = false;
+        moduleState = ModuleState.none;
     }
 }

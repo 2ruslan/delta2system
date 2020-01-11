@@ -1,22 +1,23 @@
 package delta2.system.common.interfaces.module;
 
-import java.util.ArrayList;
-
-import delta2.system.common.interfaces.IAcnivityCallback;
+import delta2.system.common.enums.ModuleState;
+import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.IInit;
 
-public interface IModule extends IInit {
+public interface IModule extends IInit, IError {
 
-    ArrayList<String> GetAllPermission();
-
-    void LoginAndStart(IAcnivityCallback callback);
-
-    String GetModuleID();
 
     String GetShortName();
     String GetDescription();
-    boolean GetIsActive();
+
+    ModuleState GetModuleState();
 
     void OpenSettings();
+
+    void Start();
+    void Stop();
+    void Restart();
+
+    String GetModuleID();
 
 }

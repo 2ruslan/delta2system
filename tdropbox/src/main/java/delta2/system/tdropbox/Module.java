@@ -7,6 +7,7 @@ import android.content.Intent;
 import java.util.ArrayList;
 
 import delta2.system.common.Constants;
+import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
@@ -20,20 +21,16 @@ public class Module implements IModuleTransport, IAcnivityCallback {
 
     private DropBoxTransport transport;
     private Context context;
-    private boolean isActive = false;
+    private ModuleState moduleState;
 
     public Module(Context c){
         context = c;
+        moduleState = ModuleState.none;
     }
 
     @Override
-    public void RegisterReceiveMessage(IReceiveMessage rcv) {
-
-    }
-
-    @Override
-    public void SendMessage(IMessage msg) {
-        transport.SendMessage(msg);
+    public String GetModuleID() {
+        return "eec13a38-8841-45bb-af0c-dff897b4a5d1";
     }
 
     @Override
@@ -47,15 +44,41 @@ public class Module implements IModuleTransport, IAcnivityCallback {
     }
 
     @Override
-    public boolean GetIsActive() {
-        return isActive;
+    public ModuleState GetModuleState() {
+        return moduleState;
     }
+
+    @Override
+    public void RegisterReceiveMessage(IReceiveMessage rcv) {
+
+    }
+
+    @Override
+    public void SendMessage(IMessage msg) {
+        transport.SendMessage(msg);
+    }
+
 
     @Override
     public void OpenSettings() {
         Intent s = new Intent(context, SettingsActivity.class);
         s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(s);
+    }
+
+    @Override
+    public void Start() {
+
+    }
+
+    @Override
+    public void Stop() {
+
+    }
+
+    @Override
+    public void Restart() {
+
     }
 
     @Override
@@ -85,10 +108,7 @@ public class Module implements IModuleTransport, IAcnivityCallback {
             callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
     }
 
-    @Override
-    public String GetModuleID() {
-        return "eec13a38-8841-45bb-af0c-dff897b4a5d1";
-    }
+
 
     @Override
     public void OnActivityCallback(Intent intent) {

@@ -191,9 +191,11 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     public void Reinit(){
         for(IModule module : ModuleTransports)
-            module.destroy();
+            if (module.GetIsActive())
+                module.destroy();
         for(IModule module : ModuleWorkers)
-            module.destroy();
+            if (module.GetIsActive())
+                module.destroy();
 
         init();
 

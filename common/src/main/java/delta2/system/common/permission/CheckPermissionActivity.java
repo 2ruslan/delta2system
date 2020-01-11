@@ -1,4 +1,4 @@
-package delta2.system.delta2system.View;
+package delta2.system.common.permission;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,25 +7,23 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
 
 import delta2.system.common.Constants;
+import delta2.system.common.R;
 import delta2.system.common.interfaces.IAcnivityCallback;
-import delta2.system.delta2system.MainService;
-import delta2.system.delta2system.R;
 
-public class StarterApp extends Activity {
+public class CheckPermissionActivity extends Activity {
 
 
     public final static int OVERLAY_PERMISSION_REQ_CODE = 1;
 
-    private boolean isCheckPermissionMode = false;
     private ArrayList<String> allPermission;
     private static IAcnivityCallback callback;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +31,9 @@ public class StarterApp extends Activity {
         setContentView(R.layout.activity_check_permission);
 
         allPermission = getIntent().getStringArrayListExtra(Constants._ALL_PERMISSION);
-        isCheckPermissionMode = allPermission != null && !allPermission.isEmpty();
 
         checkAllPermission();
+
     }
 
     @Override
@@ -75,7 +73,7 @@ public class StarterApp extends Activity {
         }
 
         if (allPermission == null || allPermission.isEmpty())
-            startApp();
+            OnFinish(true);
     }
 
     @Override
@@ -86,7 +84,7 @@ public class StarterApp extends Activity {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                         checkAllPermission();
                     else
-                        finish();
+                        OnFinish(false);
                 }
             }
         }
@@ -100,17 +98,13 @@ public class StarterApp extends Activity {
                 checkAllPermission();
             }
             else{
-                finish();
+                OnFinish(false);
             }
         }
     }
 
-    private void startApp(){
-        if (isCheckPermissionMode)
-            callback.OnActivityCallback(new Intent().putExtra(Constants._ALL_PERMISSION, true));
-        else
-            this.startService(new Intent(this, MainService.class));
-
+    private void OnFinish(boolean isOk){
+        callback.OnActivityCallback(new Intent().putExtra(Constants._ALL_PERMISSION, isOk));
         finish();
     }
 
