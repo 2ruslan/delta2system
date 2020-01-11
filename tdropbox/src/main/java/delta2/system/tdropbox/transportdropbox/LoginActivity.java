@@ -46,7 +46,8 @@ public class LoginActivity extends Activity {
         if (accessToken != null) {
             PreferencesHelper.setToken(accessToken);
 
-            callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
+            if (callback != null)
+                callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
 
             finish();
         }
