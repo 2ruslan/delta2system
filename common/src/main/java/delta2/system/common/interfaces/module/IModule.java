@@ -6,17 +6,25 @@ import delta2.system.common.interfaces.IInit;
 
 public interface IModule extends IInit, IError {
 
+    public enum ModuleType{
+        worker,
+        transport
+    }
 
+    String GetModuleID();
     String GetShortName();
     String GetDescription();
 
     ModuleState GetModuleState();
+    ModuleType GetModuleType();
 
     void OpenSettings();
 
     void Start();
     void Stop();
 
-    String GetModuleID();
+
+    void SetStateNeedInit();
+
 
 }

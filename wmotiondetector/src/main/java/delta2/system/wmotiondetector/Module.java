@@ -19,7 +19,6 @@ import delta2.system.wmotiondetector.motiondetector.Detector.MDManager;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 import delta2.system.wmotiondetector.motiondetector.SettingsActivity;
-import delta2.system.common.commands.Command;
 
 public class Module implements IModuleWorker {
 
@@ -66,6 +65,11 @@ public class Module implements IModuleWorker {
     }
 
     @Override
+    public ModuleType GetModuleType() {
+        return ModuleType.worker;
+    }
+
+    @Override
     public void OpenSettings() {
         Intent s = new Intent(context, SettingsActivity.class);
         s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -80,6 +84,11 @@ public class Module implements IModuleWorker {
     @Override
     public void Stop() {
         moduleState = ModuleState.stop;
+    }
+
+    @Override
+    public void SetStateNeedInit() {
+        moduleState = ModuleState.needInit;
     }
 
     @Override

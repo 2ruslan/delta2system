@@ -2,8 +2,15 @@ package delta2.system.common.enums;
 
 public enum ModuleState {
     none,
-    init,
+
+    needInit,
+    initStart,
+    initEnd,
+
+
+    workStart,
     work,
+
     stop,
     error,
     needStart,

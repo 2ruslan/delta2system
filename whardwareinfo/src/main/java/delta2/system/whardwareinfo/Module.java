@@ -54,6 +54,15 @@ public class Module implements IModuleWorker, IError {
     }
 
     @Override
+    public ModuleType GetModuleType() {
+        return ModuleType.worker;
+    }
+
+    @Override
+    public void SetStateNeedInit() {
+        moduleState = ModuleState.needInit;
+    }
+    @Override
     public void RegisterRequestSendMessage(IRequestSendMessage msg) {
         MediatorMD.RegisterRequestSendMessage(msg);
     }

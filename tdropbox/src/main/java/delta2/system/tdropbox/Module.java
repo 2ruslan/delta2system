@@ -50,6 +50,16 @@ public class Module implements IModuleTransport, IError {
     }
 
     @Override
+    public ModuleType GetModuleType() {
+        return ModuleType.transport;
+    }
+
+    @Override
+    public void SetStateNeedInit() {
+        moduleState = ModuleState.needInit;
+    }
+
+    @Override
     public void RegisterReceiveMessage(IReceiveMessage rcv) {
 
     }

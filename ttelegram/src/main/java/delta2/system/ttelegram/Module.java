@@ -60,6 +60,16 @@ public class Module implements IModuleTransport {
     }
 
     @Override
+    public ModuleType GetModuleType() {
+        return ModuleType.transport;
+    }
+
+    @Override
+    public void SetStateNeedInit() {
+        moduleState = ModuleState.needInit;
+    }
+
+    @Override
     public void OpenSettings() {
         Intent s = new Intent(context, SettingsActivity.class);
         s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

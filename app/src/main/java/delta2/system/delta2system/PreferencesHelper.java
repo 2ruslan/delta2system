@@ -8,7 +8,7 @@ import delta2.system.common.preferences.PreferenceValue;
 
 public class PreferencesHelper {
 
-    public static final String APP_PREFERENCES = "preference";
+    public static final String APP_PREFERENCES = "preference.main";
 
     public static final String AUTO_START = "AUTO_START";
 
