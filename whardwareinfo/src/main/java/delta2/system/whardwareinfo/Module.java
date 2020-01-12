@@ -91,10 +91,6 @@ public class Module implements IModuleWorker, IError {
     }
 
     @Override
-    public void Restart() {
-    }
-
-    @Override
     public void OnError(Exception ex){
         Helper.Ex2Log(ex);
         moduleState = ModuleState.error;

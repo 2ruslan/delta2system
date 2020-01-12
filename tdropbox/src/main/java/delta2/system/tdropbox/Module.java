@@ -108,12 +108,6 @@ public class Module implements IModuleTransport, IError {
     }
 
     @Override
-    public void Restart() {
-
-    }
-
-
-    @Override
     public void init() {
         CheckPermission p = new CheckPermission(context, this);
         p.SetOnChecked(

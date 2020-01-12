@@ -6,10 +6,14 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
+import delta2.system.common.Constants;
+import delta2.system.common.Helper;
+import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.interfaces.module.IModuleTransport;
+import delta2.system.common.permission.CheckPermission;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.SettingsActivity;
 import delta2.system.ttelegram.transporttelegram.Transport.TelegramTransport;
@@ -18,11 +22,11 @@ public class Module implements IModuleTransport {
 
     Context context;
     TelegramTransport transport;
-
-    private boolean isActive = false;
+    ModuleState moduleState;
 
     public Module(Context c){
         context = c;
+        moduleState = ModuleState.none;
     }
 
     @Override
@@ -36,6 +40,11 @@ public class Module implements IModuleTransport {
     }
 
     @Override
+    public String GetModuleID() {
+        return "4568e9c7-f547-41c2-9cd0-8187a4aa32b7";
+    }
+
+    @Override
     public String GetShortName() {
         return "ttm";
     }
@@ -46,8 +55,8 @@ public class Module implements IModuleTransport {
     }
 
     @Override
-    public boolean GetIsActive() {
-        return isActive;
+    public ModuleState GetModuleState() {
+        return moduleState;
     }
 
     @Override
@@ -58,33 +67,73 @@ public class Module implements IModuleTransport {
     }
 
     @Override
-    public ArrayList<String> GetAllPermission() {
-        return new ArrayList<String>(){{
-            add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }};
+    public void Start() {
+        transport.setAcnivityCallback(
+                new IAcnivityCallback() {
+                    @Override
+                    public void OnActivityCallback(Intent intent) {
+                        if (intent.getBooleanExtra(Constants._LOGIN_AND_START, false)){
+                            moduleState = ModuleState.work;
+                        }
+                        else
+                            moduleState = ModuleState.error;
+                    }
+                }
+        );
+        transport.connect();
+    }
+
+    @Override
+    public void Stop() {
+        moduleState = ModuleState.stop;
     }
 
     @Override
     public void init() {
-        PreferencesHelper.init(context);
-        transport = new TelegramTransport(context);
+        CheckPermission p = new CheckPermission(context, this);
+        p.SetOnChecked(
+                new CheckPermission.ICheckedPermission(){
+                    @Override
+                    public void OnChecked(boolean IsOk) {
+                        if (IsOk && initVars())
+                            moduleState = ModuleState.init;
+                        else
+                            moduleState = ModuleState.error;
+                    }
+                });
+        p.Check(
+                new ArrayList<String>(){{
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }}
+        );
+
+
     }
 
-    @Override
-    public void LoginAndStart(IAcnivityCallback callback) {
-        transport.setAcnivityCallback(callback);
-        transport.connect();
-        isActive = true;
+    private boolean initVars(){
+        try {
+            PreferencesHelper.init(context);
+            transport = new TelegramTransport(context);
+
+            return true;
+        }
+        catch (Exception ex){
+            OnError(ex);
+
+            return false;
+        }
     }
 
-    @Override
-    public String GetModuleID() {
-        return "4568e9c7-f547-41c2-9cd0-8187a4aa32b7";
-    }
 
     @Override
     public void destroy() {
         transport.destroy();
-        isActive = false;
+        moduleState = ModuleState.none;
+    }
+
+    @Override
+    public void OnError(Exception ex) {
+        Helper.Ex2Log(ex);
+        moduleState = ModuleState.error;
     }
 }

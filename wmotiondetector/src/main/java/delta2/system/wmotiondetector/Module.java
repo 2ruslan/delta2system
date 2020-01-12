@@ -7,27 +7,30 @@ import android.provider.Settings;
 
 import java.util.ArrayList;
 
-import delta2.system.common.Constants;
-import delta2.system.common.interfaces.IAcnivityCallback;
+import delta2.system.common.Helper;
+import delta2.system.common.commands.Command;
+import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleWorker;
+import delta2.system.common.permission.CheckPermission;
 import delta2.system.wmotiondetector.motiondetector.CommandManager;
 import delta2.system.wmotiondetector.motiondetector.Detector.MDManager;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 import delta2.system.wmotiondetector.motiondetector.SettingsActivity;
-
+import delta2.system.common.commands.Command;
 
 public class Module implements IModuleWorker {
 
     Context context;
     MDManager Manager;
 
-    private boolean isActive = false;
+    ModuleState moduleState;
 
     public Module(Context c){
         context = c;
+        moduleState = ModuleState.none;
     }
 
     @Override
@@ -37,22 +40,29 @@ public class Module implements IModuleWorker {
 
     @Override
     public void ExecuteCommand(ICommand cmd) {
+        if (cmd instanceof Command) {
+            MediatorMD.CheckMessage(((Command) cmd).GetCommand());
+        }
+    }
 
+    @Override
+    public String GetModuleID() {
+        return "b2deddf0-3917-40d6-9117-9a98c7be0bcc";
     }
 
     @Override
     public String GetShortName() {
-        return null;
+        return "wmd";
     }
 
     @Override
     public String GetDescription() {
-        return null;
+        return "motion detector";
     }
 
     @Override
-    public boolean GetIsActive() {
-        return false;
+    public ModuleState GetModuleState() {
+        return moduleState;
     }
 
     @Override
@@ -63,37 +73,63 @@ public class Module implements IModuleWorker {
     }
 
     @Override
-    public ArrayList<String> GetAllPermission() {
-        return new ArrayList<String>(){{
-            add(Manifest.permission.CAMERA);
-            add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            add(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        }};
+    public void Start() {
+        moduleState = ModuleState.work;
     }
 
     @Override
-    public void LoginAndStart(IAcnivityCallback callback) {
-        callback.OnActivityCallback(new Intent().putExtra(Constants._LOGIN_AND_START, true));
-        isActive = true;
-    }
-
-    @Override
-    public String GetModuleID() {
-        return "b2deddf0-3917-40d6-9117-9a98c7be0bcc";
+    public void Stop() {
+        moduleState = ModuleState.stop;
     }
 
     @Override
     public void init() {
-        PreferencesHelper.init(context);
 
-        Manager = new MDManager(context);
-        MediatorMD.setCommandCheckMessage(new CommandManager(context));
+        CheckPermission p = new CheckPermission(context, this);
+        p.SetOnChecked(
+                new CheckPermission.ICheckedPermission(){
+                    @Override
+                    public void OnChecked(boolean IsOk) {
+                        if (IsOk && initVars())
+                            moduleState = ModuleState.init;
+                        else
+                            moduleState = ModuleState.error;
+                    }
+                });
+        p.Check(
+                new ArrayList<String>(){{
+                    add(Manifest.permission.CAMERA);
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    add(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                }}
+        );
+    }
+
+    private boolean initVars(){
+        try {
+            PreferencesHelper.init(context);
+
+            Manager = new MDManager(context);
+            MediatorMD.setCommandCheckMessage(new CommandManager(context));
+
+            return true;
+        }
+        catch (Exception ex){
+            OnError(ex);
+            return false;
+        }
     }
 
     @Override
     public void destroy() {
         MediatorMD.onDestroy();
         Manager.onDestroy();
-        isActive = false;
+        moduleState = ModuleState.none;
+    }
+
+    @Override
+    public void OnError(Exception ex) {
+        Helper.Ex2Log(ex);
+        moduleState = ModuleState.error;
     }
 }

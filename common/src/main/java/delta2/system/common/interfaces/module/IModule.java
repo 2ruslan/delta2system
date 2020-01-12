@@ -16,7 +16,6 @@ public interface IModule extends IInit, IError {
 
     void Start();
     void Stop();
-    void Restart();
 
     String GetModuleID();
 

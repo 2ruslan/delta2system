@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 public class PreferencesHelper {
 
-    public static final String APP_PREFERENCES = "preference";
+    public static final String APP_PREFERENCES = "whardwareinfo.preference";
 
     public static final String AUTO_START = "AUTO_START";
 

@@ -9,7 +9,7 @@ import delta2.system.common.preferences.PreferenceValue;
 
 public class PreferencesHelper {
 
-    public static final String APP_PREFERENCES = "preference";
+    public static final String APP_PREFERENCES = "tdropbox.preference";
 
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String DEVICE_NAME = "DEVICE_NAME";
