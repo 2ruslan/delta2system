@@ -7,6 +7,7 @@ import android.media.midi.MidiOutputPort;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import delta2.system.common.Constants;
 import delta2.system.common.Helper;
@@ -25,25 +26,43 @@ import delta2.system.delta2system.View.StarterApp;
 import delta2.system.wmotiondetector.Module;
 
 
-public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IAcnivityCallback, IError {
+public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError {
 
     Context context;
 
-    ArrayList<IModule> modules;
+    CopyOnWriteArrayList<IModule> modules;
+
+    CopyOnWriteArrayList<ModuleInfo> transportInfo;
+    public CopyOnWriteArrayList<ModuleInfo> GetTransportInfo(){
+        return transportInfo;
+    }
+
+    CopyOnWriteArrayList<ModuleInfo> workerInfo;
+    public CopyOnWriteArrayList<ModuleInfo>  GetWorkerInfo(){
+        return workerInfo;
+    }
+
+    CopyOnWriteArrayList<ModuleInfo> allModulesInfo;
+    public CopyOnWriteArrayList<ModuleInfo> GetAllModulesInfo(){
+        return allModulesInfo;
+    }
 
     Timer timer;
     CheckStateTimerTask timerTask;
 
     IModule AllModules[];
-    IAppCompleteInit AppCompleteInit;
 
 
-
-    public ModuleManager(Context c, IAppCompleteInit a){
+    public ModuleManager(Context c){
         context = c;
-        AppCompleteInit = a;
 
         Helper.setWorkDir(context.getFilesDir());
+
+        modules = new CopyOnWriteArrayList<>();
+
+        transportInfo = new CopyOnWriteArrayList<>();
+        workerInfo = new CopyOnWriteArrayList<>();
+        allModulesInfo = new CopyOnWriteArrayList<>();
 
         initModules();
 
@@ -100,21 +119,9 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
                 break;
             }
         }
-
     }
 
     private void checkModulesWork(){
-        boolean isAllWork = true;
-
-        for(IModule m : modules){
-            ModuleState state = m.GetModuleState();
-            if (state != ModuleState.work && state != ModuleState.error)
-                isAllWork = false;
-        }
-
-        if (isAllWork){
-            AppCompleteInit.OnAppCompleteInit();
-        }
 
 
     }
@@ -122,8 +129,6 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
 
     private void initModules(){
-        modules = new ArrayList<>();
-
         // transport
         modules.add(new delta2.system.tdropbox.Module(context));
         modules.add(new delta2.system.ttelegram.Module(context));
@@ -137,31 +142,13 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             if (PreferencesHelper.getIsActiveModule(m.GetModuleID()))
                 m.SetStateNeedInit();
         }
-
-    }
-
-
-
-
-    ArrayList<IModule> allModules;
-
-    // 4
-    private void LoginAndStart(){
-        if (allModules != null && !allModules.isEmpty()){
-            IModule module = allModules.get(0);
-            allModules.remove(0);
-            module.LoginAndStart(this);
-            return;
-        }
-        else
-            AppCompleteInit.OnAppCompleteInit();
     }
 
     //endregion init work
 
     @Override
     public void init() {
-
+        initTimerCheckState();
     }
 
     @Override
@@ -210,21 +197,9 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         return name.equals(MessageExt._ALL) || name.equals(m.GetShortName());
     }
 
-    public ArrayList<IModule> GetAllModules(){
-        return modules;
-    }
-
-    public ArrayList<ModuleInfo> GetTransportModules(){
-        return GetModulesInfo(ModuleTransports);
-    }
-
-    public ArrayList<ModuleInfo> GetWorkerModules(){
-        return GetModulesInfo(ModuleWorkers);
-    }
 
 
-
-    private ArrayList<ModuleInfo> GetModulesInfo(ArrayList m){
+    private ArrayList<ModuleInfo> GetModulesInfo(IModule.ModuleType type){
         ArrayList<ModuleInfo> result = new ArrayList<>();
         for(Object module : m)
             result.add(new ModuleInfo((IModule) module));

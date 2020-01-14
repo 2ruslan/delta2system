@@ -1,5 +1,6 @@
 package delta2.system.delta2system;
 
+import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.module.IModule;
 
 public class ModuleInfo {
@@ -8,7 +9,7 @@ public class ModuleInfo {
         id = m.GetModuleID();
         name = m.GetShortName();
         info = m.GetDescription();
-        isActive = m.GetIsActive();
+        moduleState = m.GetModuleState();
     }
 
 
@@ -27,6 +28,6 @@ public class ModuleInfo {
         return info;
     }
 
-    public boolean isActive;
+    public ModuleState moduleState;
 
 }

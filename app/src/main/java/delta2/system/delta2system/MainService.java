@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import delta2.system.delta2system.View.MainActivity;
 
-public class MainService extends Service implements IAppCompleteInit{
+public class MainService extends Service {
     ModuleManager moduleManager;
 
     @Nullable
@@ -24,7 +24,15 @@ public class MainService extends Service implements IAppCompleteInit{
     public void onCreate() {
         PreferencesHelper.init(this);
 
-        moduleManager = new ModuleManager(this, this);
+        moduleManager = new ModuleManager(this);
+
+        startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);
+
+        MainActivity.init(moduleManager);
+        Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+
         moduleManager.init();
     }
 
