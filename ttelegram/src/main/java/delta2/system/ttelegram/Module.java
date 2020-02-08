@@ -10,24 +10,43 @@ import delta2.system.common.Constants;
 import delta2.system.common.Helper;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IAcnivityCallback;
+import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
+import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.permission.CheckPermission;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.SettingsActivity;
 import delta2.system.ttelegram.transporttelegram.Transport.TelegramTransport;
 
-public class Module implements IModuleTransport {
+public class Module implements IModuleTransport, IError {
 
     Context context;
     TelegramTransport transport;
-    ModuleState moduleState;
+
+    private IModuleStateChanged moduleStateChanged;
+
+    private ModuleState moduleState;
+
+    private void setModuleState(ModuleState s){
+        moduleState = s;
+
+        if (moduleStateChanged != null)
+            moduleStateChanged.OnChanged();
+    }
+
+    @Override
+    public ModuleState GetModuleState() {
+        return moduleState;
+    }
+
 
     public Module(Context c){
         context = c;
-        moduleState = ModuleState.none;
+        setModuleState(ModuleState.none);
     }
+
 
     @Override
     public void RegisterReceiveMessage(IReceiveMessage rcv) {
@@ -55,8 +74,8 @@ public class Module implements IModuleTransport {
     }
 
     @Override
-    public ModuleState GetModuleState() {
-        return moduleState;
+    public void SetOnModuleStateChanged(IModuleStateChanged h) {
+        moduleStateChanged = h;
     }
 
     @Override
@@ -66,7 +85,7 @@ public class Module implements IModuleTransport {
 
     @Override
     public void SetStateNeedInit() {
-        moduleState = ModuleState.needInit;
+        setModuleState(ModuleState.initNeed);
     }
 
     @Override
@@ -78,15 +97,17 @@ public class Module implements IModuleTransport {
 
     @Override
     public void Start() {
+        setModuleState(ModuleState.startBegin);
+
         transport.setAcnivityCallback(
                 new IAcnivityCallback() {
                     @Override
                     public void OnActivityCallback(Intent intent) {
                         if (intent.getBooleanExtra(Constants._LOGIN_AND_START, false)){
-                            moduleState = ModuleState.work;
+                            setModuleState(ModuleState.work);
                         }
                         else
-                            moduleState = ModuleState.error;
+                            setModuleState(ModuleState.error);
                     }
                 }
         );
@@ -95,20 +116,22 @@ public class Module implements IModuleTransport {
 
     @Override
     public void Stop() {
-        moduleState = ModuleState.stop;
+        setModuleState(ModuleState.stop);
     }
 
     @Override
     public void init() {
+        setModuleState(ModuleState.initBegin);
+
         CheckPermission p = new CheckPermission(context, this);
         p.SetOnChecked(
                 new CheckPermission.ICheckedPermission(){
                     @Override
                     public void OnChecked(boolean IsOk) {
                         if (IsOk && initVars())
-                            moduleState = ModuleState.init;
+                            setModuleState(ModuleState.initFinish);
                         else
-                            moduleState = ModuleState.error;
+                            setModuleState(ModuleState.error);
                     }
                 });
         p.Check(

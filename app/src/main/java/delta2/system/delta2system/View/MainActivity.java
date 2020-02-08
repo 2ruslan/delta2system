@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void connectToAdapter(){
-        ModuleAdapter adapter = new ModuleAdapter(this, R.layout.list_item, moduleManager.GetAllModules());
+      //  ModuleAdapter adapter = new ModuleAdapter(this, R.layout.list_item, moduleManager.GetAllModules());
         modulesList = findViewById(R.id.modulsList);
-        modulesList.setAdapter(adapter);
+    //    modulesList.setAdapter(adapter);
     }
 
     public void OnTransportClick(View v){
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         SelectModulesActivity.destroy();
-        moduleManager.Reinit();
+    //    moduleManager.Reinit();
     }
 
 }

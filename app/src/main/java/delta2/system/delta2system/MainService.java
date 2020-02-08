@@ -4,8 +4,8 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -36,15 +36,6 @@ public class MainService extends Service {
         moduleManager.init();
     }
 
-    @Override
-    public void OnAppCompleteInit() {
-        startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);
-
-        MainActivity.init(moduleManager);
-        Intent i = new Intent(this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
-    }
 
     @Override
     public void onDestroy() {
@@ -62,7 +53,13 @@ public class MainService extends Service {
                 .setOngoing(true);
         Notification notification;
 
-        notification = builder.build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            notification = builder.build();
+        }
+        else{
+            notification = builder.getNotification();
+        }
+
 
         notification.contentIntent = PendingIntent.getActivity(this,
                 0, new Intent(getApplicationContext(), MainService.class)

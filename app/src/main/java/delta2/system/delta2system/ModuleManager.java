@@ -1,18 +1,12 @@
 package delta2.system.delta2system;
 
 import android.content.Context;
-import android.content.Intent;
-import android.media.midi.MidiOutputPort;
-
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import delta2.system.common.Constants;
 import delta2.system.common.Helper;
 import delta2.system.common.enums.ModuleState;
-import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.IInit;
 import delta2.system.common.interfaces.commands.ICommand;
@@ -22,15 +16,12 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
-import delta2.system.delta2system.View.StarterApp;
-import delta2.system.wmotiondetector.Module;
-
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError {
 
     Context context;
 
-    CopyOnWriteArrayList<IModule> modules;
+    ModulesList modules;
 
     CopyOnWriteArrayList<ModuleInfo> transportInfo;
     public CopyOnWriteArrayList<ModuleInfo> GetTransportInfo(){
@@ -58,7 +49,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
         Helper.setWorkDir(context.getFilesDir());
 
-        modules = new CopyOnWriteArrayList<>();
+        modules = new ModulesList();
 
         transportInfo = new CopyOnWriteArrayList<>();
         workerInfo = new CopyOnWriteArrayList<>();
@@ -72,14 +63,22 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     // region check modules state
     public void checkState(){
-        checkModulesInit();
-        checkModulesStart();
-        checkModulesWork();
+        switch (modules.getModuleState()) {
+            case startNeed:
+                checkModulesStart();
+                break;
+            case initNeed:
+                checkModulesInit();
+                break;
+            case none:
+                checkModulesWork();
+                break;
+        }
     }
 
     private void checkModulesInit(){
         for(IModule m : modules){
-            if (m.GetModuleState() == ModuleState.needInit) {
+            if (m.GetModuleState() == ModuleState.initNeed) {
                 try {
                     m.init();
 
@@ -87,34 +86,18 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
                         ((IModuleWorker)m).RegisterRequestSendMessage(this);
                     else if (m instanceof IModuleTransport)
                         ((IModuleTransport)m).RegisterReceiveMessage(this);
-
                 }
                 catch (Exception ex){
                     OnError(ex);
                 }
             }
+            break;
         }
     }
 
     private void checkModulesStart(){
-        boolean isAllInited = true;
-        boolean isWorkStart = false;
-
         for(IModule m : modules){
-            ModuleState state = m.GetModuleState();
-
-            if (state == ModuleState.needInit || state == ModuleState.initStart)
-                isAllInited = false;
-
-            if (state == ModuleState.workStart)
-                isWorkStart = true;
-        }
-
-        if (isAllInited || isWorkStart)
-            return;
-
-        for(IModule m : modules){
-            if (m.GetModuleState() == ModuleState.initEnd){
+            if (m.GetModuleState() == ModuleState.startNeed){
                 m.Start();
                 break;
             }
@@ -130,12 +113,12 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     private void initModules(){
         // transport
-        modules.add(new delta2.system.tdropbox.Module(context));
-        modules.add(new delta2.system.ttelegram.Module(context));
+        modules.addModule(new delta2.system.tdropbox.Module(context));
+        modules.addModule(new delta2.system.ttelegram.Module(context));
 
         // worker
-        modules.add(new delta2.system.whardwareinfo.Module(context));
-        modules.add(new delta2.system.wmotiondetector.Module(context));
+        modules.addModule(new delta2.system.whardwareinfo.Module(context));
+        modules.addModule(new delta2.system.wmotiondetector.Module(context));
 
         // set need init
         for(IModule m :modules) {
@@ -157,7 +140,6 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             m.destroy();
         }
     }
-
 
     //region route
     @Override
@@ -195,16 +177,6 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     private boolean EqualsName(String name,  IModule m){
         return name.equals(MessageExt._ALL) || name.equals(m.GetShortName());
-    }
-
-
-
-    private ArrayList<ModuleInfo> GetModulesInfo(IModule.ModuleType type){
-        ArrayList<ModuleInfo> result = new ArrayList<>();
-        for(Object module : m)
-            result.add(new ModuleInfo((IModule) module));
-
-        return result;
     }
 
     @Override

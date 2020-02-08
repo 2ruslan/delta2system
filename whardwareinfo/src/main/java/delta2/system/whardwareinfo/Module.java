@@ -12,6 +12,7 @@ import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.permission.CheckPermission;
 import delta2.system.whardwareinfo.hardwareinfo.CommandManager;
@@ -26,11 +27,27 @@ public class Module implements IModuleWorker, IError {
     BatteryLevelReceiver batteryLevelReceiver;
     CommandManager commandManager;
     Context context;
-    ModuleState moduleState;
+
+    private IModuleStateChanged moduleStateChanged;
+
+    private ModuleState moduleState;
+
+    private void setModuleState(ModuleState s){
+        moduleState = s;
+
+        if (moduleStateChanged != null)
+            moduleStateChanged.OnChanged();
+    }
+
+    @Override
+    public ModuleState GetModuleState() {
+        return moduleState;
+    }
+
 
     public Module(Context c){
         context = c;
-        moduleState = ModuleState.none;
+        setModuleState(ModuleState.none);
     }
 
     @Override
@@ -48,9 +65,10 @@ public class Module implements IModuleWorker, IError {
         return "hardware info";
     }
 
+
     @Override
-    public ModuleState GetModuleState() {
-        return moduleState;
+    public void SetOnModuleStateChanged(IModuleStateChanged h) {
+        moduleStateChanged = h;
     }
 
     @Override
@@ -60,7 +78,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void SetStateNeedInit() {
-        moduleState = ModuleState.needInit;
+        setModuleState(ModuleState.initNeed);
     }
     @Override
     public void RegisterRequestSendMessage(IRequestSendMessage msg) {
@@ -91,31 +109,33 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void Start() {
-        moduleState = ModuleState.work;
+        setModuleState(ModuleState.work);
     }
 
     @Override
     public void Stop() {
-        moduleState = ModuleState.stop;
+        setModuleState(ModuleState.stop);
     }
 
     @Override
     public void OnError(Exception ex){
         Helper.Ex2Log(ex);
-        moduleState = ModuleState.error;
+        setModuleState(ModuleState.error);
     }
 
     @Override
     public void init() {
+        setModuleState(ModuleState.initBegin);
+
         CheckPermission p = new CheckPermission(context, this);
         p.SetOnChecked(
                         new CheckPermission.ICheckedPermission(){
                                @Override
                                public void OnChecked(boolean IsOk) {
                                     if (IsOk && initVars())
-                                        moduleState = ModuleState.init;
+                                        setModuleState(ModuleState.initFinish);
                                     else
-                                        moduleState = ModuleState.error;
+                                        setModuleState(ModuleState.error);
                                }
                         });
         p.Check(
@@ -160,7 +180,5 @@ public class Module implements IModuleWorker, IError {
         batteryLevelReceiver = null;
 
         MediatorMD.destroy();
-
-        moduleState = ModuleState.none;
     }
 }

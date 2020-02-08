@@ -26,7 +26,7 @@
 26    <uses-sdk
 27        android:minSdkVersion="10"
 27-->/home/ruslan/StudioProjects/Delta2/libtd/src/main/AndroidManifest.xml
-28        android:targetSdkVersion="21" />
+28        android:targetSdkVersion="26" />
 28-->/home/ruslan/StudioProjects/Delta2/libtd/src/main/AndroidManifest.xml
 29
 30    <uses-permission android:name="android.permission.INTERNET" />

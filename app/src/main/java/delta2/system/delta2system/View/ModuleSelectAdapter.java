@@ -48,12 +48,12 @@ public class ModuleSelectAdapter extends ArrayAdapter<ModuleInfo> {
 
         viewHolder.nameView.setText(module.GetInfo());
         viewHolder.codeView.setText(module.GetName());
-        viewHolder.isActive.setChecked(module.isActive);
+        //viewHolder.isActive.setChecked(module.isActive);
 
         viewHolder.isActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                module.isActive =  viewHolder.isActive.isChecked();
+           //     module.isActive =  viewHolder.isActive.isChecked();
             }
         });
 

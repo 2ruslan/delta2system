@@ -37,7 +37,7 @@ public class SelectModulesActivity extends AppCompatActivity {
     }
 
     private void connectToAdapter(){
-        modules = mode == _SELECT_TRANSPORT ? moduleManager.GetTransportModules() : moduleManager.GetWorkerModules();
+       // modules = mode == _SELECT_TRANSPORT ? moduleManager.GetTransportModules() : moduleManager.GetWorkerModules();
         ModuleSelectAdapter adapter = new ModuleSelectAdapter(this, R.layout.list_item_select, modules);
         modulesList = findViewById(R.id.modulsList);
         modulesList.setAdapter(adapter);
@@ -55,7 +55,7 @@ public class SelectModulesActivity extends AppCompatActivity {
     public void OnSaveClick(View v){
 
         for (ModuleInfo mi : modules){
-            PreferencesHelper.setIsActiveModule(mi.GetModuleId(), mi.isActive);
+       //     PreferencesHelper.setIsActiveModule(mi.GetModuleId(), mi.isActive);
         }
 
         finish();

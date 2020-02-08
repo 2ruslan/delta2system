@@ -11,6 +11,7 @@ import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
+import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.permission.CheckPermission;
 import delta2.system.tdropbox.transportdropbox.Preferences.PreferencesHelper;
@@ -22,11 +23,26 @@ public class Module implements IModuleTransport, IError {
 
     private DropBoxTransport transport;
     private Context context;
+    private IModuleStateChanged moduleStateChanged;
+
     private ModuleState moduleState;
+
+    private void setModuleState(ModuleState s){
+        moduleState = s;
+
+        if (moduleStateChanged != null)
+            moduleStateChanged.OnChanged();
+    }
+
+    @Override
+    public ModuleState GetModuleState() {
+        return moduleState;
+    }
+
 
     public Module(Context c){
         context = c;
-        moduleState = ModuleState.none;
+        setModuleState(ModuleState.none);
     }
 
     @Override
@@ -44,9 +60,10 @@ public class Module implements IModuleTransport, IError {
         return null;
     }
 
+
     @Override
-    public ModuleState GetModuleState() {
-        return moduleState;
+    public void SetOnModuleStateChanged(IModuleStateChanged h) {
+        moduleStateChanged = h;
     }
 
     @Override
@@ -56,7 +73,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public void SetStateNeedInit() {
-        moduleState = ModuleState.needInit;
+        setModuleState(ModuleState.initNeed);
     }
 
     @Override
@@ -84,15 +101,17 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public void Start() {
+        setModuleState(ModuleState.startBegin);
+
         Login login = new Login(context, this);
         login.SetLoginedHandler(
                 new Login.ILoginned() {
                     @Override
                     public void OnLogin(boolean IsOk) {
                         if (IsOk && ProcessingStart())
-                            moduleState = ModuleState.work;
+                            setModuleState(ModuleState.work);
                         else
-                            moduleState = ModuleState.error;
+                            setModuleState(ModuleState.error);
                     }
                 }
         );
@@ -114,20 +133,22 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public void Stop() {
-        moduleState = ModuleState.stop;
+        setModuleState(ModuleState.stop);
     }
 
     @Override
     public void init() {
+        setModuleState(ModuleState.initBegin);
+
         CheckPermission p = new CheckPermission(context, this);
         p.SetOnChecked(
                 new CheckPermission.ICheckedPermission(){
                     @Override
                     public void OnChecked(boolean IsOk) {
                         if (IsOk && initVars())
-                            moduleState = ModuleState.init;
+                            setModuleState(ModuleState.initFinish);
                         else
-                            moduleState = ModuleState.error;
+                            setModuleState(ModuleState.error);
                     }
                 });
         p.Check(
@@ -160,6 +181,8 @@ public class Module implements IModuleTransport, IError {
     @Override
     public void OnError(Exception ex) {
         Helper.Ex2Log(ex);
-        moduleState = ModuleState.error;
+        setModuleState(ModuleState.error);
     }
+
+
 }

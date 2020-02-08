@@ -16,6 +16,8 @@ public interface IModule extends IInit, IError {
     String GetDescription();
 
     ModuleState GetModuleState();
+    void SetOnModuleStateChanged(IModuleStateChanged h);
+
     ModuleType GetModuleType();
 
     void OpenSettings();
@@ -25,6 +27,5 @@ public interface IModule extends IInit, IError {
 
 
     void SetStateNeedInit();
-
 
 }

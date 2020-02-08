@@ -18,13 +18,12 @@ import delta2.system.tdropbox.transportdropbox.Preferences.PreferencesHelper;
 
 public class LoginActivity extends Activity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dropbox_login);
 
-        ImageView logo  = (ImageView) findViewById(R.id.ivLogo);
+        ImageView logo  = findViewById(R.id.ivLogo);
         logo.setImageDrawable(getResources().getDrawable(R.drawable.logo));
 
         Intent returnIntent = new Intent();
