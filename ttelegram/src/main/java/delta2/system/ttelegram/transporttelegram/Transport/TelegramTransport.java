@@ -313,7 +313,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
     private boolean isSetConnectFlag = false;
     private void setConnectFlag(){
-        if(!isSetConnectFlag /*&& _callback != null*/){
+        if(!isSetConnectFlag && callback != null){
             isSetConnectFlag = true;
 
             initTimertask();
@@ -392,6 +392,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 long rplId = 0;
 
                 /**/
+                /*
                 Uri returnUri = Uri.parse(msg.GetFile());
 
                 String fileName = String.format( "%s/%d.jpg", _context.getFilesDir().getAbsolutePath(), System.currentTimeMillis());
@@ -420,14 +421,14 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 {
                     Helper.Ex2Log(e);
                 }
-
+*/
                 ////////
 
 
 
                 /**/
 
-                TdApi.InputFileLocal f = new TdApi.InputFileLocal(fileName);
+                TdApi.InputFileLocal f = new TdApi.InputFileLocal(msg.GetFile());
                 TdApi.FormattedText t = new TdApi.FormattedText(msg.GetCaption(), null);
                 TdApi.InputMessagePhoto m = new TdApi.InputMessagePhoto(f
                         ,null, null, 100, 100, t, 0);

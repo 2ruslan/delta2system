@@ -145,8 +145,10 @@ public class Module implements IModuleTransport, IError {
                 new CheckPermission.ICheckedPermission(){
                     @Override
                     public void OnChecked(boolean IsOk) {
-                        if (IsOk && initVars())
+                        if (IsOk && initVars()) {
                             setModuleState(ModuleState.initFinish);
+                            setModuleState(ModuleState.startNeed);
+                        }
                         else
                             setModuleState(ModuleState.error);
                     }

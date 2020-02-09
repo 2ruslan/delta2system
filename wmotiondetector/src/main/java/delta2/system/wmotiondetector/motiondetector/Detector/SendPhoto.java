@@ -83,8 +83,10 @@ public class SendPhoto {
             os.close();
             Helper.Log( "photo.send ", "file ok");
 
+            MediatorMD.sendPhoto( fileName, Helper.getNowDT() + " " + info);
 
             /**/
+            /*
             File requestFile = new File(fileName);
 
 
@@ -101,7 +103,7 @@ public class SendPhoto {
                         contest.grantUriPermission(packageName, fileUrioUT, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     }
 
-                MediatorMD.sendPhoto( fileUrioUT.toString() , Helper.getNowDT() + " " + info);
+
 
             } catch (IllegalArgumentException e) {
                 Helper.Log("File Selector",

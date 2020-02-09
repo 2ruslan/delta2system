@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
+            <!--
             <Button
                 android:layout_margin="4dp"
                 android:layout_width="0dp"
@@ -48,6 +49,8 @@
                 android:text="Worker"
                 android:onClick="OnWorkerClick"
                 />
+
+                -->
         </LinearLayout>
 
 

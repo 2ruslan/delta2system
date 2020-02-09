@@ -6,23 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import delta2.system.common.interfaces.module.IModule;
-import delta2.system.delta2system.ModuleInfo;
 import delta2.system.delta2system.R;
 
-public class ModuleSelectAdapter extends ArrayAdapter<ModuleInfo> {
+public class ModuleSelectAdapter extends ArrayAdapter<IModule> {
     private LayoutInflater inflater;
     private int layout;
-    private ArrayList<ModuleInfo> plugintList;
+    private ArrayList<IModule> plugintList;
     Context _context;
 
 
-    ModuleSelectAdapter(Context context, int resource, ArrayList<ModuleInfo> plugins) {
+    ModuleSelectAdapter(Context context, int resource, ArrayList<IModule> plugins) {
         super(context, resource, plugins);
 
         _context = context;
@@ -44,10 +42,10 @@ public class ModuleSelectAdapter extends ArrayAdapter<ModuleInfo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final ModuleInfo module = plugintList.get(position);
+        final IModule module = plugintList.get(position);
 
-        viewHolder.nameView.setText(module.GetInfo());
-        viewHolder.codeView.setText(module.GetName());
+        viewHolder.nameView.setText(module.GetShortName());
+        //viewHolder.codeView.setText(module.GetName());
         //viewHolder.isActive.setChecked(module.isActive);
 
         viewHolder.isActive.setOnClickListener(new View.OnClickListener() {

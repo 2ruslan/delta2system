@@ -1,2 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="delta2.system.common" />
+    package="delta2.system.common" >
+
+    <application>
+        <activity android:name=".permission.CheckPermissionActivity"/>
+    </application>
+
+</manifest>

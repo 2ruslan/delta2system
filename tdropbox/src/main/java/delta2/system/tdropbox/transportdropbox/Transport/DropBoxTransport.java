@@ -84,6 +84,7 @@ public class DropBoxTransport implements ISendMessage, IInit {
             return;
 
         /**/
+        /*
         Uri returnUri = Uri.parse(msg.GetFile());
 
         String fileName = String.format( "%s/%d.jpg", context.getFilesDir().getAbsolutePath(), System.currentTimeMillis());
@@ -112,10 +113,10 @@ public class DropBoxTransport implements ISendMessage, IInit {
         {
             Helper.Ex2Log(e);
         }
-
+*/
         ////////
 
-        File f = new File(fileName);
+        File f = new File(msg.GetFile());
         new UploadTask(DropboxClient.getClient(PreferencesHelper.getToken()), f, context).execute();
 
     }

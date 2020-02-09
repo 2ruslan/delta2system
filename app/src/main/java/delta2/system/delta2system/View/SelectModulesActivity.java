@@ -8,9 +8,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import delta2.system.delta2system.ModuleInfo;
+import delta2.system.common.interfaces.module.IModule;
 import delta2.system.delta2system.ModuleManager;
-import delta2.system.delta2system.PreferencesHelper;
 import delta2.system.delta2system.R;
 
 public class SelectModulesActivity extends AppCompatActivity {
@@ -24,7 +23,7 @@ public class SelectModulesActivity extends AppCompatActivity {
 
     private int mode;
     ListView modulesList;
-    private ArrayList<ModuleInfo> modules;
+    private ArrayList<IModule> modules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,7 @@ public class SelectModulesActivity extends AppCompatActivity {
 
     public void OnSaveClick(View v){
 
-        for (ModuleInfo mi : modules){
+        for (IModule mi : modules){
        //     PreferencesHelper.setIsActiveModule(mi.GetModuleId(), mi.isActive);
         }
 

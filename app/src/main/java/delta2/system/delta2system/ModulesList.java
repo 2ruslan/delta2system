@@ -1,18 +1,29 @@
 package delta2.system.delta2system;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleStateChanged;
 
-public class ModulesList extends CopyOnWriteArrayList<IModule> {
+public class ModulesList extends ArrayList<IModule> {
+
+    private INotifyChanged notifyChanged;
 
     private ModuleState moduleState = ModuleState.none;
+
 
     public ModuleState getModuleState() {
         return moduleState;
     }
 
+    public void SetNotifyChanged(INotifyChanged n){
+        notifyChanged = n;
+    }
+
+    private void NotifyChanged(){
+        if (notifyChanged != null)
+            notifyChanged.OnNotifyChanged();
+    }
 
     public void addModule(IModule m) {
         this.add(m);
@@ -64,10 +75,13 @@ public class ModulesList extends CopyOnWriteArrayList<IModule> {
             moduleState = ModuleState.startNeed;
             // priority 2
         else if (is_initNeed)
-            moduleState = ModuleState.startNeed;
+            moduleState = ModuleState.initNeed;
             // priority 3
         else
             moduleState = ModuleState.none;
+
+        NotifyChanged();
     }
+
 }
 

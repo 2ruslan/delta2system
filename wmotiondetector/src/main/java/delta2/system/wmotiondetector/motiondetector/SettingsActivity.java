@@ -243,6 +243,7 @@ public class SettingsActivity extends Activity
     }
 
     private void start_stop_preview(boolean isShow){
+
         if(isShow){
             mTimer = new Timer();
             mTimerTask = new TimerTaskPict(_current);
@@ -253,6 +254,8 @@ public class SettingsActivity extends Activity
             mTimer = null;
             mTimerTask = null;
         }
+
+
     }
 
     //region camera preview

@@ -60,8 +60,8 @@ public class MDManager implements IGetRawPictureCallback, ICommandExcecuted {
 
                     }
 
-                    if(++moveCnt > 2)
-                        MediatorMD.callVoice();
+                  //  if(++moveCnt > 2)
+                  //      MediatorMD.callVoice();
                 }
             }
             else if (mDetectNum != en_detect_mun.none)

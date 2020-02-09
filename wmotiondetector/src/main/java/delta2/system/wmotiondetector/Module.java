@@ -116,8 +116,10 @@ public class Module implements IModuleWorker {
                 new CheckPermission.ICheckedPermission(){
                     @Override
                     public void OnChecked(boolean IsOk) {
-                        if (IsOk && initVars())
+                        if (IsOk && initVars()) {
                             setModuleState(ModuleState.initFinish);
+                            setModuleState(ModuleState.startNeed);
+                        }
                         else
                             setModuleState(ModuleState.error);
                     }

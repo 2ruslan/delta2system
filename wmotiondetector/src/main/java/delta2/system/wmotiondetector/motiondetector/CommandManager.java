@@ -114,15 +114,20 @@ public class CommandManager implements ICommandCheckMessage {
 
             ResultCmd cmdResult = null;
 
+            boolean isCmdExists = false;
             for (CmdBase cmd : _commands) {
                 if (cmd.type == cmdType && (
                         (inLines.length > 1 && cmd.cmd.equals(inLines[1]))
                                 || (inLines.length == 1 && cmd.cmd.equals(first)))
                         ) {
                     cmdResult = cmd.exec(_context, inTxt, inLines);
+                    isCmdExists = true;
                     break;
                 }
             }
+
+            if (!isCmdExists )
+                cmdResult =  _CmdPhotoGet.exec(_context, inTxt, inLines);
 
             if (cmdResult == null) {
                 if (cmdType == CmdBase.en_type.get || cmdType == CmdBase.en_type.set) {

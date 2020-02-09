@@ -1,11 +1,12 @@
 package delta2.system.delta2system;
 
 import android.content.Context;
+
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import delta2.system.common.Helper;
+import delta2.system.common.commands.Command;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.IInit;
@@ -16,32 +17,30 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
+import delta2.system.common.messages.MessageText;
 
-public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError {
+public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError, INotifyChanged {
 
-    Context context;
+    private Context context;
+    private INotifyChanged notifyChanged;
+    public void SetNotifyChanged(INotifyChanged n){
+        notifyChanged = n;
+    }
+
+    private void NotifyChanged(){
+        if (notifyChanged != null)
+            notifyChanged.OnNotifyChanged();
+    }
+
 
     ModulesList modules;
-
-    CopyOnWriteArrayList<ModuleInfo> transportInfo;
-    public CopyOnWriteArrayList<ModuleInfo> GetTransportInfo(){
-        return transportInfo;
+    public ModulesList GetModules(){
+        return modules;
     }
 
-    CopyOnWriteArrayList<ModuleInfo> workerInfo;
-    public CopyOnWriteArrayList<ModuleInfo>  GetWorkerInfo(){
-        return workerInfo;
-    }
-
-    CopyOnWriteArrayList<ModuleInfo> allModulesInfo;
-    public CopyOnWriteArrayList<ModuleInfo> GetAllModulesInfo(){
-        return allModulesInfo;
-    }
 
     Timer timer;
     CheckStateTimerTask timerTask;
-
-    IModule AllModules[];
 
 
     public ModuleManager(Context c){
@@ -50,14 +49,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         Helper.setWorkDir(context.getFilesDir());
 
         modules = new ModulesList();
-
-        transportInfo = new CopyOnWriteArrayList<>();
-        workerInfo = new CopyOnWriteArrayList<>();
-        allModulesInfo = new CopyOnWriteArrayList<>();
-
-        initModules();
-
-        initTimerCheckState();
+        modules.SetNotifyChanged(this);
     }
 
 
@@ -90,8 +82,8 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
                 catch (Exception ex){
                     OnError(ex);
                 }
+                break;
             }
-            break;
         }
     }
 
@@ -105,16 +97,15 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     }
 
     private void checkModulesWork(){
-
-
+     //   OnNotifyChanged();
     }
     // endregion check modules state
 
 
     private void initModules(){
         // transport
-        modules.addModule(new delta2.system.tdropbox.Module(context));
-        modules.addModule(new delta2.system.ttelegram.Module(context));
+    //   modules.addModule(new delta2.system.tdropbox.Module(context));
+       modules.addModule(new delta2.system.ttelegram.Module(context));
 
         // worker
         modules.addModule(new delta2.system.whardwareinfo.Module(context));
@@ -122,15 +113,15 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
         // set need init
         for(IModule m :modules) {
-            if (PreferencesHelper.getIsActiveModule(m.GetModuleID()))
+            //if (PreferencesHelper.getIsActiveModule(m.GetModuleID()))
                 m.SetStateNeedInit();
         }
     }
 
-    //endregion init work
 
     @Override
     public void init() {
+        initModules();
         initTimerCheckState();
     }
 
@@ -144,7 +135,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     //region route
     @Override
     public void RequestSendMessage(IMessage msg) {
-        MessageExt m = ParseMessage(msg);
+        MessageExt m = new MessageExt(msg);
         for(IModule module : modules) {
             if (EqualsName(m.module, module)) {
                 if (module instanceof IModuleTransport){
@@ -156,24 +147,24 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     @Override
     public void OnReceiveMessage(IMessage msg) {
-        CommandExt c = ParseCommand(msg);
-        for( IModule module : modules) {
-            if (EqualsName(c.module, module)) {
-                if (module instanceof IModuleWorker )
-                    ((IModuleWorker)module).ExecuteCommand(c.cmd);
+        if (msg instanceof MessageText) {
+            MessageText txtMsg  = (MessageText)msg;
+
+            CommandExt c =  new CommandExt(txtMsg);
+            for (IModule module : modules) {
+                if (EqualsName(c.module, module)) {
+                    if (module instanceof IModuleWorker)
+                        ((IModuleWorker) module).ExecuteCommand(c.cmd);
+                }
             }
         }
     }
 
     //endregion route
 
-    private CommandExt ParseCommand(IMessage msg){
-        return  new CommandExt();
-    }
 
-    private MessageExt ParseMessage(IMessage msg){
-        return  new MessageExt();
-    }
+    // endregion
+
 
     private boolean EqualsName(String name,  IModule m){
         return name.equals(MessageExt._ALL) || name.equals(m.GetShortName());
@@ -184,14 +175,29 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         Helper.Ex2Log(ex);
     }
 
+    @Override
+    public void OnNotifyChanged() {
+        NotifyChanged();
+    }
+
     private class CommandExt{
         public static final String _ALL = "*";
+
+        public CommandExt(MessageText m){
+            cmd = new Command(m.GetText());
+        }
+
         public ICommand cmd;
         public String module = _ALL;
     }
 
     private class MessageExt{
         public static final String _ALL = "*";
+
+        public MessageExt(IMessage m){
+            msg = m;
+        }
+
         public IMessage msg;
         public String module = _ALL;
     }

@@ -11,21 +11,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import delta2.system.common.interfaces.module.IModule;
+import delta2.system.delta2system.ModulesList;
 import delta2.system.delta2system.R;
 
 public class ModuleAdapter extends ArrayAdapter<IModule> {
     private LayoutInflater inflater;
     private int layout;
-    private ArrayList<IModule> plugintList;
     Context _context;
 
-
-    ModuleAdapter(Context context, int resource, ArrayList<IModule> plugins) {
-        super(context, resource, plugins);
+    ModuleAdapter(Context context, int resource, ModulesList plugins) {
+        super(context, resource,  plugins);
 
         _context = context;
 
-        this.plugintList = plugins;
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
     }
@@ -42,7 +40,7 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final IModule module = plugintList.get(position);
+        final IModule module = this.getItem(position);
 
         viewHolder.nameView.setText(module.GetDescription());
         viewHolder.codeView.setText(module.GetShortName());
@@ -50,7 +48,7 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
         //String workingTime = Helper.getWorkingTime(_context,  product.GetWorkingTime());
         //viewHolder.timeView.setText(workingTime);
 
-        //viewHolder.infoViev.setText(product.GetInfo());
+        viewHolder.infoViev.setText(String.valueOf(module.GetModuleState()));
 
         //viewHolder.stateView.setText(product.getCurrentState() == 1 ? "state:OK" : "state:Bad" );
 

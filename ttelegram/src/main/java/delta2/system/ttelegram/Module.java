@@ -28,6 +28,7 @@ public class Module implements IModuleTransport, IError {
     private IModuleStateChanged moduleStateChanged;
 
     private ModuleState moduleState;
+    private IReceiveMessage reciever;
 
     private void setModuleState(ModuleState s){
         moduleState = s;
@@ -50,8 +51,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public void RegisterReceiveMessage(IReceiveMessage rcv) {
-        transport.RegisterReceiveMessage(rcv);
-    }
+        reciever = rcv; }
 
     @Override
     public void SendMessage(IMessage msg) {
@@ -70,7 +70,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public String GetDescription() {
-        return "";
+        return "transport telegram";
     }
 
     @Override
@@ -128,8 +128,10 @@ public class Module implements IModuleTransport, IError {
                 new CheckPermission.ICheckedPermission(){
                     @Override
                     public void OnChecked(boolean IsOk) {
-                        if (IsOk && initVars())
+                        if (IsOk && initVars()) {
                             setModuleState(ModuleState.initFinish);
+                            setModuleState(ModuleState.startNeed);
+                        }
                         else
                             setModuleState(ModuleState.error);
                     }
@@ -139,14 +141,14 @@ public class Module implements IModuleTransport, IError {
                     add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }}
         );
-
-
     }
 
     private boolean initVars(){
         try {
             PreferencesHelper.init(context);
+
             transport = new TelegramTransport(context);
+            transport.RegisterReceiveMessage(reciever);
 
             return true;
         }

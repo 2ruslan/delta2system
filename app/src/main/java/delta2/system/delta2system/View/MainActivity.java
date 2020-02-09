@@ -7,14 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import delta2.system.delta2system.INotifyChanged;
 import delta2.system.delta2system.ModuleManager;
 import delta2.system.delta2system.R;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements INotifyChanged {
 
     private static ModuleManager moduleManager;
     ListView modulesList;
+    ModuleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         connectToAdapter();
 
+        moduleManager.SetNotifyChanged(this);
     }
 
     public static void init(ModuleManager m){
@@ -34,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void connectToAdapter(){
-      //  ModuleAdapter adapter = new ModuleAdapter(this, R.layout.list_item, moduleManager.GetAllModules());
+        adapter = new ModuleAdapter(this, R.layout.list_item, moduleManager.GetModules());
         modulesList = findViewById(R.id.modulsList);
-    //    modulesList.setAdapter(adapter);
+        modulesList.setAdapter(adapter);
     }
 
     public void OnTransportClick(View v){
@@ -60,4 +63,13 @@ public class MainActivity extends AppCompatActivity {
     //    moduleManager.Reinit();
     }
 
+    @Override
+    public void OnNotifyChanged() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                modulesList.invalidateViews();
+            }
+        });
+
+    }
 }
