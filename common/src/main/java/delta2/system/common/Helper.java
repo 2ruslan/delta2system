@@ -14,7 +14,11 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import delta2.system.common.Log.L;
+
 public class Helper {
+
+    public static final String _TAG = Helper.class.getName();
 
     //region workdir
     static File _WorkDir;
@@ -32,7 +36,7 @@ public class Helper {
                 try {
                     nomediaDir.createNewFile();
                 }catch (Exception e){
-                    Helper.Ex2Log(e);
+                    L.log.error(_TAG, e);
                 }
         }
     }
@@ -85,51 +89,14 @@ public class Helper {
 
     public static void Log(String tag, String msg, boolean isMandatory){
 
-        if (isMandatory || getIsNeedLog())
-
-            try{
-                String timeLog = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(Calendar.getInstance().getTime());
-
-                if(_logFile == null){
-                    String dir;
-                    if (Environment.MEDIA_MOUNTED.equals( Environment.getExternalStorageState()))
-                        dir =  String.format("%s/", Environment.getExternalStorageDirectory () );
-                    else
-                        dir =  String.format("%s/", getWorkDir() );
-
-                    _logFile = new File(dir, "delta2_main.log.txt");
-
-                    if (_logFile.exists()) {
-                        _logFile.renameTo(new File(dir, String.format("delta.log_%s.txt",
-                                    new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss").format(Calendar.getInstance().getTime()) )));
-
-                    }
-                    _logFile.createNewFile();
-                }
-
-                BufferedWriter bw = new BufferedWriter(new FileWriter(_logFile, true));
-                bw.append( timeLog +"\t" + tag + " : \t" + msg + "\n\r");
-                bw.close();
-
-            } catch (Exception e) {
-
-            }
-
+        if (isMandatory)
+            L.log.error(tag, msg);
+        else
+            L.log.debug(tag, msg);
     }
 
     public static void Ex2Log(Throwable ex){
-        try {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            ex.printStackTrace(pw);
-
-            Log("Exception", sw.toString(), true);
-
-        }
-        catch (Exception e)
-        {
-
-        }
+            L.log.error(_TAG, ex);
     }
 
 

@@ -9,14 +9,11 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
-import java.util.logging.Level;
 
-import delta2.system.common.AppLogger;
 import delta2.system.delta2system.View.MainActivity;
 
 public class MainService extends Service {
     ModuleManager moduleManager;
-    AppLogger logger;
 
     @Nullable
     @Override
@@ -28,8 +25,6 @@ public class MainService extends Service {
     public void onCreate() {
 
         PreferencesHelper.init(this);
-
-        logger = new AppLogger(Level.ALL);
 
         moduleManager = new ModuleManager(this);
 

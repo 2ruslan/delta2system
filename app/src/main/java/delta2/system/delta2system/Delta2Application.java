@@ -2,14 +2,19 @@ package delta2.system.delta2system;
 
 import android.app.Application;
 
-import delta2.system.common.Helper;
+import delta2.system.common.Log.L;
+
 
 public class Delta2Application extends Application {
 
+    private static final  String _TAG = Delta2Application.class.getName();
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        L.init();
+
         Thread.setDefaultUncaughtExceptionHandler(new CustomExHandler());
     }
 
@@ -17,9 +22,11 @@ public class Delta2Application extends Application {
 
         @Override
         public void uncaughtException(Thread thread, Throwable ex) {
-            Helper.Ex2Log(ex);
+            L.log.error(_TAG, ex);
         }
     }
+
+
 }
 
 
