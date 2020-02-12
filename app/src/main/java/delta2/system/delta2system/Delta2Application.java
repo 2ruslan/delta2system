@@ -13,7 +13,8 @@ public class Delta2Application extends Application {
     public void onCreate() {
         super.onCreate();
 
-        L.init();
+       // L.init();
+        L.configureLogback();
 
         Thread.setDefaultUncaughtExceptionHandler(new CustomExHandler());
     }

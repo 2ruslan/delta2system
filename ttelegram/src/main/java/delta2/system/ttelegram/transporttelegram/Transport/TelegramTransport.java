@@ -22,6 +22,7 @@ import java.util.TimerTask;
 
 import delta2.system.common.Constants;
 import delta2.system.common.Helper;
+import delta2.system.common.Log.L;
 import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
@@ -76,7 +77,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
     @Override
     public void onResult(TdApi.Object object) {
-       // Helper.Log("tdlib onResult", object.toString(), true);
+        L.log.trace("tdlid msg : " +  object.toString());
 
         if (object instanceof TdApi.UpdateAuthorizationState) {
             TdApi.UpdateAuthorizationState state = (TdApi.UpdateAuthorizationState) object;
