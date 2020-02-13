@@ -2,6 +2,7 @@ package delta2.system.delta2system;
 
 import android.app.Application;
 
+import delta2.system.common.FileStructure;
 import delta2.system.common.Log.L;
 
 
@@ -13,7 +14,8 @@ public class Delta2Application extends Application {
     public void onCreate() {
         super.onCreate();
 
-       // L.init();
+        FileStructure.init();
+
         L.configureLogback();
 
         Thread.setDefaultUncaughtExceptionHandler(new CustomExHandler());
