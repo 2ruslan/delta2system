@@ -36,6 +36,7 @@ import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.Preferences.TelegramPreferences;
 
 public class TelegramTransport implements Client.ResultHandler, Client.ExceptionHandler {
+    private static final String _TAG = TelegramTransport.class.getName();
 
     private static final int _ONLINE_INTERVAL = 30 * 60 *1000;
     Context _context;
@@ -77,7 +78,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
     @Override
     public void onResult(TdApi.Object object) {
-        L.log.trace("tdlid msg : " +  object.toString());
+        L.log.trace(_TAG +  object.toString());
 
         if (object instanceof TdApi.UpdateAuthorizationState) {
             TdApi.UpdateAuthorizationState state = (TdApi.UpdateAuthorizationState) object;
@@ -184,19 +185,10 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 send2t(new TdApi.SetUsername(PreferencesHelper.getPhoneNum()));
             }
 
-            Helper.Log("tdlib error", e.code + " " + e.message, true);
+            L.log.error(_TAG, e.code + " " + e.message);
+
         }
-        else if(object instanceof TdApi.UpdateFile){
-            try {
-                TdApi.UpdateFile uf = (TdApi.UpdateFile) object;
-                if (uf.file.remote.isUploadingCompleted) {
-                    deleteFileLocal(uf.file.local.path);
-                }
-            }catch (Exception e)
-            {
-                Helper.Ex2Log(e);
-            }
-        }
+
         else if (object instanceof TdApi.UpdateMessageSendSucceeded){
             TdApi.UpdateMessageSendSucceeded m = (TdApi.UpdateMessageSendSucceeded) object;
 
@@ -255,13 +247,9 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         }
     }
 
-    void deleteFileLocal(String file){
-        new File(file).delete();
-    }
-
     @Override
     public void onException(Throwable e) {
-        Helper.Ex2Log(e);
+        L.log.error(_TAG, e);
     }
 
     //region register
@@ -343,8 +331,6 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         if (!PreferencesHelper.getSendText())
             return;
 
-        Helper.Log("tdlib-sendTxt ", msg.GetText());
-
         try {
             if (PreferencesHelper.existsChatId()) {
 /*
@@ -377,7 +363,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             }
         }catch (Exception e)
         {
-            Helper.Ex2Log(e);
+            L.log.error(_TAG, e);
         }
     }
 
@@ -440,7 +426,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }
         } catch (Exception e) {
-            Helper.Ex2Log(e);
+            L.log.error(_TAG, e);
         }
     }
 
@@ -466,7 +452,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }
         } catch (Exception e) {
-            Helper.Ex2Log(e);
+            L.log.error(_TAG, e);
         }
     }
 
@@ -512,7 +498,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }
         } catch (Exception e) {
-            Helper.Ex2Log(e);
+            L.log.error(_TAG, e);
         }
     }
 
@@ -559,7 +545,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }catch (Exception ex)
             {
-                Helper.Ex2Log(ex);
+                L.log.error(_TAG, ex);
             }
         }
     }
