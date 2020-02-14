@@ -3,43 +3,43 @@
 3    package="org.drinkless.td.libcore.test" >
 4
 5    <uses-sdk
-5-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:5:5-74
+5-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:5:5-74
 6        android:minSdkVersion="10"
-6-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:5:15-41
+6-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:5:15-41
 7        android:targetSdkVersion="26" />
-7-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:5:42-71
+7-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:5:42-71
 8
 9    <instrumentation
-9-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:11:5-15:79
+9-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:11:5-15:79
 10        android:name="android.test.InstrumentationTestRunner"
-10-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:11:22-75
+10-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:11:22-75
 11        android:functionalTest="false"
-11-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:14:22-52
+11-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:14:22-52
 12        android:handleProfiling="false"
-12-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:13:22-53
+12-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:13:22-53
 13        android:label="Tests for org.drinkless.td.libcore.test"
-13-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:15:22-77
+13-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:15:22-77
 14        android:targetPackage="org.drinkless.td.libcore.test" />
-14-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:12:22-75
+14-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:12:22-75
 15
 16    <uses-permission android:name="android.permission.INTERNET" />
-16-->[__tested_artifact__::libtd] /home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:5-67
-16-->[__tested_artifact__::libtd] /home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:22-64
+16-->[__tested_artifact__::libtd] C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:5-67
+16-->[__tested_artifact__::libtd] C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:22-64
 17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-17-->[__tested_artifact__::libtd] /home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:5-81
-17-->[__tested_artifact__::libtd] /home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:22-78
+17-->[__tested_artifact__::libtd] C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\library_manifest\debug\AndroidManifest.xml:31:5-81
+17-->[__tested_artifact__::libtd] C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\library_manifest\debug\AndroidManifest.xml:31:22-78
 18
 19    <application
-19-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:7:5-9:19
+19-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:7:5-9:19
 20        android:allowBackup="true"
-20-->[__tested_artifact__::libtd] /home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:9-35
+20-->[__tested_artifact__::libtd] C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:9-35
 21        android:debuggable="true"
-21-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:7:18-43
+21-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:7:18-43
 22        android:label="@string/app_name" >
-22-->[__tested_artifact__::libtd] /home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:9-41
+22-->[__tested_artifact__::libtd] C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:9-41
 23        <uses-library android:name="android.test.runner" />
-23-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:8:9-60
-23-->/home/ruslan/StudioProjects/Delta2/libtd/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger97907886939158404.xml:8:23-57
+23-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:8:9-60
+23-->C:\Users\ruslan\StudioProjects\delta2system\libtd\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2856399241862604936.xml:8:23-57
 24    </application>
 25
 26</manifest>
