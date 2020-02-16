@@ -8,8 +8,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 
+import delta2.system.common.Log.L;
+
 public class FileStructure {
-    private static final int _OLD_FILES_QNT = 120;
+    private static final int _OLD_FILES_QNT = 220;
     private static final String _D2S_DIR = "/delta2system/";
 
     final static SimpleDateFormat sdfFileShort = new SimpleDateFormat(".yyyy_MM_dd__HH_mm_ss.SSS");
@@ -48,6 +50,14 @@ public class FileStructure {
             dir.setReadable(true, false);
             dir.setWritable(true, false);
         }
+
+        File nomediaDir = new File(String.format("%s/.nomedia", path));
+        if(!nomediaDir.exists())
+            try {
+                nomediaDir.createNewFile();
+            }catch (Exception e) {
+                L.log.error("", e);
+            }
     }
 
     private static void deleteOldFiles(){

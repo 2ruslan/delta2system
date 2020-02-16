@@ -25,8 +25,6 @@ public class Login {
 
     public void Check(){
         if (PreferencesHelper.getToken() == null || PreferencesHelper.getToken().equals(""))
-            loginedHandler.OnLogin(true);
-        else
             try {
                 LoginActivity.init(
                         new IAcnivityCallback() {
@@ -45,6 +43,8 @@ public class Login {
             finally {
                 LoginActivity.destroy();
             }
+        else
+            loginedHandler.OnLogin(true);
     }
 
     public interface ILoginned{

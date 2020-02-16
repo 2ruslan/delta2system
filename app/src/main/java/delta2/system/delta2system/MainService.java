@@ -15,10 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 
-import delta2.system.delta2system.View.MainActivity;
+import delta2.system.delta2system.View.main.MainActivity;
 
 public class MainService extends Service {
     ModuleManager moduleManager;
+    static MainService instance;
 
     @Nullable
     @Override
@@ -28,6 +29,7 @@ public class MainService extends Service {
 
     @Override
     public void onCreate() {
+        instance = this;
 
         PreferencesHelper.init(this);
 
@@ -43,11 +45,15 @@ public class MainService extends Service {
         moduleManager.init();
     }
 
-
     @Override
     public void onDestroy() {
         MainActivity.destroy();
         moduleManager.destroy();
+    }
+
+    public static void stopApp(){
+        if (instance != null)
+            instance.stopSelf();
     }
 
     protected  void startForeground(int ico, String title, int notifyId) {

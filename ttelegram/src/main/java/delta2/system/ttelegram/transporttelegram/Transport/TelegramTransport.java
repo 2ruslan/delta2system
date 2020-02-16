@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -76,9 +77,11 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         receiveMessage = rcv;
     }
 
+
     @Override
     public void onResult(TdApi.Object object) {
-        L.log.trace(_TAG +  object.toString());
+        L.log.trace(object.toString());
+
 
         if (object instanceof TdApi.UpdateAuthorizationState) {
             TdApi.UpdateAuthorizationState state = (TdApi.UpdateAuthorizationState) object;
@@ -126,8 +129,6 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
         }
 
-
-
         else if (object instanceof TdApi.AuthorizationStateWaitTdlibParameters) {
             TdApi.TdlibParameters parameters = new TdApi.TdlibParameters();
             parameters.databaseDirectory = Helper.getWorkDirpath();
@@ -135,12 +136,18 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             parameters.apiId = TelegramPreferences.apiId;
             parameters.apiHash = TelegramPreferences.apiHash;
             parameters.deviceModel = Build.MODEL;
-            parameters.systemLanguageCode = "en";
+            parameters.systemLanguageCode = Locale.getDefault().getDisplayLanguage();
             parameters.systemVersion = Build.VERSION.CODENAME;
             parameters.applicationVersion = BuildConfig.VERSION_NAME;
             parameters.enableStorageOptimizer = true;
+            parameters.useTestDc = false;
 
             send2t(new TdApi.SetTdlibParameters(parameters));
+
+            TdApi.SetOption com =
+                    new TdApi.SetOption("ignore_inline_thumbnails", new TdApi.OptionValueBoolean(true));
+
+            send2t(com);
 
         } else if (object instanceof TdApi.AuthorizationStateWaitEncryptionKey) {
             send2t(new TdApi.CheckDatabaseEncryptionKey());
@@ -257,19 +264,26 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         Intent s = new Intent(_context, LoginActivity.class);
         s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        if(PreferencesHelper.getPhoneNum().equals(""))
+        if(PreferencesHelper.getPhoneNum().equals("")) {
             s.putExtra(LoginActivity._LOGIN_PARAM, LoginActivity._PARAM_PHONE);
+            L.log.debug(_TAG, "LoginActivity set param" + LoginActivity._PARAM_PHONE);
+        }
 
-        else if (PreferencesHelper.code.equals(""))
+        else if (PreferencesHelper.code.equals("")) {
             s.putExtra(LoginActivity._LOGIN_PARAM, LoginActivity._PARAM_TCODE);
+            L.log.debug(_TAG, "LoginActivity set param" + LoginActivity._PARAM_TCODE);
+        }
 
         else  if (PreferencesHelper.pass.equals("")) {
             s.putExtra(LoginActivity._LOGIN_PARAM, LoginActivity._PARAM_PASSWORD);
             s.putExtra(LoginActivity._PARAM_PASSHINT_VAL, passHint);
+            L.log.debug(_TAG, "LoginActivity set param" + LoginActivity._PARAM_PASSWORD);
         }
 
+        L.log.debug(_TAG, "Open LoginActivity start");
         LoginActivity.SetTransport(this);
         _context.startActivity (s);
+        L.log.debug(_TAG, "Open LoginActivity end");
 
     }
 
@@ -378,43 +392,6 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
                 long rplId = 0;
 
-                /**/
-                /*
-                Uri returnUri = Uri.parse(msg.GetFile());
-
-                String fileName = String.format( "%s/%d.jpg", _context.getFilesDir().getAbsolutePath(), System.currentTimeMillis());
-                File sendingFile = new File(  fileName );
-
-                try {
-                    ParcelFileDescriptor sendFile = _context.getContentResolver().openFileDescriptor(returnUri, "r");
-                    FileDescriptor fd = sendFile.getFileDescriptor();
-
-                    InputStream fileStream = new FileInputStream(fd);
-                    OutputStream localFile = new FileOutputStream( sendingFile);
-
-                    byte[] buffer = new byte[1024];
-                    int length;
-
-                    while((length = fileStream.read(buffer)) > 0)
-                    {
-                        localFile.write(buffer, 0, length);
-                    }
-
-                    localFile.flush();
-                    fileStream.close();
-                    localFile.close();
-
-                }catch (Exception e)
-                {
-                    Helper.Ex2Log(e);
-                }
-*/
-                ////////
-
-
-
-                /**/
-
                 TdApi.InputFileLocal f = new TdApi.InputFileLocal(msg.GetFile());
                 TdApi.FormattedText t = new TdApi.FormattedText(msg.GetCaption(), null);
                 TdApi.InputMessagePhoto m = new TdApi.InputMessagePhoto(f
@@ -510,7 +487,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
     void send2t(TdApi.Function query) {
         if (_client != null) {
-            Helper.Log("tdlib send", query.toString());
+            L.log.trace(query.toString());
             _client.send(query, this);
         }
     }

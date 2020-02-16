@@ -151,7 +151,10 @@ public class Module implements IModuleWorker {
     @Override
     public void destroy() {
         MediatorMD.onDestroy();
-        Manager.onDestroy();
+
+        if (Manager != null)
+            Manager.onDestroy();
+
         moduleState = ModuleState.none;
     }
 

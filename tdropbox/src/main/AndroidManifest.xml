@@ -9,7 +9,6 @@
     <application>
         <activity android:name=".transportdropbox.SettingsActivity" />
         <activity android:name=".transportdropbox.LoginActivity" />
-        <activity android:name=".transportdropbox.CheckAllActivity" />
     <activity
         android:name="com.dropbox.core.android.AuthActivity"
         android:configChanges="orientation|keyboard"

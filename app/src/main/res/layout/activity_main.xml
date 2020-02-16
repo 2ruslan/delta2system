@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.MainActivity">
+    tools:context=".View.main.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,25 +32,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <!--
             <Button
-                android:layout_margin="4dp"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="Transport"
-                android:onClick="OnTransportClick"
-                />
-            <Button
-                android:layout_margin="4dp"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="Worker"
-                android:onClick="OnWorkerClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="OnExitClick"
+                android:text="stop and exit"
                 />
 
-                -->
         </LinearLayout>
 
 

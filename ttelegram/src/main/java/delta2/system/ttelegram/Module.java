@@ -162,7 +162,9 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public void destroy() {
-        transport.destroy();
+        if (transport != null)
+            transport.destroy();
+
         moduleState = ModuleState.none;
     }
 

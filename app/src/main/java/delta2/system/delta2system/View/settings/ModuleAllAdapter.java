@@ -1,10 +1,11 @@
-package delta2.system.delta2system.View;
+package delta2.system.delta2system.View.settings;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,14 +13,15 @@ import java.util.ArrayList;
 
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.delta2system.ModulesList;
+import delta2.system.delta2system.PreferencesHelper;
 import delta2.system.delta2system.R;
 
-public class ModuleAdapter extends ArrayAdapter<IModule> {
+public class ModuleAllAdapter extends ArrayAdapter<IModule> {
     private LayoutInflater inflater;
     private int layout;
     Context _context;
 
-    ModuleAdapter(Context context, int resource, ModulesList plugins) {
+    ModuleAllAdapter(Context context, int resource, ArrayList<IModule> plugins) {
         super(context, resource,  plugins);
 
         _context = context;
@@ -44,18 +46,12 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
 
         viewHolder.nameView.setText(module.GetDescription());
         viewHolder.codeView.setText(module.GetShortName());
+        viewHolder.cbActive.setChecked(PreferencesHelper.getIsActiveModule(module.GetModuleID()));
 
-        //String workingTime = Helper.getWorkingTime(_context,  product.GetWorkingTime());
-        //viewHolder.timeView.setText(workingTime);
-
-        viewHolder.infoViev.setText(String.valueOf(module.GetModuleState()));
-
-        //viewHolder.stateView.setText(product.getCurrentState() == 1 ? "state:OK" : "state:Bad" );
-
-        viewHolder.SettingsButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.cbActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                module.OpenSettings();
+                PreferencesHelper.setIsActiveModule(module.GetModuleID(), viewHolder.cbActive.isChecked());
             }
         });
 
@@ -65,17 +61,14 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
     }
 
     private class ViewHolder {
-        final ImageButton SettingsButton;
-        final TextView nameView, codeView, stateView, infoViev, timeView;
+
+        final TextView nameView, codeView;
+        final CheckBox cbActive;
         ViewHolder(View view){
-            SettingsButton = view.findViewById(R.id.bSettings);
 
             nameView = view.findViewById(R.id.tName);
             codeView = view.findViewById(R.id.tCode);
-
-            stateView   = view.findViewById(R.id.tState);
-            infoViev   = view.findViewById(R.id.tInfo);
-            timeView =  view.findViewById(R.id.tTime);
+            cbActive = view.findViewById(R.id.cbSelectItem);
 
         }
     }

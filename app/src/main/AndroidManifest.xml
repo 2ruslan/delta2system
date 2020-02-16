@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.SelectModulesActivity"></activity>
+
 
         <receiver android:name=".BootReceiver">
             <intent-filter>
@@ -27,14 +27,25 @@
             android:name=".MainService"
             android:enabled="true" />
 
-        <activity android:name=".View.StarterApp">
+        <activity android:name=".View.StarterApp"
+            android:label="d2s"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.MainActivity"></activity>
+
+        <activity android:name=".View.settings.GlobalSettings"
+            android:label="d2s.settings"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".View.main.MainActivity" />
     </application>
 
 </manifest>

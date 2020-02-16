@@ -2,6 +2,7 @@ package delta2.system.delta2system;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,6 +34,22 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     }
 
 
+    static ArrayList<IModule> modulesAll;
+    static public ArrayList<IModule> GetAllModules(Context c){
+        modulesAll = new ArrayList<>();
+
+        // transport
+        modulesAll.add(new delta2.system.tdropbox.Module(c));
+        modulesAll.add(new delta2.system.ttelegram.Module(c));
+
+        // worker
+        modulesAll.add(new delta2.system.whardwareinfo.Module(c));
+        modulesAll.add(new delta2.system.wmotiondetector.Module(c));
+
+        return modulesAll;
+    }
+
+
     ModulesList modules;
     public ModulesList GetModules(){
         return modules;
@@ -47,6 +64,8 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         context = c;
 
         Helper.setWorkDir(context.getFilesDir());
+
+        GetAllModules(context);
 
         modules = new ModulesList();
         modules.SetNotifyChanged(this);
@@ -103,18 +122,13 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
 
     private void initModules(){
-        // transport
-    //   modules.addModule(new delta2.system.tdropbox.Module(context));
-       modules.addModule(new delta2.system.ttelegram.Module(context));
-
-        // worker
-        modules.addModule(new delta2.system.whardwareinfo.Module(context));
-        modules.addModule(new delta2.system.wmotiondetector.Module(context));
 
         // set need init
-        for(IModule m :modules) {
-            //if (PreferencesHelper.getIsActiveModule(m.GetModuleID()))
+        for(IModule m :modulesAll) {
+            if (PreferencesHelper.getIsActiveModule(m.GetModuleID())) {
+                modules.addModule(m);
                 m.SetStateNeedInit();
+            }
         }
     }
 
@@ -127,6 +141,12 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     @Override
     public void destroy() {
+        if (timer != null){
+            timer.cancel();
+            timer = null;
+        }
+
+
         for(IModule m :modules) {
             m.destroy();
         }

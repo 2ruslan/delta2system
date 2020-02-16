@@ -172,13 +172,16 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void destroy() {
-        commandManager.destroy();
+        if (commandManager != null)
+            commandManager.destroy();
 
         WifiReceiver.destroy();
 
+        if (context != null && batteryLevelReceiver != null)
+            context.unregisterReceiver(batteryLevelReceiver);
+        if (batteryLevelReceiver != null)
+            batteryLevelReceiver.destroy();
 
-        context.unregisterReceiver(batteryLevelReceiver);
-        batteryLevelReceiver.destroy();
         batteryLevelReceiver = null;
 
         MediatorMD.destroy();
