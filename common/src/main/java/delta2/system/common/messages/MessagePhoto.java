@@ -1,5 +1,7 @@
 package delta2.system.common.messages;
 
+import androidx.annotation.NonNull;
+
 import delta2.system.common.interfaces.messages.IMessage;
 
 public class MessagePhoto implements IMessage {
@@ -21,4 +23,9 @@ public class MessagePhoto implements IMessage {
         return file;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "MessageText.caption + " + caption + "; file = " + file;
+    }
 }

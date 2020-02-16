@@ -53,9 +53,6 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
     boolean isWaitPass = false;
     String passHint;
 
-
-    long lastMsgId = 0;
-
     long locationMsgId = 0;
 
     IAcnivityCallback callback;
@@ -219,16 +216,12 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 TdApi.MessageText t = (TdApi.MessageText) m.message.content;
                 TdApi.FormattedText ft = (TdApi.FormattedText) t.text;
 
-                boolean isSelf = PreferencesHelper.getMyId() == m.message.senderUserId;
+               // boolean isSelf = PreferencesHelper.getMyId() == m.message.senderUserId;
 
                 if (m.message.sendingState == null
                         && m.message.content instanceof TdApi.MessageText
-                        && m.message.id > lastMsgId
 
                 ) {
-
-                    lastMsgId = m.message.id;
-
                     if (!PreferencesHelper.existsChatId() && ft.text.equals(userChkCode)) {
                         registerUserStop(m.message.chatId);
 
@@ -242,14 +235,9 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     }
                 }
 
+//                deleteHist(m.chatId, m.lastMessage.id);
+//                markReadMsg(m.lastMessage.id);
 
-
-                if(!isSelf) {
-                    //   deleteHist(m.chatId, m.lastMessage.id);
-                    //   markReadMsg(m.lastMessage.id);
-                }
-
-//                    deleteHist(m.chatId);
             }
         }
     }

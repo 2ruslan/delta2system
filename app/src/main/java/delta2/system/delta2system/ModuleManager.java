@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import delta2.system.common.Helper;
+import delta2.system.common.Log.L;
 import delta2.system.common.commands.Command;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
@@ -155,11 +156,18 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     //region route
     @Override
     public void RequestSendMessage(IMessage msg) {
+        L.log.debug(msg.toString());
         MessageExt m = new MessageExt(msg);
         for(IModule module : modules) {
             if (EqualsName(m.module, module)) {
                 if (module instanceof IModuleTransport){
-                    ((IModuleTransport)module).SendMessage(msg);
+                    try {
+                        ((IModuleTransport)module).SendMessage(msg);
+                    }
+                    catch (Exception e){
+                        L.log.error("", e);
+                    }
+
                 }
             }
         }
@@ -167,6 +175,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     @Override
     public void OnReceiveMessage(IMessage msg) {
+        L.log.debug(msg.toString());
         if (msg instanceof MessageText) {
             MessageText txtMsg  = (MessageText)msg;
 
@@ -174,7 +183,13 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             for (IModule module : modules) {
                 if (EqualsName(c.module, module)) {
                     if (module instanceof IModuleWorker)
-                        ((IModuleWorker) module).ExecuteCommand(c.cmd);
+                        try {
+                            ((IModuleWorker) module).ExecuteCommand(c.cmd);
+                        }
+                        catch (Exception e){
+                            L.log.error("", e);
+                        }
+
                 }
             }
         }
