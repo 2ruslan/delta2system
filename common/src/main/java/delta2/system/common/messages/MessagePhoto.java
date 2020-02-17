@@ -7,21 +7,35 @@ import delta2.system.common.interfaces.messages.IMessage;
 public class MessagePhoto implements IMessage {
 
     private String caption;
-    private String file;
-
-    public MessagePhoto(String c, String f){
-        caption = c;
-        file = f;
-
-    }
-
     public String GetCaption(){
         return caption;
     }
 
+    private String file;
     public String GetFile(){
         return file;
     }
+
+    private int Height;
+    public int GetHeight(){
+        return Height;
+    }
+
+    private int Width;
+    public int GetWidth(){
+        return Width;
+    }
+
+    public MessagePhoto(String c, String f, int h, int w){
+        caption = c;
+        file = f;
+        Height = h;
+        Width = w;
+    }
+
+
+
+
 
     @NonNull
     @Override

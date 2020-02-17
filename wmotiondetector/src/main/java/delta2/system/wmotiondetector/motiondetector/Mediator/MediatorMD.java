@@ -113,8 +113,8 @@ public class MediatorMD {
         requestSendMessage.RequestSendMessage(new MessageText(msg));
     }
 
-    public static void  sendPhoto(String fileUri, String caption) {
-        requestSendMessage.RequestSendMessage(new MessagePhoto(caption, fileUri));
+    public static void  sendPhoto(String fileUri, String caption, int h, int w) {
+        requestSendMessage.RequestSendMessage(new MessagePhoto(caption, fileUri, h, w));
     }
 
     public static void  callVoice() {

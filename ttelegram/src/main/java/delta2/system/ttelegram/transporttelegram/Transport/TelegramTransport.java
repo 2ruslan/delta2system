@@ -383,7 +383,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 TdApi.InputFileLocal f = new TdApi.InputFileLocal(msg.GetFile());
                 TdApi.FormattedText t = new TdApi.FormattedText(msg.GetCaption(), null);
                 TdApi.InputMessagePhoto m = new TdApi.InputMessagePhoto(f
-                        ,null, null, 100, 100, t, 0);
+                        ,null, null, msg.GetWidth(), msg.GetHeight(), t, 0);
                 TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
                         , rplId, false, false, null, m);
                 send2t(request);

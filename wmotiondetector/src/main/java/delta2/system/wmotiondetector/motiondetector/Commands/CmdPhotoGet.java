@@ -52,6 +52,6 @@ public class CmdPhotoGet extends CmdBase implements IGetRawPictureCallback {
 
         @Override
         public void OnGetRawPicture() {
-                SendPhoto.Send(_context, _currentPict.getJpg(), "");
+                SendPhoto.Send(_context, _currentPict.getJpg(), "", _currentPict.h, _currentPict.w);
         }
 }
