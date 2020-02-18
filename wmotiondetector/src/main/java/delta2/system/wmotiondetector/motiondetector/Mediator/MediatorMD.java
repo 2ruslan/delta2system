@@ -3,6 +3,7 @@ package delta2.system.wmotiondetector.motiondetector.Mediator;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.messages.MessagePhoto;
 import delta2.system.common.messages.MessageText;
@@ -26,9 +27,9 @@ public class MediatorMD {
         _CommandCheckMessage = t;
     }
 
-    public static void CheckMessage(String inTxt){
+    public static void CheckMessage(String msgId, String inTxt){
         if(_CommandCheckMessage != null)
-            _CommandCheckMessage.CheckMessage(inTxt);
+            _CommandCheckMessage.CheckMessage(msgId, inTxt);
     }
 
     //endregion ICommandCheckMessage
@@ -78,9 +79,9 @@ public class MediatorMD {
         _GetCameraProp = p;
     }
 
-    public static void SendCameraProp( String p){
+    public static void SendCameraProp(String msgId, String p){
         if(_GetCameraProp != null)
-            _GetCameraProp.SendCameraProp( p);
+            _GetCameraProp.SendCameraProp(msgId, p);
     }
 
     public static CamearaProps GetCameraProps(String prop){
@@ -109,16 +110,16 @@ public class MediatorMD {
 
 
 
-    public static void  sendText(String msg) {
-        requestSendMessage.RequestSendMessage(new MessageText(msg));
+    public static void  sendText(String msgId, String msg) {
+        requestSendMessage.RequestSendMessage(new MessageText(msgId, msg));
     }
 
-    public static void  sendPhoto(String fileUri, String caption, int h, int w) {
-        requestSendMessage.RequestSendMessage(new MessagePhoto(caption, fileUri, h, w));
+    public static void  sendPhoto(String msgId, String fileUri, String caption, int h, int w) {
+        requestSendMessage.RequestSendMessage(new MessagePhoto(msgId, caption, fileUri, h, w));
     }
 
     public static void  callVoice() {
-        requestSendMessage.RequestSendMessage(new MessageVoiceCall());
+        requestSendMessage.RequestSendMessage(new MessageVoiceCall(IMessage._NO_MSG_ID));
     }
 
 

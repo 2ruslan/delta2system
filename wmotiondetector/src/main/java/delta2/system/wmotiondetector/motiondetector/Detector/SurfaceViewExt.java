@@ -115,7 +115,7 @@ public class SurfaceViewExt extends SurfaceView implements SurfaceHolder.Callbac
     static int sizeW = 0;
 
     @Override
-    public void GetRawPicture(RawPicture p, boolean isSmalPict) {
+    public void GetRawPicture( RawPicture p, boolean isSmalPict) {
 
         if (sizeH == 0  || sizeW == 0)
             return;
@@ -143,7 +143,7 @@ public class SurfaceViewExt extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     @Override
-    public void SendCameraProp(String prop) {
+    public void SendCameraProp(String msgId, String prop) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -153,12 +153,12 @@ public class SurfaceViewExt extends SurfaceView implements SurfaceHolder.Callbac
             sb.append(String.format("%s  %s  %s \r\n", i, i == p.current ? "[x]" : "[  ]", p.values.get(i)));
         }
 
-        MediatorMD.sendText(sb.toString());
+        MediatorMD.sendText(msgId, sb.toString());
 
     }
 
     @Override
-    public CamearaProps GetCameraProps(String prop) {
+    public CamearaProps GetCameraProps( String prop) {
         return CameraPropHelper.getProps(prop, _camera);
     }
 

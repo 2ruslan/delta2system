@@ -38,12 +38,16 @@ public class CmdPhotoGet extends CmdBase implements IGetRawPictureCallback {
 
 
         Context _context;
-        public ResultCmd run(Context context, String ori, String[] parts){
+        String MsgId;
+        public ResultCmd run(String msgId, Context context, String ori, String[] parts){
                 _context = context;
+                MsgId = msgId;
 
                 if (_currentPict == null) {
                     _currentPict = new RawPicture(this);
                 }
+
+                _currentPict.msgId = msgId;
 
                 MediatorMD.GetRawPciture(_currentPict,  false);
 
@@ -52,6 +56,6 @@ public class CmdPhotoGet extends CmdBase implements IGetRawPictureCallback {
 
         @Override
         public void OnGetRawPicture() {
-                SendPhoto.Send(_context, _currentPict.getJpg(), "", _currentPict.h, _currentPict.w);
+                SendPhoto.Send(MsgId,_context, _currentPict.getJpg(), "", _currentPict.h, _currentPict.w);
         }
 }

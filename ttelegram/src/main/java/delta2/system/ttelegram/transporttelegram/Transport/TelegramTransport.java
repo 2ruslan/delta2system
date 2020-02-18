@@ -226,7 +226,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                         registerUserStop(m.message.chatId);
 
                     } else {
-                        receiveMessage.OnReceiveMessage( new MessageText(ft.text));
+                        receiveMessage.OnReceiveMessage( new MessageText(String.valueOf(m.message.id), ft.text));
                     }
                     if (m.message.chatId != PreferencesHelper.getChatId()) {
                         if (ft.text.contains("code:")) {
@@ -346,8 +346,12 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 Thread.sleep(1100);
 
                 long rplId = 0;
-
-
+                try {
+                    rplId = Long.valueOf(msg.getMsgId());
+                }
+                catch (Exception e){
+                    L.log.error(_TAG, e);
+                }
 
                 TdApi.ReplyMarkupInlineKeyboard kb = null; //new TdApi.ReplyMarkupInlineKeyboard(rows);
                 //  TdApi.ReplyMarkupInlineKeyboard kb = new TdApi.ReplyMarkupInlineKeyboard(rows);
@@ -379,6 +383,12 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 Thread.sleep(1100);
 
                 long rplId = 0;
+                try {
+                    rplId = Long.valueOf(msg.getMsgId());
+                }
+                catch (Exception e){
+                    L.log.error(_TAG, e);
+                }
 
                 TdApi.InputFileLocal f = new TdApi.InputFileLocal(msg.GetFile());
                 TdApi.FormattedText t = new TdApi.FormattedText(msg.GetCaption(), null);
@@ -405,7 +415,12 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             if (PreferencesHelper.existsChatId()) {
 
                 long rplId = 0;
-
+                try {
+                    rplId = Long.valueOf(msg.getMsgId());
+                }
+                catch (Exception e){
+                    L.log.error(_TAG, e);
+                }
 
                 Thread.sleep(1100);
 
@@ -435,7 +450,12 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             if (PreferencesHelper.existsChatId()) {
 
                 long rplId = 0;
-
+                try {
+                    rplId = Long.valueOf(msg.getMsgId());
+                }
+                catch (Exception e){
+                    L.log.error(_TAG, e);
+                }
 
                 Thread.sleep(1100);
 

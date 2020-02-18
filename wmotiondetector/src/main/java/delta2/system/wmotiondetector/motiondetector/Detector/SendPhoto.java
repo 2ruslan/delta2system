@@ -23,7 +23,7 @@ import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 public class SendPhoto {
     private static final String _TAG = SendPhoto.class.getName();
 
-    public static void Send(Context contest, byte[] jpg, String info, int h, int w){
+    public static void Send(String msgId, Context contest, byte[] jpg, String info, int h, int w){
 
         try {
             L.log.info( _TAG, "Send photo - start");
@@ -33,7 +33,7 @@ public class SendPhoto {
             os.close();
             L.log.info( _TAG, "Send photo - save data to file : " + fileName);
 
-            MediatorMD.sendPhoto( fileName, Helper.getNowDT() + " " + info, h, w);
+            MediatorMD.sendPhoto( msgId, fileName, Helper.getNowDT() + " " + info, h, w);
 
             L.log.info( _TAG, "Send photo end");
 

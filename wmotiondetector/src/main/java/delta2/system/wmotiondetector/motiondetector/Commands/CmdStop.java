@@ -20,7 +20,7 @@ public class CmdStop extends CmdBase {
         super(en_type.other, _COMMAND);
     }
 
-    public ResultCmd run(Context context, String ori, String[] parts){
+    public ResultCmd run(String msgId, Context context, String ori, String[] parts){
         PreferencesHelper.SetIsActive(false);
         MediatorMD.SetInfo("status = stop" );
         return new ResultCmd();

@@ -56,7 +56,7 @@ public class MDManager implements IGetRawPictureCallback, ICommandExcecuted {
                         //if (PreferencesHelper.GetInTwo())
                          //   MediatorMD.TexSendText(mContext.getString(R.string.move_description) + " " + addInfo, null);
 
-                        SendPhoto.Send(mContext, _current.getJpg(), addInfo, _current.h, _current.w);
+                        SendPhoto.Send(_current.msgId, mContext, _current.getJpg(), addInfo, _current.h, _current.w);
 
                     }
 

@@ -19,8 +19,8 @@ public class CmdCameraGet extends CmdBase {
         super(en_type.get, _COMMAND);
     }
 
-    public ResultCmd run(Context context, String ori, String[] parts){
-        MediatorMD.SendCameraProp( _COMMAND);
+    public ResultCmd run(String msgId, Context context, String ori, String[] parts){
+        MediatorMD.SendCameraProp(msgId,  _COMMAND);
 
         return new ResultCmd();
     }

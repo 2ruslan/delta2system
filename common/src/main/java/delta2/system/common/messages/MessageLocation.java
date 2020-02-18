@@ -7,9 +7,15 @@ public class MessageLocation implements IMessage {
     private String lat;
     private String lon;
 
-    public MessageLocation(String t, String n){
+    private String msgId;
+    public String getMsgId(){
+        return msgId;
+    }
+
+    public MessageLocation(String m, String t, String n){
         lat = t;
         lon = n;
+        msgId = m;
     }
 
     public String GetLat(){

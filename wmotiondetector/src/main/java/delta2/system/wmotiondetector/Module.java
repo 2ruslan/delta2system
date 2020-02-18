@@ -56,7 +56,8 @@ public class Module implements IModuleWorker {
     @Override
     public void ExecuteCommand(ICommand cmd) {
         if (cmd instanceof Command) {
-            MediatorMD.CheckMessage(((Command) cmd).GetCommand());
+            Command c = (Command)cmd;
+            MediatorMD.CheckMessage(c.getMsgId(), c.GetCommand());
         }
     }
 

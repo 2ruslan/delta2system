@@ -18,7 +18,7 @@ public class CmdVoiceCallGet extends CmdBase {
         super(CmdBase.en_type.get, _COMMAND);
     }
 
-    public ResultCmd run(Context context, String ori, String[] parts){
+    public ResultCmd run(String msgId, Context context, String ori, String[] parts){
        // MediatorMD.sendText( parms.msgId,_COMMAND + " : " + PreferencesHelper.getDelta ());
 
         return new ResultCmd();

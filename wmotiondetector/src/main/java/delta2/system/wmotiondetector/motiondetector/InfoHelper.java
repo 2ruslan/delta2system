@@ -14,7 +14,7 @@ import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelpe
 
 public class InfoHelper {
 
-    public static void sendHelp(Context context){
+    public static void sendHelp(String msgId, Context context){
         StringBuilder sb = new StringBuilder("MotionDetector");
         sb.append("\n\n------------------");
 
@@ -44,10 +44,10 @@ public class InfoHelper {
 
 
         sb.append("\n\n------------------");
-        MediatorMD.sendText(sb.toString());
+        MediatorMD.sendText(msgId, sb.toString());
     }
 
-    public static void sendInfo(Context context){
+    public static void sendInfo( String msgId, Context context){
         StringBuilder sb = new StringBuilder("MotionDetector");
         sb.append("\n\n------------------");
 
@@ -64,7 +64,7 @@ public class InfoHelper {
         sb.append( String.format("\n%s : %s", context.getResources().getString(R.string.working_time)
                 , Helper.getWorkingTime(context, MediatorMD.GetWorkingTime()))) ;
 
-        MediatorMD.sendText ( sb.toString());
+        MediatorMD.sendText (msgId, sb.toString());
     }
 
     private static String getCamProp(String prop){

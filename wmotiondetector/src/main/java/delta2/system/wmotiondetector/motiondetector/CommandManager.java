@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta2.system.common.Helper;
+import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdAutostartGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleSet;
@@ -79,7 +80,7 @@ public class CommandManager implements ICommandCheckMessage {
     }
 
 
-    public void CheckMessage(String inTxt) {
+    public void CheckMessage(String msgId, String inTxt) {
 
         Helper.Log("CheckMessage", inTxt);
 
@@ -96,11 +97,11 @@ public class CommandManager implements ICommandCheckMessage {
 
 
 
-            CheckMessage(inTxt, false, false) ;
+            CheckMessage(msgId, inTxt, false, false) ;
 
     }
 
-    public void CheckMessage(String inTxt, boolean repeatCmd, boolean isSilent) {
+    public void CheckMessage(String msgId, String inTxt, boolean repeatCmd, boolean isSilent) {
 
         inTxt = inTxt.toLowerCase();
         String[] inLines = inTxt.split("\\s+");
@@ -120,21 +121,21 @@ public class CommandManager implements ICommandCheckMessage {
                         (inLines.length > 1 && cmd.cmd.equals(inLines[1]))
                                 || (inLines.length == 1 && cmd.cmd.equals(first)))
                         ) {
-                    cmdResult = cmd.exec(_context, inTxt, inLines);
+                    cmdResult = cmd.exec(msgId,_context, inTxt, inLines);
                     isCmdExists = true;
                     break;
                 }
             }
 
             if (!isCmdExists )
-                cmdResult =  _CmdPhotoGet.exec(_context, inTxt, inLines);
+                cmdResult =  _CmdPhotoGet.exec(msgId,_context, inTxt, inLines);
 
             if (cmdResult == null) {
                 if (cmdType == CmdBase.en_type.get || cmdType == CmdBase.en_type.set) {
                     if (!isSilent)
-                        MediatorMD.sendText(repeatCmd ? (inTxt + " : ") : "" + _NO);
+                        MediatorMD.sendText(msgId, repeatCmd ? (inTxt + " : ") : "" + _NO);
                 } else {
-                    chkError(_CmdPhotoGet.exec(_context, inTxt, inLines));
+                    chkError(_CmdPhotoGet.exec(msgId,_context, inTxt, inLines));
                 }
             } else if (cmdResult.result == CmdBase.en_result.ok &&
                     (cmdType == CmdBase.en_type.set
@@ -142,7 +143,7 @@ public class CommandManager implements ICommandCheckMessage {
                             || CmdStop._COMMAND.equals(inLines[0]))
                     ) {
                 if (!isSilent)
-                    MediatorMD.sendText((repeatCmd ? (inTxt + " : ") : "") + _OK);
+                    MediatorMD.sendText(msgId,(repeatCmd ? (inTxt + " : ") : "") + _OK);
                 else
                     chkError(cmdResult);
             }
@@ -151,8 +152,8 @@ public class CommandManager implements ICommandCheckMessage {
 
     private void chkError(ResultCmd cmdResult){
         if (cmdResult.result == CmdBase.en_result.error_msg)
-            MediatorMD.sendText(cmdResult.msg);
+            MediatorMD.sendText(IMessage._NO_MSG_ID, cmdResult.msg);
         else if (cmdResult.result == CmdBase.en_result.exception)
-            MediatorMD.sendText("error : " + cmdResult.msg);
+            MediatorMD.sendText(IMessage._NO_MSG_ID,"error : " + cmdResult.msg);
     }
 }

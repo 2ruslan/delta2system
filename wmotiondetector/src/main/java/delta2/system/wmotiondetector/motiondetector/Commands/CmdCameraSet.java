@@ -20,7 +20,7 @@ public class CmdCameraSet extends CmdBase {
         super(en_type.set, _COMMAND);
     }
 
-    public ResultCmd run(Context context, String ori, String[] parts){
+    public ResultCmd run(String msgId, Context context, String ori, String[] parts){
         int val = Integer.valueOf(parts[2]);
 
         if (val != PreferencesHelper.getCameraIdx())

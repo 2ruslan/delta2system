@@ -51,7 +51,7 @@ public class CommandManager{
             sb.append( "\n\n-------------------------");
 
 
-            MediatorMD.RequestSendMessage(new MessageText(sb.toString()));
+            MediatorMD.RequestSendMessage(new MessageText(cmd.getMsgId(), sb.toString()));
 
         }
     }

@@ -219,7 +219,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         public static final String _ALL = "*";
 
         public CommandExt(MessageText m){
-            cmd = new Command(m.GetText());
+            cmd = new Command(m.getMsgId(), m.GetText());
         }
 
         public ICommand cmd;

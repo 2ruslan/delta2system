@@ -30,6 +30,8 @@ public class RawPicture {
 
     public int delta;
 
+    public  String msgId;
+
 
     IGetRawPictureCallback callback;
 

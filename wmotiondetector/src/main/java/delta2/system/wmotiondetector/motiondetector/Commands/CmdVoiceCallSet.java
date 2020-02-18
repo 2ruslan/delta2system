@@ -20,7 +20,7 @@ public class CmdVoiceCallSet extends CmdBase {
         super(en_type.set, _COMMAND);
     }
 
-    public ResultCmd run(Context context, String ori, String[] parts){
+    public ResultCmd run(String msgId, Context context, String ori, String[] parts){
         if (parts[2].equals(_ON))
             PreferencesHelper.setIsVoiceCall(true);
         else if (parts[2].equals(_OFF))

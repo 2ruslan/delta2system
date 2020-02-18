@@ -19,7 +19,7 @@ public class CmdTurn extends CmdBase {
         super(en_type.other, _COMMAND);
     }
 
-    public ResultCmd run(Context context, String ori, String[] parts){
+    public ResultCmd run(String msgId, Context context, String ori, String[] parts){
 
             PreferencesHelper.SetIsActive(!PreferencesHelper.GetIsActive());
 

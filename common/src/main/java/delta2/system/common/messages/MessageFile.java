@@ -8,14 +8,19 @@ public class MessageFile implements IMessage {
 
     private String file;
 
-    public MessageFile(String f){
+    public MessageFile(String m, String f){
         file = f;
+        msgId = m;
     }
 
     public String GetFile(){
         return file;
     }
 
+    private String msgId;
+    public String getMsgId(){
+        return msgId;
+    }
 
     @NonNull
     @Override

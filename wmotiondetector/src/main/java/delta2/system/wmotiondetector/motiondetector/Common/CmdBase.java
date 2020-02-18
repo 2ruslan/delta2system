@@ -30,11 +30,11 @@ public abstract class CmdBase {
         error_msg
     }
 
-    public ResultCmd exec(Context context, String orig, String[] parts){
+    public ResultCmd exec(String msgId, Context context, String orig, String[] parts){
         ResultCmd res;
         try {
             Helper.Log("Cmd.exec",cmd + " " + orig);
-            res = run(context, orig, parts);
+            res = run(msgId, context, orig, parts);
 
             if(type != en_type.get)
                 MediatorMD.OnCommandExcecuted(cmd);
@@ -50,7 +50,7 @@ public abstract class CmdBase {
 
     public void OnDestroy(){}
 
-    public abstract ResultCmd run(Context context, String orig, String[] parts);
+    public abstract ResultCmd run(String msgId, Context context, String orig, String[] parts);
 
     public abstract String getDescription(Context context);
 }

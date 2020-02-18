@@ -19,8 +19,8 @@ public class CmdInfo extends CmdBase {
         super(en_type.other, _COMMAND);
     }
 
-    public ResultCmd run(Context context, String ori, String[] parts){
-        InfoHelper.sendInfo(context);
+    public ResultCmd run(String msgId, Context context, String ori, String[] parts){
+        InfoHelper.sendInfo(msgId, context);
 
         return new ResultCmd();
     }

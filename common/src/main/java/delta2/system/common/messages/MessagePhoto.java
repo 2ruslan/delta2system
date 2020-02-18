@@ -6,6 +6,11 @@ import delta2.system.common.interfaces.messages.IMessage;
 
 public class MessagePhoto implements IMessage {
 
+    private String msgId;
+    public String getMsgId(){
+        return msgId;
+    }
+
     private String caption;
     public String GetCaption(){
         return caption;
@@ -26,11 +31,12 @@ public class MessagePhoto implements IMessage {
         return Width;
     }
 
-    public MessagePhoto(String c, String f, int h, int w){
+    public MessagePhoto(String m, String c, String f, int h, int w){
         caption = c;
         file = f;
         Height = h;
         Width = w;
+        msgId = m;
     }
 
 

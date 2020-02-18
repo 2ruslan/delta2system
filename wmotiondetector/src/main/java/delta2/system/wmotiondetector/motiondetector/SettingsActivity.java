@@ -210,12 +210,12 @@ public class SettingsActivity extends Activity
 
 
     public void onStartStopClick(View view) {
-        MediatorMD.CheckMessage(PreferencesHelper.GetIsActive()? CmdStop._COMMAND : CmdStart._COMMAND);
+        MediatorMD.CheckMessage("",PreferencesHelper.GetIsActive()? CmdStop._COMMAND : CmdStart._COMMAND);
 
     }
 
     public void onClickOkDelta(View view) {
-        MediatorMD.CheckMessage(String.format("set %s %s", CmdDeltaSet._COMMAND, edDelta.getText()));
+        MediatorMD.CheckMessage("",String.format("set %s %s", CmdDeltaSet._COMMAND, edDelta.getText()));
     }
 
 
@@ -229,11 +229,11 @@ public class SettingsActivity extends Activity
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(parent.equals(spCamera) && PreferencesHelper.getCameraIdx() != position)
-            MediatorMD.CheckMessage(String.format("set %s %s", CmdCameraSet._COMMAND, position));
+            MediatorMD.CheckMessage("",String.format("set %s %s", CmdCameraSet._COMMAND, position));
         else if(parent.equals(spCameraSize) && PreferencesHelper.getCameraSizeIdx() != position)
-            MediatorMD.CheckMessage(String.format("set %s %s", CmdCameraSizeSet._COMMAND, position));
+            MediatorMD.CheckMessage("",String.format("set %s %s", CmdCameraSizeSet._COMMAND, position));
         else if(parent.equals(spCameraAngle) && PreferencesHelper.getCameraAngleIdx() != position)
-            MediatorMD.CheckMessage(String.format("set %s %s", CmdCameraAngleSet._COMMAND, position));
+            MediatorMD.CheckMessage("",String.format("set %s %s", CmdCameraAngleSet._COMMAND, position));
 
     }
 
