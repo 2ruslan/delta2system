@@ -235,6 +235,8 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     }
                 }
 
+                deleteHistory();
+
 //                deleteHist(m.chatId, m.lastMessage.id);
 //                markReadMsg(m.lastMessage.id);
 
@@ -315,6 +317,16 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
     //endregion register
 
+
+    private void deleteHistory(){
+        TdApi.DeleteChatHistory cmd = new TdApi.DeleteChatHistory(PreferencesHelper.getChatId(), false, false);
+        send2t(cmd);
+    }
+
+    private void markReadMsg(long msgId){
+
+    }
+
     //region ITransport
 
     public void SendMessage(IMessage msg){
@@ -350,7 +362,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     rplId = Long.valueOf(msg.getMsgId());
                 }
                 catch (Exception e){
-                    L.log.error(_TAG, e);
+                //    L.log.error(_TAG, e);
                 }
 
                 TdApi.ReplyMarkupInlineKeyboard kb = null; //new TdApi.ReplyMarkupInlineKeyboard(rows);
@@ -387,7 +399,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     rplId = Long.valueOf(msg.getMsgId());
                 }
                 catch (Exception e){
-                    L.log.error(_TAG, e);
+                 //   L.log.error(_TAG, e);
                 }
 
                 TdApi.InputFileLocal f = new TdApi.InputFileLocal(msg.GetFile());
@@ -432,7 +444,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }
         } catch (Exception e) {
-            L.log.error(_TAG, e);
+        //    L.log.error(_TAG, e);
         }
     }
 
@@ -454,7 +466,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     rplId = Long.valueOf(msg.getMsgId());
                 }
                 catch (Exception e){
-                    L.log.error(_TAG, e);
+                //    L.log.error(_TAG, e);
                 }
 
                 Thread.sleep(1100);
