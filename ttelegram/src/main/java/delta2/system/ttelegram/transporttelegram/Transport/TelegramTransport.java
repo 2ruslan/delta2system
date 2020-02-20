@@ -46,6 +46,9 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
     Timer _Timer;
     OnlineTimertask _TimerTask;
 
+    Timer _TimerDelHIst;
+    DeleteHistTask _TimerTaskDelHist;
+
     Client _client;
 
     boolean isWaitCode = false;
@@ -61,8 +64,6 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         _context = c;
 
         _client = Client.create(this, this, this);
-
-        ///connect();
     }
 
     IReceiveMessage receiveMessage;
@@ -235,13 +236,20 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     }
                 }
 
-                deleteHistory();
-
-//                deleteHist(m.chatId, m.lastMessage.id);
-//                markReadMsg(m.lastMessage.id);
+                markReadMsg(m.message.id);
 
             }
+            /*
+            else if(m != null &&  m.message.content instanceof TdApi.MessagePhoto){
+                try {
+                    TdApi.MessagePhoto mp = (TdApi.MessagePhoto) m.message.content;
+                    if (mp.photo.sizes[0].photo.local.isDownloadingCompleted && mp.photo.sizes[0].photo.local.path.length() > 0)
+                        deleteFileLocal(mp.photo.sizes[0].photo.local.path);
+                }catch (Exception e){}
+            }
+*/
         }
+
     }
 
     @Override
@@ -324,7 +332,19 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
     }
 
     private void markReadMsg(long msgId){
+            TdApi.ViewMessages cmd = new TdApi.ViewMessages(PreferencesHelper.getChatId(), new long[]{msgId}, true);
+            send2t(cmd);
+    }
 
+    private void deleteFileLocal(String path){
+        L.log.info("delete local file" + path);
+        try {
+            File f = new File(path);
+            f.delete();
+        }catch (Exception e)
+        {
+            Helper.Ex2Log(e);
+        }
     }
 
     //region ITransport
@@ -500,6 +520,10 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
     }
 
     public void destroy() {
+        _Timer.cancel();
+        _TimerDelHIst.cancel();
+
+
         _client.close();
         _context = null;
         receiveMessage = null;
@@ -517,9 +541,14 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
     private  void initTimertask(){
         _TimerTask = new OnlineTimertask(this);
         _Timer = new Timer();
-
         _Timer.schedule(_TimerTask, 10000,  _ONLINE_INTERVAL);
+
+
+        _TimerTaskDelHist = new DeleteHistTask();
+        _TimerDelHIst = new Timer();
+        _TimerDelHIst.schedule(_TimerTaskDelHist, 50000, 6 * 60 *60 *1000);
     }
+
 
     //----------------------------------------------------------------
 
@@ -544,6 +573,14 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             {
                 L.log.error(_TAG, ex);
             }
+        }
+    }
+
+    private  class DeleteHistTask extends TimerTask {
+
+        @Override
+        public void run() {
+            deleteHistory();
         }
     }
 

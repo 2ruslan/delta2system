@@ -28,8 +28,6 @@ public class Delta2Application extends Application {
             L.log.error(_TAG, ex);
         }
     }
-
-
 }
 
 
