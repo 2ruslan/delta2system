@@ -22,6 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import delta2.system.common.Constants;
+import delta2.system.common.FileStructure;
 import delta2.system.common.Helper;
 import delta2.system.common.Log.L;
 import delta2.system.common.interfaces.IAcnivityCallback;
@@ -129,7 +130,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
         else if (object instanceof TdApi.AuthorizationStateWaitTdlibParameters) {
             TdApi.TdlibParameters parameters = new TdApi.TdlibParameters();
-            parameters.databaseDirectory = Helper.getWorkDirpath();
+            parameters.databaseDirectory = FileStructure.getWorkFilesDir(_context);
             parameters.useMessageDatabase = true;
             parameters.apiId = TelegramPreferences.apiId;
             parameters.apiHash = TelegramPreferences.apiHash;
@@ -392,8 +393,10 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
                 TdApi.InputMessageContent m = new TdApi.InputMessageText(ft, true, false);
 
+                TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, false, null);
+
                 TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
-                        , rplId, false, false, kb, m);
+                        , rplId, options, kb, m);
 
                 send2t(request);
 
@@ -426,8 +429,11 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 TdApi.FormattedText t = new TdApi.FormattedText(msg.GetCaption(), null);
                 TdApi.InputMessagePhoto m = new TdApi.InputMessagePhoto(f
                         ,null, null, msg.GetWidth(), msg.GetHeight(), t, 0);
+
+                TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, false, null);
+
                 TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
-                        , rplId, false, false, null, m);
+                        , rplId, options, null, m);
                 send2t(request);
 
 
@@ -458,8 +464,11 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
                 TdApi.InputMessageDocument m = new TdApi.InputMessageDocument();
                 m.document = new TdApi.InputFileLocal(msg.GetFile());
+
+                TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, false, null);
+
                 TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
-                        , rplId, false, false, null, m);
+                        , rplId, options, null, m);
                 send2t(request);
 
             }
@@ -498,8 +507,12 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
                 if(currentTime - lastSendTime > 120000 || locationMsgId == 0) {
                     TdApi.InputMessageLocation  m = new TdApi.InputMessageLocation(l, 86400)  ;
+
+                    TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, false, null);
+
+
                     TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
-                            , rplId, false, false, null, m);
+                            , rplId, options, null, m);
                     send2t(request);
                 }
                 else {

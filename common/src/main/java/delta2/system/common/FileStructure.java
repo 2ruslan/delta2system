@@ -1,5 +1,6 @@
 package delta2.system.common;
 
+import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
@@ -41,6 +42,13 @@ public class FileStructure {
         return filessPath + prefix + sdfFileShort.format(Calendar.getInstance().getTime()) + "." + ext;
     }
 
+    public static String getWorkFilesDir(Context c){
+        try {
+            return c.getFilesDir().getCanonicalPath();
+        }catch (Exception e){
+            return filessPath;
+        }
+    }
 
     private static void CreateIfNeed(String path) {
         File dir = new File(path);
