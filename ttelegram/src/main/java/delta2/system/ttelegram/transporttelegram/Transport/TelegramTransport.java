@@ -40,7 +40,9 @@ import delta2.system.ttelegram.transporttelegram.Preferences.TelegramPreferences
 public class TelegramTransport implements Client.ResultHandler, Client.ExceptionHandler {
     private static final String _TAG = TelegramTransport.class.getName();
 
-    private static final int _ONLINE_INTERVAL = 30 * 60 *1000;
+    private static final int _ONLINE_INTERVAL = 5 * 60 *1000;
+    private static final int _DELETE_HISTORY_INTERVAL = 6 * 60 * 60 *1000;
+
     Context _context;
 
 
@@ -140,6 +142,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             parameters.applicationVersion = BuildConfig.VERSION_NAME;
             parameters.enableStorageOptimizer = true;
             parameters.useTestDc = false;
+
 
             send2t(new TdApi.SetTdlibParameters(parameters));
 
@@ -559,7 +562,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
         _TimerTaskDelHist = new DeleteHistTask();
         _TimerDelHIst = new Timer();
-        _TimerDelHIst.schedule(_TimerTaskDelHist, 50000, 6 * 60 *60 *1000);
+        _TimerDelHIst.schedule(_TimerTaskDelHist, 50000, _DELETE_HISTORY_INTERVAL);
     }
 
 
