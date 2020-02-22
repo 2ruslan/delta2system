@@ -536,11 +536,15 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
     }
 
     public void destroy() {
-        _Timer.cancel();
-        _TimerDelHIst.cancel();
+        if(_Timer != null)
+            _Timer.cancel();
 
+        if (_TimerDelHIst != null)
+            _TimerDelHIst.cancel();
 
-        _client.close();
+        if (_client != null)
+            _client.close();
+
         _context = null;
         receiveMessage = null;
     }

@@ -13,6 +13,7 @@ import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IReceiveMessage;
 import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleTransport;
+import delta2.system.common.messages.MessageForward;
 import delta2.system.common.messages.MessageText;
 import delta2.system.common.permission.CheckPermission;
 
@@ -184,6 +185,13 @@ public class Module implements IModuleTransport, IError {
         if (instance != null && instance.reciever != null)
             instance.reciever.OnReceiveMessage(new MessageText(msg));
 
+    }
+
+    public static void OnResendMsg(String msg){
+        if (instance != null && instance.reciever != null)
+            instance.reciever.OnReceiveMessage(
+                    new MessageForward(new MessageText(msg))
+            );
     }
 
 }

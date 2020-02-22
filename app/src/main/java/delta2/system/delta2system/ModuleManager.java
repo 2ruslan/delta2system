@@ -19,6 +19,7 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
+import delta2.system.common.messages.MessageForward;
 import delta2.system.common.messages.MessageText;
 import delta2.system.delta2system.Commands.CommndManager;
 import delta2.system.ttelephony.transporttelephony.Transport.TelephonyTransport;
@@ -180,7 +181,12 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     public void OnReceiveMessage(IMessage msg) {
         L.log.debug(msg.toString());
 
-        if (msg instanceof MessageText) {
+        if (msg instanceof MessageForward){
+            MessageForward f = (MessageForward)msg;
+            RequestSendMessage(f.getMessage2forward());
+        }
+
+        else if (msg instanceof MessageText) {
             MessageText txtMsg  = (MessageText)msg;
 
             CommandExt c =  new CommandExt(txtMsg);

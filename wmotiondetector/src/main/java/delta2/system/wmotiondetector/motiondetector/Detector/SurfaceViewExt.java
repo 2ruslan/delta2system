@@ -264,6 +264,7 @@ public class SurfaceViewExt extends SurfaceView implements SurfaceHolder.Callbac
                     cam = Camera.open(camIdx);
 
                     setPreviewSize(cam, parm.sizeIdx);
+                    setCameraInfinityFocus(cam);
 
                 } catch (RuntimeException e) {
                     Helper.Ex2Log(e);
@@ -285,6 +286,7 @@ public class SurfaceViewExt extends SurfaceView implements SurfaceHolder.Callbac
                     cam = Camera.open(camIdx);
 
                     setPreviewSize(cam, parm.sizeIdx);
+                    setCameraInfinityFocus(cam);
 
                 } catch (RuntimeException e) {
                     Helper.Ex2Log(e);
@@ -325,6 +327,40 @@ public class SurfaceViewExt extends SurfaceView implements SurfaceHolder.Callbac
         sizeW = s.width;
     }
 
+
+    private static void setCameraInfinityFocus(Camera cam){
+        Camera.Parameters p = cam.getParameters();
+        List<String> fs = p.getSupportedFocusModes();
+
+        boolean isInfinity = false;
+        String fInfinity = "";
+
+        boolean isVideo = false;
+        String  fVideo = "";
+
+        for (String f : fs){
+            if (f.toUpperCase().contains("INFINITY")) {
+                isInfinity = true;
+                fInfinity = f;
+            }
+            if (f.toUpperCase().contains("VIDEO")) {
+                isVideo = true;
+                fVideo = f;
+            }
+        }
+
+        if (isVideo){
+            p.setFocusMode(fVideo);
+            cam.setParameters(p);
+        }
+        else if (isInfinity)
+        {
+            p.setFocusMode(fInfinity);
+            cam.setParameters(p);
+        }
+
+
+    }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {

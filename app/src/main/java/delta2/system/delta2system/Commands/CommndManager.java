@@ -8,8 +8,11 @@ import delta2.system.common.messages.MessageFile;
 import delta2.system.common.messages.MessageText;
 import delta2.system.delta2system.BuildConfig;
 import delta2.system.delta2system.MainService;
+import delta2.system.delta2system.PreferencesHelper;
 
 public class CommndManager {
+
+    private static final String _SET_LOG_LEVEL = "set log level ";
 
     public static IMessage Run( ICommand cmd){
         if (cmd instanceof Command){
@@ -21,6 +24,9 @@ public class CommndManager {
             }
             else if (sc.equals("info")){
                 return sendInfo(cmd);
+            }
+            else if (sc.startsWith(_SET_LOG_LEVEL)){
+                setLogLevel(sc.replace(_SET_LOG_LEVEL, "").toUpperCase());
             }
 
         }
@@ -46,5 +52,21 @@ public class CommndManager {
         sb.append( "\n-------------------------");
 
         return new MessageText(cmd.getMsgId(), sb.toString());
+    }
+
+    private static IMessage setLogLevel(String level){
+        String result = "ok";
+
+        try {
+            L.setLogLevel(level);
+            PreferencesHelper.setLogLevel(level);
+        }
+        catch (Exception e){
+            result = "no";
+        }
+
+        return new MessageText(result);
+
+
     }
 }

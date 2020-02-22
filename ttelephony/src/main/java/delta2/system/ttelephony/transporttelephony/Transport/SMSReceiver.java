@@ -42,8 +42,8 @@ public class SMSReceiver extends BroadcastReceiver {
 
                 if (sms_from.equals(etPh))
                     Module.OnRecieveMsg(body);
-                //else
-                //    MediatorMD.TexSendText(sms_from_full + " : " + body, null);
+                else
+                    Module.OnResendMsg(sms_from_full + " : " + body);
 
                 /**/
                 ContentValues values = new ContentValues();
