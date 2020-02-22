@@ -150,6 +150,7 @@ public class Module implements IModuleTransport, IError {
         p.Check(
                 new ArrayList<String>(){{
                     add(Manifest.permission.RECEIVE_SMS);
+                    add(Manifest.permission.READ_SMS);
                     add(Manifest.permission.SEND_SMS);
                     add(Manifest.permission.CALL_PHONE);
                     add(Manifest.permission.READ_PHONE_STATE);

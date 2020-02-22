@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 
 import delta2.system.common.Helper;
+import delta2.system.common.Log.L;
 import delta2.system.common.messages.MessageText;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
@@ -57,7 +58,16 @@ public class WifiReceiver extends BroadcastReceiver {
     private void sendPowerState(int type){
         if(prevType != type) {
             if (prevType != ConnectivityManager.TYPE_DUMMY) {
-                String msg = mContext.getString(R.string.msg_connection_changed) + "\n" + getConInfo(type);
+                String info = "none";
+                try{
+                    info = getConInfo(type);
+                }
+                catch (Exception e){
+                    L.log.error("wifi error", e);
+                }
+
+
+                String msg = mContext.getString(R.string.msg_connection_changed) + "\n" + info;
                 MediatorMD.RequestSendMessage(new MessageText(msg));
             }
             prevType =type;

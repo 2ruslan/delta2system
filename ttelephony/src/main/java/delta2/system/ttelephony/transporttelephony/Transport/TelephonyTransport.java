@@ -27,6 +27,9 @@ public class TelephonyTransport  {
     }
 
     public void SendMessage(IMessage msg) {
+        if (PreferencesHelper.getPhoneNum() == null || PreferencesHelper.getPhoneNum().length() < 5 )
+            return;
+
         if (msg instanceof MessageText && PreferencesHelper.getSendText())
         {
             MessageText m = (MessageText)msg;
