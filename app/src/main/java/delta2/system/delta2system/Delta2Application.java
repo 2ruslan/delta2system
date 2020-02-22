@@ -4,6 +4,7 @@ import android.app.Application;
 
 import delta2.system.common.FileStructure;
 import delta2.system.common.Log.L;
+import delta2.system.common.preferences.PreferenceValue;
 
 
 public class Delta2Application extends Application {
@@ -16,7 +17,9 @@ public class Delta2Application extends Application {
 
         FileStructure.init();
 
-        L.configureLogback();
+        PreferencesHelper.init(this);
+
+        L.configureLogback(PreferencesHelper.getLogLevel());
 
         Thread.setDefaultUncaughtExceptionHandler(new CustomExHandler());
     }

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">delta2system</string>
+
+    <string-array name="log_level_array">
+        <item>TRACE</item>
+        <item>DEBUG</item>
+        <item>INFO</item>
+        <item>WARN</item>
+        <item>ERROR</item>
+    </string-array>
 </resources>

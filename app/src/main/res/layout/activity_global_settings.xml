@@ -9,12 +9,42 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <CheckBox
+            android:id="@+id/cbAutostart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/auto_start"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="log level"
+            />
+        <Spinner android:id="@+id/spLogLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
 
         <ListView
             android:id="@+id/modulsList"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="exit and run main"
+            android:onClick="OnExitAndRun"
             />
 
     </LinearLayout>

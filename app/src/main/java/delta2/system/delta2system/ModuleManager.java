@@ -20,6 +20,7 @@ import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.messages.MessageText;
+import delta2.system.delta2system.Commands.CommndManager;
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError, INotifyChanged {
 
@@ -176,10 +177,15 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     @Override
     public void OnReceiveMessage(IMessage msg) {
         L.log.debug(msg.toString());
+
         if (msg instanceof MessageText) {
             MessageText txtMsg  = (MessageText)msg;
 
             CommandExt c =  new CommandExt(txtMsg);
+
+            if (c.module.equals(CommandExt._ALL))
+                runMainCommnds(c.cmd);
+
             for (IModule module : modules) {
                 if (EqualsName(c.module, module)) {
                     if (module instanceof IModuleWorker)
@@ -195,6 +201,13 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         }
     }
 
+
+    private void runMainCommnds(ICommand command){
+        IMessage res = CommndManager.Run(command);
+        if (res != null)
+            RequestSendMessage(res);
+
+    }
     //endregion route
 
 

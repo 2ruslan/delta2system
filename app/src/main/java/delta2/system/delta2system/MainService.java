@@ -16,6 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 
+import java.util.Calendar;
+
+import delta2.system.common.Helper;
 import delta2.system.delta2system.View.main.MainActivity;
 
 public class MainService extends Service {
@@ -33,6 +36,7 @@ public class MainService extends Service {
     @Override
     public void onCreate() {
         instance = this;
+        startTime = Calendar.getInstance().getTimeInMillis();
 
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
@@ -106,5 +110,12 @@ public class MainService extends Service {
         NotificationManager service = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         service.createNotificationChannel(chan);
         return channelId;
+    }
+
+    private static long startTime;
+    public static String getWorkingTime(){
+        long uptime = Calendar.getInstance().getTimeInMillis() - startTime;
+
+        return Helper.getWorkingTime(instance, uptime);
     }
 }

@@ -124,14 +124,14 @@ public class Helper {
             long ss = wts;
 
             StringBuilder res = new StringBuilder();
-          //  if (dd > 0)
-          //      res.append(String.format("%s%s ", dd, c.getString(R.string.working_time_d)));
-          //  if (hh > 0 || dd > 0)
-          //      res.append(String.format("%s%s ", (hh < 10 ? "0" : "") + String.valueOf(hh), c.getString(R.string.working_time_h)));
-          //  if (mm > 0 || hh > 0 || dd > 0)
-          //      res.append(String.format("%s%s ", (mm < 10 ? "0" : "") + String.valueOf(mm), c.getString(R.string.working_time_m)));
+            if (dd > 0)
+                res.append(String.format("%s%s ", dd, c.getString(R.string.working_time_d)));
+            if (hh > 0 || dd > 0)
+                res.append(String.format("%s%s ", (hh < 10 ? "0" : "") + String.valueOf(hh), c.getString(R.string.working_time_h)));
+            if (mm > 0 || hh > 0 || dd > 0)
+                res.append(String.format("%s%s ", (mm < 10 ? "0" : "") + String.valueOf(mm), c.getString(R.string.working_time_m)));
 
-          //  res.append(String.format("%s%s ", (ss < 10 ? "0" : "") + String.valueOf(ss), c.getString(R.string.working_time_s)));
+            res.append(String.format("%s%s ", (ss < 10 ? "0" : "") + String.valueOf(ss), c.getString(R.string.working_time_s)));
 
             return res.toString();
         }catch (Exception ex){

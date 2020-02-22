@@ -57,7 +57,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public String GetDescription() {
-        return null;
+        return "transport dropbox";
     }
 
 

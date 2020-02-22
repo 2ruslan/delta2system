@@ -59,10 +59,6 @@ public class InfoHelper {
         sb.append(getCamProp(CmdCameraSizeSet._COMMAND));
         sb.append(getCamProp(CmdCameraAngleSet._COMMAND));
 
-        sb.append( "\n\n-------------------------");
-
-        sb.append( String.format("\n%s : %s", context.getResources().getString(R.string.working_time)
-                , Helper.getWorkingTime(context, MediatorMD.GetWorkingTime()))) ;
 
         MediatorMD.sendText (msgId, sb.toString());
     }

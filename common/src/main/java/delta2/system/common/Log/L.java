@@ -13,13 +13,18 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 import ch.qos.logback.core.util.FileSize;
 import delta2.system.common.FileStructure;
+import delta2.system.common.preferences.PreferenceValue;
 
 
 public class L {
 
+    public static final String _LOG_PATH = FileStructure.GetLogPathDir() + "/d2s.log.txt";
+
     public static final Logger log =  LoggerFactory.getLogger("delta2system");
 
-    public static void configureLogback() {
+    private static ch.qos.logback.classic.Logger root;
+
+    public static void configureLogback(String level) {
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         context.reset();
 
@@ -29,7 +34,7 @@ public class L {
         rollingFileAppender.setAppend(true);
         rollingFileAppender.setContext(context);
 
-        rollingFileAppender.setFile(FileStructure.GetLogPathDir() + "/d2s.log.txt");
+        rollingFileAppender.setFile(_LOG_PATH);
 
         SizeBasedTriggeringPolicy<ILoggingEvent> trgPolicy = new SizeBasedTriggeringPolicy<ILoggingEvent>();
         trgPolicy.setMaxFileSize(new FileSize(3*1024*1024));
@@ -70,9 +75,15 @@ public class L {
 
         //--------------------
 
-        ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-        root.setLevel(Level.TRACE);
+        root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+
+        setLogLevel(level);
+
         root.addAppender(rollingFileAppender);
         root.addAppender(logcatAppender);
+    }
+
+    public static void setLogLevel(String level){
+        root.setLevel(Level.toLevel(level));
     }
 }
