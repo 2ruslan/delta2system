@@ -24,7 +24,6 @@
         </receiver>
 
         <activity android:name=".hardwareinfo.SettingsActivity" />
-        <activity android:name=".hardwareinfo.CheckAllActivity" />
     </application>
 
 </manifest>

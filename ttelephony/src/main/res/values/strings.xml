@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ttelephony</string>
+
+    <string name="sign_in">Sign in</string>
+
+    <string name="use_to_send">Use to send</string>
+    <string name="text">text</string>
+    <string name="file">file</string>
+    <string name="photo">file</string>
+
+    <string name="auto_start">Auto start</string>
+    <string name="close">close</string>
+    <string name="reset_registration">reset registration</string>
+
+    <string name="minimize">minimize</string>
+
+    <string name="name">name</string>
+
+    <string name="voice_call">voice call</string>
+    <string name="phone">phone</string>
+    <string name="ok">ok</string>
+
+
+</resources>

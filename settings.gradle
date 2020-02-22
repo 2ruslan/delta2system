@@ -1,2 +1,2 @@
-include ':app', ':common', ':tdropbox', ':whardwareinfo', ':ttelegram', ':libtd', ':wmotiondetector'
+include ':app', ':common', ':tdropbox', ':whardwareinfo', ':ttelegram', ':libtd', ':wmotiondetector', ':ttelephony'
 rootProject.name='delta2system'

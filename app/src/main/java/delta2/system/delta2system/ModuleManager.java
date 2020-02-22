@@ -21,6 +21,7 @@ import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.messages.MessageText;
 import delta2.system.delta2system.Commands.CommndManager;
+import delta2.system.ttelephony.transporttelephony.Transport.TelephonyTransport;
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError, INotifyChanged {
 
@@ -43,6 +44,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         // transport
         modulesAll.add(new delta2.system.tdropbox.Module(c));
         modulesAll.add(new delta2.system.ttelegram.Module(c));
+        modulesAll.add(new delta2.system.ttelephony.Module(c));
 
         // worker
         modulesAll.add(new delta2.system.whardwareinfo.Module(c));
