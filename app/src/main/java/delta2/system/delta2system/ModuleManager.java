@@ -50,6 +50,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         // worker
         modulesAll.add(new delta2.system.whardwareinfo.Module(c));
         modulesAll.add(new delta2.system.wmotiondetector.Module(c));
+        //modulesAll.add(new delta2.system.warduinobridge.Module(c));
 
         return modulesAll;
     }

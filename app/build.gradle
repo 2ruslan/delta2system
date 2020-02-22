@@ -36,4 +36,5 @@ dependencies {
     implementation project(":ttelegram")
     implementation project(":wmotiondetector")
     implementation project(":ttelephony")
+    implementation project(":warduinobridge")
 }
