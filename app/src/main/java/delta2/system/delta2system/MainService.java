@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -21,6 +22,8 @@ public class MainService extends Service {
     ModuleManager moduleManager;
     static MainService instance;
 
+    PowerManager.WakeLock wakeLock;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -30,6 +33,11 @@ public class MainService extends Service {
     @Override
     public void onCreate() {
         instance = this;
+
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "d2s::MainService");
+        wakeLock.acquire();
 
         PreferencesHelper.init(this);
 
@@ -48,6 +56,7 @@ public class MainService extends Service {
     @Override
     public void onDestroy() {
         MainActivity.destroy();
+        wakeLock.release();
         moduleManager.destroy();
     }
 

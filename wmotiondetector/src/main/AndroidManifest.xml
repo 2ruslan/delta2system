@@ -12,7 +12,6 @@
     <application>
 
         <activity android:name=".motiondetector.SettingsActivity" />
-        <activity android:name=".motiondetector.CheckAllActivity" />
     </application>
 
 </manifest>
