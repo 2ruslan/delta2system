@@ -88,7 +88,8 @@ public class Module implements IModuleWorker, IError {
     @Override
     public void ExecuteCommand(ICommand cmd) {
         try {
-            commandManager.ExcuteCommand(cmd);
+            if (commandManager != null)
+                commandManager.ExcuteCommand(cmd);
         }
         catch (Exception ex){
             OnError(ex);
@@ -153,6 +154,8 @@ public class Module implements IModuleWorker, IError {
         try {
             PreferencesHelper.init(context);
 
+            commandManager = new CommandManager(context);
+
             WifiReceiver.init(context);
 
             batteryLevelReceiver = new BatteryLevelReceiver();
@@ -160,7 +163,6 @@ public class Module implements IModuleWorker, IError {
             context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
             context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
 
-            commandManager = new CommandManager(context);
 
             return true;
         }

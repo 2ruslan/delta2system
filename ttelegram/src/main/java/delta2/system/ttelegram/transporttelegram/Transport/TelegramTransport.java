@@ -133,7 +133,8 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         else if (object instanceof TdApi.AuthorizationStateWaitTdlibParameters) {
             TdApi.TdlibParameters parameters = new TdApi.TdlibParameters();
             parameters.databaseDirectory = FileStructure.getWorkFilesDir(_context);
-            parameters.useMessageDatabase = true;
+            parameters.useMessageDatabase = false;
+            parameters.useFileDatabase = false;
             parameters.apiId = TelegramPreferences.apiId;
             parameters.apiHash = TelegramPreferences.apiHash;
             parameters.deviceModel = Build.MODEL;
@@ -142,7 +143,6 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             parameters.applicationVersion = BuildConfig.VERSION_NAME;
             parameters.enableStorageOptimizer = true;
             parameters.useTestDc = false;
-
 
             send2t(new TdApi.SetTdlibParameters(parameters));
 
