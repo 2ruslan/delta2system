@@ -133,8 +133,8 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         else if (object instanceof TdApi.AuthorizationStateWaitTdlibParameters) {
             TdApi.TdlibParameters parameters = new TdApi.TdlibParameters();
             parameters.databaseDirectory = FileStructure.getWorkFilesDir(_context);
-            parameters.useMessageDatabase = false;
-            parameters.useFileDatabase = false;
+            parameters.useMessageDatabase = true;
+            parameters.useFileDatabase = true;
             parameters.apiId = TelegramPreferences.apiId;
             parameters.apiHash = TelegramPreferences.apiHash;
             parameters.deviceModel = Build.MODEL;
@@ -433,7 +433,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 TdApi.InputMessagePhoto m = new TdApi.InputMessagePhoto(f
                         ,null, null, msg.GetWidth(), msg.GetHeight(), t, 0);
 
-                TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, false, null);
+                TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, true, null);
 
                 TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
                         , rplId, options, null, m);
@@ -468,7 +468,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 TdApi.InputMessageDocument m = new TdApi.InputMessageDocument();
                 m.document = new TdApi.InputFileLocal(msg.GetFile());
 
-                TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, false, null);
+                TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, true, null);
 
                 TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
                         , rplId, options, null, m);
@@ -511,7 +511,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 if(currentTime - lastSendTime > 120000 || locationMsgId == 0) {
                     TdApi.InputMessageLocation  m = new TdApi.InputMessageLocation(l, 86400)  ;
 
-                    TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, false, null);
+                    TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, true, null);
 
 
                     TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()

@@ -2,10 +2,12 @@ package delta2.system.warduinobridge;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 
 import java.util.ArrayList;
 
 import delta2.system.common.Helper;
+import delta2.system.common.commands.Command;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.commands.ICommand;
@@ -13,10 +15,12 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.permission.CheckPermission;
+import delta2.system.warduinobridge.Preferences.PreferencesHelper;
 
 public class Module implements IModuleWorker, IError {
 
 
+    private BluetoothManager bluetoothManager;
     Context context;
 
     private IModuleStateChanged moduleStateChanged;
@@ -71,15 +75,21 @@ public class Module implements IModuleWorker, IError {
     public void SetStateNeedInit() {
         setModuleState(ModuleState.initNeed);
     }
+
+    IRequestSendMessage requestSendMessage;
+
     @Override
     public void RegisterRequestSendMessage(IRequestSendMessage msg) {
-       // MediatorMD.RegisterRequestSendMessage(msg);
+        requestSendMessage = msg;
     }
 
     @Override
     public void ExecuteCommand(ICommand cmd) {
         try {
-           // commandManager.ExcuteCommand(cmd);
+            if (cmd instanceof Command){
+                Command c = (Command) cmd;
+                bluetoothManager.BTSendText(c.GetCommand());
+            }
         }
         catch (Exception ex){
             OnError(ex);
@@ -89,9 +99,9 @@ public class Module implements IModuleWorker, IError {
     @Override
     public void OpenSettings() {
         try {
-          //  Intent s = new Intent(context, SettingsActivity.class);
-          //  s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-          //  context.startActivity(s);
+            Intent s = new Intent(context, SettingsBridgeActivity.class);
+            s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(s);
         }
         catch (Exception ex){
             OnError(ex);
@@ -100,6 +110,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void Start() {
+        bluetoothManager.Start();
         setModuleState(ModuleState.work);
     }
 
@@ -141,18 +152,12 @@ public class Module implements IModuleWorker, IError {
 
     private boolean initVars(){
         try {
-            /*
+
             PreferencesHelper.init(context);
 
-            WifiReceiver.init(context);
+            bluetoothManager = new BluetoothManager(context);
+            bluetoothManager.setRequestSendMessage(requestSendMessage);
 
-            batteryLevelReceiver = new BatteryLevelReceiver();
-            BatteryLevelReceiver.init(context);
-            context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-            context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
-
-            commandManager = new CommandManager(context);
-*/
             return true;
         }
         catch (Exception ex){

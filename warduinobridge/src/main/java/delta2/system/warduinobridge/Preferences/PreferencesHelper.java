@@ -10,7 +10,6 @@ public class PreferencesHelper {
 
     public static final String APP_PREFERENCES = "preference";
 
-    public static final String AUTO_START = "AUTO_START";
     public static final String DEVICE_ADDRESS = "DEVICE_ADDRESS";
     public static final String DEVICE_NAME = "DEVICE_NAME";
 
@@ -24,8 +23,6 @@ public class PreferencesHelper {
 
     public static void init(Context context) {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
-
-        _autoStart  = new PreferenceValue(mSettings, AUTO_START, true);
 
         _deviceAddress = new PreferenceValue(mSettings, DEVICE_ADDRESS, "");
         _deviceName= new PreferenceValue(mSettings, DEVICE_NAME, "");
@@ -51,14 +48,7 @@ public class PreferencesHelper {
     }
     //endregion DEVICE_ADDRESS
 
-    //region AUTO_START
-    public static void setAutoStart(boolean val) {
-        _autoStart.setBool(val);
-    }
 
-    public static boolean getAutoStart() {
-        return _autoStart.getBool();
-    }
     //endregion AUTO_START
 
 }

@@ -14,6 +14,8 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import delta2.system.common.Log.L;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.common.messages.MessageText;
 import delta2.system.warduinobridge.Preferences.PreferencesHelper;
 
 public class BluetoothManager {
@@ -23,40 +25,75 @@ public class BluetoothManager {
     private Handler bluetoothIn;
     final int handlerState = 0;
     private ConnectedThread mConnectedThread;
+    private IRequestSendMessage requestSendMessage;
+
+    private boolean needReconect = false;
 
     public BluetoothManager(Context c){
         _context = c;
 
+        bluetoothIn = new Handler() {
+            StringBuilder sb = new StringBuilder();
 
-        connect();
+            public void handleMessage(android.os.Message msg) {
+                if (msg.what == handlerState) {
+                    String readMessage = (String) msg.obj;
+                    sb.append(readMessage);
+                    if(sb.toString().contains("\r")) {
+                        requestSendMessage(sb.toString().replace("<br>", "\r\n"));
+                        sb = new StringBuilder();
+                    }
+                }
+            }
+
+        };
+
+        mAdapter = BluetoothAdapter.getDefaultAdapter();
+
     }
+
+    public void Start(){
+        initTimertask();
+    }
+
+    public void setRequestSendMessage(IRequestSendMessage m){
+        requestSendMessage = m;
+    }
+
+    private void requestSendMessage(String msg){
+        if (requestSendMessage != null)
+            requestSendMessage.RequestSendMessage(
+                    new MessageText(msg)
+            );
+    }
+
 
     public void connect(){
         if(!PreferencesHelper.getDeviceAddress().equals("") ){
 
+            if (mConnectedThread != null){
+                try {
+                    mConnectedThread = null;
+                }
+                catch (Exception e){
+                    L.log.error("bluetoth disconnect 0", e);
+                }
+            }
 
-            bluetoothIn = new Handler() {
-                StringBuilder sb = new StringBuilder();
+            if (mBluetoothSocket != null){
+                try {
+                    mBluetoothSocket.close();
+                    mBluetoothSocket = null;
+                }
+                catch (Exception e){
+                    L.log.error("bluetoth disconnect 1", e);
+                }
+            }
 
-                public void handleMessage(android.os.Message msg) {
-                    if (msg.what == handlerState) {
-                        String readMessage = (String) msg.obj;
-                        sb.append(readMessage);
-                        if(sb.toString().contains("\r")) {
-                        //    MediatorMD.sendText("0", sb.toString().replace("<br>", "\r\n"));
-                            sb = new StringBuilder();
-                        }
-                        }
-                    }
-
-            };
-
-            mAdapter = BluetoothAdapter.getDefaultAdapter();
-
-
-            BluetoothDevice device = mAdapter.getRemoteDevice(PreferencesHelper.getDeviceAddress());
-            UUID u =  UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
             try {
+                BluetoothDevice device = mAdapter.getRemoteDevice(PreferencesHelper.getDeviceAddress());
+                UUID u =  UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
                 mBluetoothSocket = device.createRfcommSocketToServiceRecord(u);
 
                 mBluetoothSocket.connect();
@@ -64,8 +101,11 @@ public class BluetoothManager {
                 mConnectedThread = new ConnectedThread(mBluetoothSocket);
                 mConnectedThread.start();
 
+                needReconect = false;
+
             }catch (Exception e){
                 L.log.error("", e);
+                needReconect = true;
             }
         }
     }
@@ -75,15 +115,6 @@ public class BluetoothManager {
         if (txt.length() > 0) {
             mConnectedThread.write(txt);
         }
-    }
-
-    public void CheckMessage(String inTxt, boolean repeatCmd, boolean isSilent, String msgId) {
-        BTSendText(inTxt);
-    }
-
-
-    public void CheckMessage(String inTxt, String msgId) {
-        CheckMessage(inTxt, false, false, msgId);
     }
 
 
@@ -113,6 +144,8 @@ public class BluetoothManager {
                         String readMessage = new String(buffer, 0, bytes);
                         bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
                     } catch (IOException e) {
+                        L.log.error("bluetoothIn read ", e);
+                        needReconect = true;
                         break;
                     }
                  }
@@ -124,12 +157,15 @@ public class BluetoothManager {
                     mmOutStream.write(msgBuffer);
                 } catch (IOException e) {
                     L.log.error("", e);
+                    needReconect = true;
                 }
             }
      }
 
      private void chekConnection(){
 
+        if (mBluetoothSocket == null || !mBluetoothSocket.isConnected() || needReconect)
+            connect();
      }
 
     OnlineTimertask _TimerTask ;
@@ -139,7 +175,7 @@ public class BluetoothManager {
         _TimerTask = new OnlineTimertask(this);
         _Timer = new Timer();
 
-        _Timer.schedule(_TimerTask, 10000,  (int)(5 * 60 *1000));
+        _Timer.schedule(_TimerTask, 0,  60 *1000);
     }
 
     //----------------------------------------------------------------
