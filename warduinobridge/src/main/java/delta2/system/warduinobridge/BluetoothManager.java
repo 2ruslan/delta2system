@@ -112,7 +112,7 @@ public class BluetoothManager {
 
 
     public void BTSendText(String txt) {
-        if (txt.length() > 0) {
+        if (txt.length() > 0 && mConnectedThread != null) {
             mConnectedThread.write(txt);
         }
     }

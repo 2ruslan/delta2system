@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.telephony.SmsMessage;
 
@@ -45,15 +46,30 @@ public class SMSReceiver extends BroadcastReceiver {
                 else
                     Module.OnResendMsg(sms_from_full + " : " + body);
 
-                /**/
-                ContentValues values = new ContentValues();
-                values.put("read",true);
-                context.getContentResolver().update(Uri.parse("content://sms/inbox"),values,
-                        "_id="+messages[0].getIndexOnIcc() , null);
+                markMessagesRead(context);
 
             } catch (Exception ex) {
                 L.log.error("onReceive", ex);
             }
+        }
+    }
+
+    private void markMessagesRead(Context context) {
+
+        Uri uri = Uri.parse("content://sms/inbox");
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        try{
+
+            while (cursor.moveToNext()) {
+                String SmsMessageId = cursor.getString(cursor.getColumnIndex("_id"));
+                ContentValues values = new ContentValues();
+                values.put("read", true);
+                context.getContentResolver().update(Uri.parse("content://sms/inbox"), values, "_id=" + SmsMessageId, null);
+                return;
+            }
+        }catch(Exception e)
+        {
+            L.log.error("mark read sms", e);
         }
     }
 }

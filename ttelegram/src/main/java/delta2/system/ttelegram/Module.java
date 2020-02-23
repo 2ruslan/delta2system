@@ -46,6 +46,7 @@ public class Module implements IModuleTransport, IError {
     public Module(Context c){
         context = c;
         setModuleState(ModuleState.none);
+        PreferencesHelper.init(context);
     }
 
 
@@ -121,6 +122,8 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public void init() {
+
+
         setModuleState(ModuleState.initBegin);
 
         CheckPermission p = new CheckPermission(context, this);
