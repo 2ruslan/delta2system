@@ -32,6 +32,7 @@ import delta2.system.common.messages.MessageFile;
 import delta2.system.common.messages.MessageLocation;
 import delta2.system.common.messages.MessagePhoto;
 import delta2.system.common.messages.MessageText;
+import delta2.system.common.preferences.PreferenceValue;
 import delta2.system.ttelegram.BuildConfig;
 import delta2.system.ttelegram.transporttelegram.LoginActivity;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
@@ -151,6 +152,9 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             send2t(com);
 
+          //  TdApi.EnableProxy cprox = new TdApi.EnableProxy();
+          //  send2t(cprox);
+
         } else if (object instanceof TdApi.AuthorizationStateWaitEncryptionKey) {
             send2t(new TdApi.CheckDatabaseEncryptionKey());
 
@@ -253,7 +257,32 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             }
 */
         }
+        else if (object instanceof TdApi.UpdateFile) {
+            TdApi.UpdateFile msg = (TdApi.UpdateFile) object;
 
+            if (msg.file.remote.isUploadingCompleted) {
+                if (msg.file.local.path.endsWith(".jpg"))
+                    sendChatActionPhoto();
+                else
+                    sendChatActionFile();
+            }
+        }
+
+
+    }
+
+    private void sendChatActionPhoto(){
+        TdApi.SendChatAction cmd = new TdApi.SendChatAction(PreferencesHelper.getChatId(),
+                new TdApi.ChatActionUploadingPhoto(100)
+        );
+        send2t(cmd);
+    }
+
+    private void sendChatActionFile(){
+        TdApi.SendChatAction cmd = new TdApi.SendChatAction(PreferencesHelper.getChatId(),
+                new TdApi.ChatActionUploadingDocument(100)
+        );
+        send2t(cmd);
     }
 
     @Override
