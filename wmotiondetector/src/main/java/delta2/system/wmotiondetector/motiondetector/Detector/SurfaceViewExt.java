@@ -3,6 +3,7 @@ package delta2.system.wmotiondetector.motiondetector.Detector;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -187,10 +188,16 @@ public class SurfaceViewExt extends SurfaceView implements SurfaceHolder.Callbac
     //region surfaceholder
     SurfaceHolder _surfaceHolder;
     private void createSurfaceHolder(Context context){
+
+        int overlay =WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            overlay = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 1,
                 1,
-                WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+                overlay,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
                 PixelFormat.TRANSPARENT
 
