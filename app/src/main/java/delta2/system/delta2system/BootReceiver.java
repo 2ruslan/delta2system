@@ -12,9 +12,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PreferencesHelper.init(context);
         if(PreferencesHelper.getAutoStart() ) {
-            Intent i = new Intent(context, StarterApp.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(i);
+            StarterApp.StartApp(context);
         }
     }
 }

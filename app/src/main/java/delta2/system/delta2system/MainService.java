@@ -45,13 +45,13 @@ public class MainService extends Service {
 
         PreferencesHelper.init(this);
 
-        moduleManager = new ModuleManager(this);
+        moduleManager = new ModuleManager();
 
         startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);
 
         MainActivity.init(moduleManager);
         Intent i = new Intent(this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
 
         moduleManager.init();

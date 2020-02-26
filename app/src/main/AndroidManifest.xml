@@ -43,15 +43,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".View.settings.GlobalSettings"
-            android:label="d2s.settings"
-            android:icon="@drawable/ic_settings"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".View.settings.GlobalSettings" />
 
         <activity android:name=".View.main.MainActivity" />
     </application>

@@ -40,7 +40,6 @@ public class GlobalSettings extends AppCompatActivity {
         initControls();
     }
 
-
     private void initControls(){
         CheckBox auto = findViewById(R.id.cbAutostart);
         auto.setChecked(PreferencesHelper.getAutoStart());
@@ -72,16 +71,14 @@ public class GlobalSettings extends AppCompatActivity {
 
     private void connectToAdapter(){
         L.log.debug(_TAG, "connectToAdapter start");
-        adapter = new ModuleAllAdapter(this, R.layout.list_item_select, ModuleManager.GetAllModules(this));
+        adapter = new ModuleAllAdapter(this, R.layout.list_item_select, ModuleManager.GetAllModules());
         modulesList = findViewById(R.id.modulsList);
         modulesList.setAdapter(adapter);
         L.log.debug(_TAG, "connectToAdapter stop");
     }
 
     public void OnExitAndRun(View v){
-        Intent i = new Intent(this, StarterApp.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(i);
+        StarterApp.StartApp(this);
 
         finish();
     }

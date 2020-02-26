@@ -26,7 +26,9 @@ import delta2.system.ttelephony.transporttelephony.Transport.TelephonyTransport;
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError, INotifyChanged {
 
-    private Context context;
+    static private Context context;
+    static ArrayList<IModule> modulesAll;
+
     private INotifyChanged notifyChanged;
     public void SetNotifyChanged(INotifyChanged n){
         notifyChanged = n;
@@ -37,9 +39,9 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             notifyChanged.OnNotifyChanged();
     }
 
+    public static void init(Context c){
+        context = c;
 
-    static ArrayList<IModule> modulesAll;
-    static public ArrayList<IModule> GetAllModules(Context c){
         modulesAll = new ArrayList<>();
 
         // transport
@@ -51,10 +53,19 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         modulesAll.add(new delta2.system.whardwareinfo.Module(c));
         modulesAll.add(new delta2.system.wmotiondetector.Module(c));
         modulesAll.add(new delta2.system.warduinobridge.Module(c));
+    }
 
+    public static ArrayList<IModule> GetAllModules(){
         return modulesAll;
     }
 
+    static public boolean CheckExistsActiveModule(){
+        for (IModule m : modulesAll)
+            if (PreferencesHelper.getIsActiveModule(m.GetModuleID()))
+                return true;
+
+        return false;
+    }
 
     ModulesList modules;
     public ModulesList GetModules(){
@@ -64,19 +75,6 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     Timer timer;
     CheckStateTimerTask timerTask;
-
-
-    public ModuleManager(Context c){
-        context = c;
-
-        Helper.setWorkDir(context.getFilesDir());
-
-        GetAllModules(context);
-
-        modules = new ModulesList();
-        modules.SetNotifyChanged(this);
-    }
-
 
     // region check modules state
     public void checkState(){
@@ -128,6 +126,9 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
 
     private void initModules(){
+        modules = new ModulesList();
+        modules.SetNotifyChanged(this);
+
 
         // set need init
         for(IModule m :modulesAll) {

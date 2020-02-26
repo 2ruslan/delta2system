@@ -10,6 +10,7 @@ import delta2.system.delta2system.INotifyChanged;
 import delta2.system.delta2system.MainService;
 import delta2.system.delta2system.ModuleManager;
 import delta2.system.delta2system.R;
+import delta2.system.delta2system.View.StarterApp;
 
 public class MainActivity extends AppCompatActivity implements INotifyChanged {
 
@@ -56,4 +57,10 @@ public class MainActivity extends AppCompatActivity implements INotifyChanged {
 
         finish();
     }
+
+    public void OnSettingsClick(View v){
+        StarterApp.StartSettings(this);
+        finish();
+    }
+
 }

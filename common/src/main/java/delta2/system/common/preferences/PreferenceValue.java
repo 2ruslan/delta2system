@@ -55,6 +55,9 @@ public class PreferenceValue {
     }
 
     public void setStr(String val){
+        if (m_isNoActivate){
+            getStr();
+        }
         if(!val.equals(m_currentValueStr)) {
             SharedPreferences.Editor editor = m_settings.edit();
             editor.putString(m_valueName, val);
@@ -81,6 +84,10 @@ public class PreferenceValue {
     }
 
     public void setInt(int val){
+        if (m_isNoActivate){
+            getInt();
+        }
+
         if(m_currentValueNumInt != val) {
             SharedPreferences.Editor editor = m_settings.edit();
             editor.putInt(m_valueName, val);
@@ -107,6 +114,10 @@ public class PreferenceValue {
     }
 
     public void setLong(long val){
+        if (m_isNoActivate){
+            getLong();
+        }
+
         if(m_currentValueNumLong != val) {
             SharedPreferences.Editor editor = m_settings.edit();
             editor.putLong(m_valueName, val);
@@ -133,6 +144,10 @@ public class PreferenceValue {
     }
 
     public void setBool(boolean val){
+        if (m_isNoActivate){
+            getBool();
+        }
+
         if(m_currentValueBool != val) {
             SharedPreferences.Editor editor = m_settings.edit();
             editor.putBoolean(m_valueName, val);

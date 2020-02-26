@@ -54,7 +54,7 @@ public class PreferencesHelper {
     }
 
     public static void setIsActiveModule(String moduleId, boolean isActive){
-        PreferenceValue p = new PreferenceValue(mSettings, moduleId, false);
+        PreferenceValue p = new PreferenceValue(mSettings, moduleId, !isActive);
         p.setBool(isActive);
     }
 
