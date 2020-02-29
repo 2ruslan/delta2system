@@ -12,11 +12,18 @@
         android:orientation="vertical"
         >
 
+        <TextView
+            style="@style/ModuleHeaderStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wmd_module_name"
+            />
+
         <CheckBox
             android:id="@+id/cbShowPreview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/show_preview"
+            android:text="@string/wmd_show_preview"
             android:onClick="onClick"
             />
 
@@ -34,8 +41,9 @@
             android:id="@+id/btStartStop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/stop"
+            android:text="@string/wmd_stop"
             android:onClick="onStartStopClick"
+            android:layout_margin="4dp"
             />
 
 
@@ -47,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/delta"
+                android:text="@string/wmd_delta"
                 />
             <EditText
                 android:id="@+id/edDelta"
@@ -60,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ok"
                 android:onClick="onClickOkDelta"
+                android:layout_margin="4dp"
                 />
         </LinearLayout>
 
@@ -67,7 +76,7 @@
             android:id="@+id/cbVoiceCall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/voice_call"
+            android:text="@string/wmd_voice_call"
             android:onClick="onClick"
             />
 
@@ -95,8 +104,9 @@
             android:id="@+id/btMinimize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/minimize"
+            android:text="@string/button_close_caption"
             android:onClick="onMinimizeClick"
+            android:layout_margin="4dp"
             />
 
     </LinearLayout>

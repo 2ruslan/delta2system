@@ -10,11 +10,6 @@ import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelpe
 public class CmdStart extends CmdBase {
     public static final String _COMMAND = "start";
 
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_start_description));
-    }
-
     public CmdStart(){
         super(en_type.other, _COMMAND);
     }

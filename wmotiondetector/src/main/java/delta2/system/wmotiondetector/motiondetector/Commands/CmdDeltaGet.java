@@ -8,14 +8,8 @@ import delta2.system.wmotiondetector.motiondetector.Common.ResultCmd;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 
-
 public class CmdDeltaGet extends CmdBase {
     public static final String _COMMAND = "delta";
-
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_delta_set_description));
-    }
 
     public CmdDeltaGet(){
         super(en_type.get, _COMMAND);

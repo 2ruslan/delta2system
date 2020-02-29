@@ -4,6 +4,8 @@
     <string name="button_close_caption">Close</string>
     <string name="ok">ok</string>
 
+    <string name="auto_start">Auto start</string>
+
     <!-- transport settings -->
     <string name="use_to_send">Use to send</string>
 

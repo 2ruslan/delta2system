@@ -67,7 +67,7 @@ public class WifiReceiver extends BroadcastReceiver {
                 }
 
 
-                String msg = mContext.getString(R.string.msg_connection_changed) + "\n" + info;
+                String msg = mContext.getString(R.string.whi_msg_connection_changed) + "\n" + info;
                 MediatorMD.RequestSendMessage(new MessageText(msg));
             }
             prevType =type;
@@ -110,7 +110,7 @@ public class WifiReceiver extends BroadcastReceiver {
         mobileTotal -= startMOBILE;
         wifiTotal -= startWIFI;
 
-        return mContext.getString(R.string.msg_connection_current) + " : " + tp +
+        return mContext.getString(R.string.whi_msg_connection_current) + " : " + tp +
                 (wifiTotal > 0 ? "\r\n  wifi : " + bytesToSize(wifiTotal) : "") +
                 (mobileTotal > 0 ? "\r\n  mobile : " + bytesToSize(mobileTotal) : "")
                 ;

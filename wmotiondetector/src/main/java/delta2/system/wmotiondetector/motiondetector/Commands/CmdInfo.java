@@ -10,11 +10,6 @@ import delta2.system.wmotiondetector.motiondetector.InfoHelper;
 public class CmdInfo extends CmdBase {
     public static final String _COMMAND = "info";
 
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_info_description));
-    }
-
     public CmdInfo(){
         super(en_type.other, _COMMAND);
     }

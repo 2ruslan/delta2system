@@ -109,7 +109,7 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
     }
 
     private void sendPowerMinLevel(){
-        String msg = mContext.getString(R.string.msg_bat_low);
+        String msg = mContext.getString(R.string.whi_msg_bat_low);
         MediatorMD.RequestSendMessage(new MessageText(msg));
     }
 
@@ -118,7 +118,7 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
     }
 
     private void sendPowerProc(float level){
-        String msg = mContext.getString(R.string.msg_bat_levelprc) + " = " +  level;
+        String msg = mContext.getString(R.string.whi_msg_bat_levelprc) + " = " +  level;
         MediatorMD.RequestSendMessage(new MessageText(msg));
     }
 
@@ -130,26 +130,26 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append( mContext.getString(R.string.msg_battery));
+        sb.append( mContext.getString(R.string.whi_msg_battery));
 
         if(mBatStatus == BatteryManager.BATTERY_STATUS_FULL)
-            sb.append(startStr + mContext.getString(R.string.msg_power_full));
+            sb.append(startStr + mContext.getString(R.string.whi_msg_power_full));
         else if (mBatStatus == BatteryManager.BATTERY_STATUS_CHARGING)
-            sb.append(startStr + mContext.getString(R.string.msg_power_on));
+            sb.append(startStr + mContext.getString(R.string.whi_msg_power_on));
         else if (mBatStatus == BatteryManager.BATTERY_STATUS_DISCHARGING || mBatStatus == BatteryManager.BATTERY_STATUS_NOT_CHARGING)
-            sb.append(startStr + mContext.getString(R.string.msg_power_off));
+            sb.append(startStr + mContext.getString(R.string.whi_msg_power_off));
 
         if(mHealth != _NO_VALUE)
-            sb.append(startStr + mContext.getString(R.string.msg_bat_haelth) + " : " + getHelathStr(mHealth));
+            sb.append(startStr + mContext.getString(R.string.whi_msg_bat_haelth) + " : " + getHelathStr(mHealth));
 
         if(mTemp != _NO_VALUE)
-            sb.append(startStr + mContext.getString(R.string.msg_bat_temperature) + " : " + mTemp);
+            sb.append(startStr + mContext.getString(R.string.whi_msg_bat_temperature) + " : " + mTemp);
 
         if(mLevel != _NO_VALUE)
-            sb.append(startStr + mContext.getString(R.string.msg_bat_level) + " : " + mLevel);
+            sb.append(startStr + mContext.getString(R.string.whi_msg_bat_level) + " : " + mLevel);
 
         if(mVoltage != _NO_VALUE)
-            sb.append(startStr + mContext.getString(R.string.msg_bat_voltage) + " : " + mVoltage + " V");
+            sb.append(startStr + mContext.getString(R.string.whi_msg_bat_voltage) + " : " + mVoltage + " V");
 
 /*
         String cc = getBatteryCapacity (mContext);

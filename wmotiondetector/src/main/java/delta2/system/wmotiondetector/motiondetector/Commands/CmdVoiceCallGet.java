@@ -9,11 +9,6 @@ import delta2.system.wmotiondetector.motiondetector.Common.ResultCmd;
 public class CmdVoiceCallGet extends CmdBase {
     public static final String _COMMAND = "voicecall";
 
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_voice_set_description));
-    }
-
     public CmdVoiceCallGet(){
         super(CmdBase.en_type.get, _COMMAND);
     }

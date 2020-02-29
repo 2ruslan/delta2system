@@ -10,11 +10,6 @@ import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelpe
 public class CmdCameraAngleSet extends CmdBase {
     public static final String _COMMAND = "angle";
 
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_delta_set_description));
-    }
-
     public CmdCameraAngleSet(){
         super(en_type.set, _COMMAND);
     }

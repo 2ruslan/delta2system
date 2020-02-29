@@ -11,11 +11,6 @@ import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelpe
 public class CmdStop extends CmdBase {
     public static final String _COMMAND = "stop";
 
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_stop_description));
-    }
-
     public CmdStop(){
         super(en_type.other, _COMMAND);
     }

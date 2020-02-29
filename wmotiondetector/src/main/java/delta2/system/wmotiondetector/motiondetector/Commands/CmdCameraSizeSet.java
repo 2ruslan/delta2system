@@ -10,11 +10,6 @@ import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelpe
 public class CmdCameraSizeSet extends CmdBase {
     public static final String _COMMAND = "size";
 
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_camera_set_description));
-    }
-
     public CmdCameraSizeSet(){
         super(en_type.set, _COMMAND);
     }

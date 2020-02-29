@@ -76,14 +76,14 @@ public class LoginActivity extends Activity {
             llCodeUser.setVisibility(View.GONE);
             llPassword.setVisibility(View.GONE);
 
-            ((TextView)findViewById(R.id.tvRegInfo)).setText(getText(R.string.phone_need));
+            ((TextView)findViewById(R.id.tvRegInfo)).setText(getText(R.string.ttm_phone_need));
         }
         else if(mode.equals(_PARAM_TCODE)){
             llPhone.setVisibility(View.GONE);
             llCodeUser.setVisibility(View.GONE);
             llPassword.setVisibility(View.GONE);
 
-            ((TextView)findViewById(R.id.tvRegInfo)).setText(getText(R.string.code_need));
+            ((TextView)findViewById(R.id.tvRegInfo)).setText(getText(R.string.ttm_code_need));
         }
         else if(mode.equals(_PARAM_UCODE)){
             llPhone.setVisibility(View.GONE);
@@ -93,7 +93,7 @@ public class LoginActivity extends Activity {
             llPassword.setVisibility(View.GONE);
 
             ((TextView)findViewById(R.id.chkCode)).setText(intent.getStringExtra(_PARAM_UCODE_VAL));
-            ((TextView)findViewById(R.id.tvRegInfo)).setText(getText(R.string.code_need));
+            ((TextView)findViewById(R.id.tvRegInfo)).setText(getText(R.string.ttm_code_need));
         }
         else if(mode.equals(_PARAM_PASSWORD)){
             llPhone.setVisibility(View.GONE);

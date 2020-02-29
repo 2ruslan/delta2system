@@ -51,6 +51,4 @@ public abstract class CmdBase {
     public void OnDestroy(){}
 
     public abstract ResultCmd run(String msgId, Context context, String orig, String[] parts);
-
-    public abstract String getDescription(Context context);
 }

@@ -175,9 +175,9 @@ public class SettingsActivity extends Activity
 
     private void setStartStop(){
         if(PreferencesHelper.GetIsActive())
-            btStartStop.setText(R.string.stop);
+            btStartStop.setText(R.string.wmd_stop);
         else
-            btStartStop.setText(R.string.start);
+            btStartStop.setText(R.string.wmd_start);
     }
 
     private void refreshSpinner(Spinner s, String p){

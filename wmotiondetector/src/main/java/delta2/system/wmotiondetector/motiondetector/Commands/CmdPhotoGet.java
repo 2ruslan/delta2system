@@ -15,15 +15,6 @@ public class CmdPhotoGet extends CmdBase implements IGetRawPictureCallback {
         public static final String _COMMAND = "";
         RawPicture _currentPict = null;
 
-        public String getDescription(Context context){
-                return "";
-        }
-
-        public static String GetDescription(Context context){
-                return String.format("\n\n%s"
-                        , context.getResources().getString(R.string.cmd_get_photo_description));
-        }
-
         public CmdPhotoGet(){
                 super(en_type.get, _COMMAND);
         }

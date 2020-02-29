@@ -8,7 +8,6 @@ import java.util.List;
 
 import delta2.system.common.Helper;
 import delta2.system.common.interfaces.messages.IMessage;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdAutostartGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraGet;
@@ -17,7 +16,6 @@ import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdHelp;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdInfo;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdPhotoGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdStart;
@@ -65,13 +63,10 @@ public class CommandManager implements ICommandCheckMessage {
         _commands.add(new CmdDeltaSet());
         _commands.add(new CmdDeltaGet());
 
-        _commands.add(new CmdAutostartGet());
-
         _commands.add(new CmdVoiceCallSet());
         _commands.add(new CmdVoiceCallGet());
 
         _commands.add(new CmdInfo());
-        _commands.add(new CmdHelp());
 
     }
 

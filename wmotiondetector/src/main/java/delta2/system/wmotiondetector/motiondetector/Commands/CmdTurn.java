@@ -10,11 +10,6 @@ import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelpe
 public class CmdTurn extends CmdBase {
     public static final String _COMMAND = "turn";
 
-    public String getDescription(Context context){
-        return String.format("\n%s - %s", _COMMAND
-                , context.getResources().getString(R.string.cmd_turn_description));
-    }
-
     public CmdTurn(){
         super(en_type.other, _COMMAND);
     }
