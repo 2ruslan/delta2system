@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">warduinobridge</string>
+    <string name="wab_module_name">Arduino Bridge</string>
+
+    <string name="wab_arduino_device">Select arduino device</string>
+
 </resources>

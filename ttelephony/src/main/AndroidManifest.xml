@@ -11,13 +11,7 @@
 
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+    <application>
     <receiver android:name=".transporttelephony.Transport.SMSReceiver">
         <intent-filter android:priority="100">
             <action android:name="android.provider.Telephony.SMS_RECEIVED" />

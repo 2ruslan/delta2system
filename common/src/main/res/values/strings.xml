@@ -1,6 +1,20 @@
 <resources>
-    <string name="app_name">Delta2Main</string>
 
+
+    <string name="button_close_caption">Close</string>
+    <string name="ok">ok</string>
+
+    <!-- transport settings -->
+    <string name="use_to_send">Use to send</string>
+
+    <string name="text">text message</string>
+    <string name="file">file</string>
+    <string name="photo">photo</string>
+    <string name="location">location</string>
+    <string name="voice_call">voice call</string>
+
+
+    <!-- uptime -->
     <string name="working_time_d">d.</string>
     <string name="working_time_h">h.</string>
     <string name="working_time_m">m.</string>

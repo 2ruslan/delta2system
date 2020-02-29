@@ -11,44 +11,67 @@
         android:orientation="vertical"
         >
 
-
         <TextView
+            style="@style/ModuleHeaderStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/use_to_send"
+            android:text="@string/tdb_module_name"
             />
 
-        <CheckBox
-            android:id="@+id/cbText"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text"
-            android:onClick="onClick"
-            />
+            android:orientation="vertical"
+            android:background="@drawable/border"
+            android:layout_margin="4dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/use_to_send"
+                />
 
-        <CheckBox
-            android:id="@+id/cbPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/photo"
-            android:onClick="onClick"
-            />
+            <CheckBox
+                android:id="@+id/cbText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text"
+                android:onClick="onClick"
+                android:layout_marginLeft="12dp"
+                />
 
-        <CheckBox
-            android:id="@+id/cbFile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/file"
-            android:onClick="onClick"
-            />
+            <CheckBox
+                android:id="@+id/cbPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/photo"
+                android:onClick="onClick"
+                android:layout_marginLeft="12dp"
+                />
 
+            <CheckBox
+                android:id="@+id/cbFile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/file"
+                android:onClick="onClick"
+                android:layout_marginLeft="12dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/btMinimize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/minimize"
+            android:text="@string/button_close_caption"
             android:onClick="onMinimizeClick"
+            android:layout_margin="4dp"
             />
 
 
