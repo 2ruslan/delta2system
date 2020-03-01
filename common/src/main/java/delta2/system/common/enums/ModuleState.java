@@ -17,5 +17,4 @@ public enum ModuleState {
     error,
 
     wait,
-
 }

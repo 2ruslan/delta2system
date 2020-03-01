@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">delta2system</string>
     <string name="log_level">уровень логирвания</string>
+    <string name="error">Ошибка</string>
+    <string name="work">Работает</string>
+    <string name="initNeed">Ожидает инициализацию</string>
+    <string name="initBegin">Инициализация начата</string>
+    <string name="startBegin">Запуск работы</string>
 </resources>

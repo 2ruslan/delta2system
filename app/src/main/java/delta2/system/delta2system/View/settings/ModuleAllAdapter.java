@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.delta2system.ModulesList;
 import delta2.system.delta2system.PreferencesHelper;
@@ -72,4 +73,5 @@ public class ModuleAllAdapter extends ArrayAdapter<IModule> {
 
         }
     }
+
 }

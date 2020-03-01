@@ -10,6 +10,11 @@
         <item>WARN</item>
         <item>ERROR</item>
     </string-array>
+    <string name="error">Error</string>
+    <string name="work">Work</string>
+    <string name="initNeed">Init Need</string>
+    <string name="initBegin">Init Begin</string>
+    <string name="startBegin">Start Begin</string>
 
 
 </resources>

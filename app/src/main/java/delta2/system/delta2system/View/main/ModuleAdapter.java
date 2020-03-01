@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.delta2system.ModulesList;
 import delta2.system.delta2system.R;
@@ -48,7 +49,7 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
         //String workingTime = Helper.getWorkingTime(_context,  product.GetWorkingTime());
         //viewHolder.timeView.setText(workingTime);
 
-        viewHolder.infoViev.setText(String.valueOf(module.GetModuleState()));
+        viewHolder.infoViev.setText(String.valueOf(getStateDescr(module.GetModuleState())));
 
         //viewHolder.stateView.setText(product.getCurrentState() == 1 ? "state:OK" : "state:Bad" );
 
@@ -78,5 +79,22 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
             timeView =  view.findViewById(R.id.tTime);
 
         }
+    }
+
+
+    private String getStateDescr(ModuleState s){
+        if (s.equals(ModuleState.error))
+            return _context.getString(R.string.error);
+        else if (s.equals(ModuleState.work))
+            return _context.getString(R.string.work);
+        else if (s.equals(ModuleState.initNeed))
+            return _context.getString(R.string.initNeed);
+        else if (s.equals(ModuleState.initBegin))
+            return _context.getString(R.string.initBegin);
+        else if (s.equals(ModuleState.startBegin))
+            return _context.getString(R.string.startBegin);
+
+        else
+            return "";
     }
 }
