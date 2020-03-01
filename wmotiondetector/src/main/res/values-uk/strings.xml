@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wmd_module_name">Motion Detector</string>
+    <string name="wmd_stop">Стоп</string>
+    <string name="wmd_start">Старт</string>
+    <string name="wmd_show_preview">Показати превью</string>
+    <string name="wmd_delta">Дельта</string>
+    <string name="wmd_voice_call">Голосовий виклик</string>
+    <string name="status">Статус</string>
+    <string name="status_stopped">Зупинено</string>
+    <string name="status_started">Працює</string>
+</resources>

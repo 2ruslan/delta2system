@@ -6,12 +6,11 @@
 
     <string name="ttm_code">Telegram code</string>
 
-    <string name="ttm_send_code">Send this code from your main device \nfrom telegram to the registration number of the detector</string>
+    <string name="ttm_send_code">Send this code from your main device  from telegram to the registration number of the detector</string>
 
     <string name="ttm_phone_need">Enter the phone number in the international format.\nUse the wrong phone number to which telegrams are registered!</string>
 
-    <string name="ttm_code_need">Enter the code for the telegrams.\nHe will come in sms or another detector delta (or telegram) to the registration number</string>
-
     <string name="ttm_password">Password</string>
+    <string name="ttm_code_need">Enter the code for the telegrams.\\nHe will come in sms or another detector delta (or telegram) to the registration number</string>
 
 </resources>

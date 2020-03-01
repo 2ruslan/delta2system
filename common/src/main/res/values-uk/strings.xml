@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_close_caption">Close</string>
+    <string name="ok">ok</string>
+    <string name="working_time_s">с.</string>
+    <string name="working_time_m">х.</string>
+    <string name="working_time_h">г.</string>
+    <string name="working_time_d">д.</string>
+    <string name="voice_call">Голосові виклики</string>
+    <string name="location">Місцезнаходження</string>
+    <string name="photo">Фото</string>
+    <string name="file">Файли</string>
+    <string name="text">Текстові повідомлення</string>
+    <string name="use_to_send">Використовувати для відправки</string>
+    <string name="auto_start">Автозапуск</string>
+</resources>

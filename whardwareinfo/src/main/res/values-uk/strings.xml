@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="whi_module_name">Hardware info</string>
+    <string name="whi_msg_bat_low">Батарея розряжена</string>
+    <string name="whi_msg_bat_levelprc">Рівень батареї</string>
+    <string name="whi_msg_battery">Батарея</string>
+    <string name="whi_msg_power_full">Повністю заряджена</string>
+    <string name="whi_msg_power_on">Підключено до живлення</string>
+    <string name="whi_msg_power_off">Відключено від живлення</string>
+    <string name="whi_msg_bat_temperature">Температра</string>
+    <string name="whi_msg_bat_haelth">Здоровья</string>
+    <string name="whi_msg_bat_level">Рівень заряду</string>
+    <string name="whi_msg_bat_voltage">Вольтаж</string>
+    <string name="whi_msg_connection_changed">Підключення змінено</string>
+    <string name="whi_msg_connection_current">Поточне підключення</string>
+</resources>

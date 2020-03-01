@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ttm_module_name">Telegram transport</string>
+    <string name="ttm_phone">Телефон</string>
+    <string name="ttm_code">Код телеграм</string>
+    <string name="ttm_password">Пароль</string>
+    <string name="ttm_send_code">Отправьте этот код из своего основого деваяса на номер регистрации детектора</string>
+    <string name="ttm_phone_need">Введите номер в интернациональном формате. Используейте номер телефона который не используется в основном телеграме.</string>
+    <string name="ttm_code_need">" Введите код для телеграмм. Он придет в смс или другой детектор дельта (или телеграмма) на регистрационный номер"</string>
+</resources>

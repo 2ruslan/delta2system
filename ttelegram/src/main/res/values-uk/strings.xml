@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ttm_module_name">Telegram transport</string>
+    <string name="ttm_phone">Телефон</string>
+    <string name="ttm_code">Код телеграм</string>
+    <string name="ttm_password">Пароль</string>
+    <string name="ttm_send_code">Відправте цей код зі свого основного девайса на номер регістрації детектора</string>
+    <string name="ttm_phone_need">Введдіть номер телефону в інтернаціональному форматі. Використовуйте номер який не використовується в основному аккаунті телеграм.</string>
+    <string name="ttm_code_need">Введіть код телеграм. Він прийде в реєстраційний номер sms або іншої дельти детектора (або телеграми).</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tph_module_name">Telephony transport</string>
+    <string name="tph_phone">Телефон</string>
+</resources>

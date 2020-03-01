@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_close_caption">Закрыть</string>
+    <string name="ok">ok</string>
+    <string name="auto_start">Автозапуск</string>
+    <string name="use_to_send">Использовать для отправки</string>
+    <string name="text">Тестовые сообщения</string>
+    <string name="file">Файлы</string>
+    <string name="photo">Фото</string>
+    <string name="location">Местоположение</string>
+    <string name="voice_call">Голосовые вызовы</string>
+    <string name="working_time_d">д.</string>
+    <string name="working_time_h">ч.</string>
+    <string name="working_time_m">м.</string>
+    <string name="working_time_s">с.</string>
+</resources>
