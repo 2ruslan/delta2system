@@ -54,7 +54,7 @@ public class L {
         rollingFileAppender.setTriggeringPolicy(trgPolicy);
 
         PatternLayoutEncoder encoder = new PatternLayoutEncoder();
-        encoder.setPattern("%d{HH:mm:ss.SSS} [%thread] [%-5level] %logger{36} - %msg%n");
+        encoder.setPattern("%d{yyyy.MM.dd HH:mm:ss.SSS} [%thread] [%-5level] %logger{36} - %msg%n");
         encoder.setContext(context);
         encoder.start();
 
