@@ -73,7 +73,7 @@ public class Module implements IModuleWorker {
 
     @Override
     public String GetDescription() {
-        return "motion detector";
+        return context.getResources().getString(R.string.wmd_module_name);
     }
 
     @Override

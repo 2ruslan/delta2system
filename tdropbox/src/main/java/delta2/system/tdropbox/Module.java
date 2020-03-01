@@ -57,7 +57,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public String GetDescription() {
-        return "transport dropbox";
+        return context.getResources().getString(R.string.tdb_module_name);
     }
 
 

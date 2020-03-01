@@ -62,7 +62,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetDescription() {
-        return "hardware info";
+        return context.getResources().getString(R.string.whi_module_name);
     }
 
 

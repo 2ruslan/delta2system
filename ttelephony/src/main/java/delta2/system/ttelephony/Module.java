@@ -64,7 +64,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public String GetDescription() {
-        return "transport telephony";
+        return context.getResources().getString(R.string.tph_module_name);
     }
 
 

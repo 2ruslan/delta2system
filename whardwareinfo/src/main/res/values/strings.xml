@@ -2,19 +2,19 @@
 
     <string name="whi_module_name">Hardware info</string>
 
-    <string name="whi_msg_bat_low"></string>
-    <string name="whi_msg_bat_levelprc"></string>
-    <string name="whi_msg_battery"></string>
-    <string name="whi_msg_power_full"></string>
-    <string name="whi_msg_power_on"></string>
-    <string name="whi_msg_power_off"></string>
-    <string name="whi_msg_bat_temperature"></string>
-    <string name="whi_msg_bat_haelth"></string>
-    <string name="whi_msg_bat_level"></string>
-    <string name="whi_msg_bat_voltage"></string>
+    <string name="whi_msg_bat_low">the battery is dead</string>
+    <string name="whi_msg_bat_levelprc">the battery level</string>
+    <string name="whi_msg_battery">Battery</string>
+    <string name="whi_msg_power_full">full</string>
+    <string name="whi_msg_power_on">connected to power</string>
+    <string name="whi_msg_power_off">disconnected from power supply</string>
+    <string name="whi_msg_bat_temperature">temperature</string>
+    <string name="whi_msg_bat_haelth">health</string>
+    <string name="whi_msg_bat_level">charge level</string>
+    <string name="whi_msg_bat_voltage">voltage</string>
 
-    <string name="whi_msg_connection_changed"></string>
-    <string name="whi_msg_connection_current"></string>
+    <string name="whi_msg_connection_changed">Connection changed</string>
+    <string name="whi_msg_connection_current">Current connection</string>
 
 
 

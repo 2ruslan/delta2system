@@ -32,12 +32,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <Button
+
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="OnSettingsClick"
-                android:text="settings"
+                android:src="@drawable/ic_settings"
                 />
 
             <Button
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:onClick="OnExitClick"
-                android:text="stop and exit"
+                android:text="@string/button_close_caption"
                 />
 
         </LinearLayout>

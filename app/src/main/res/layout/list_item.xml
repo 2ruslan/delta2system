@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/tName"
-            android:textAlignment="center"
+            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="wrap_content"/>

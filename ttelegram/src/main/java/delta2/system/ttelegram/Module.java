@@ -71,7 +71,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public String GetDescription() {
-        return "transport telegram";
+        return context.getResources().getString(R.string.ttm_module_name);
     }
 
     @Override

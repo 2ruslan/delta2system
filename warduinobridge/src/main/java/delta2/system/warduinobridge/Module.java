@@ -57,7 +57,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetDescription() {
-        return "arduino bridge";
+        return context.getResources().getString(R.string.wab_module_name);
     }
 
 

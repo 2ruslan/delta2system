@@ -34,7 +34,6 @@
 
         <activity android:name=".View.StarterApp"
             android:label="d2s"
-            android:icon="@drawable/ic_launcher_foreground"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
