@@ -129,12 +129,17 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         modules = new ModulesList();
         modules.SetNotifyChanged(this);
 
-
         // set need init
         for(IModule m :modulesAll) {
             if (PreferencesHelper.getIsActiveModule(m.GetModuleID())) {
-                modules.addModule(m);
-                m.SetStateNeedInit();
+                try {
+                    modules.addModule(m);
+                    m.SetStateNeedInit();
+                }
+                catch (Exception e){
+                    L.log.error("", e);
+                }
+
             }
         }
     }
@@ -155,7 +160,12 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
 
         for(IModule m :modules) {
-            m.destroy();
+            try {
+                m.destroy();
+            }
+            catch (Exception e){
+                L.log.error("destroy error", e);
+            }
         }
     }
 

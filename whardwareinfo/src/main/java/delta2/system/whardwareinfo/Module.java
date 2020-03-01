@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import java.util.ArrayList;
 
 import delta2.system.common.Helper;
+import delta2.system.common.Log.L;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.commands.ICommand;
@@ -161,8 +162,6 @@ public class Module implements IModuleWorker, IError {
             batteryLevelReceiver = new BatteryLevelReceiver();
             BatteryLevelReceiver.init(context);
             context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-            context.registerReceiver(batteryLevelReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
-
 
             return true;
         }
@@ -179,11 +178,18 @@ public class Module implements IModuleWorker, IError {
 
         WifiReceiver.destroy();
 
-        if (context != null && batteryLevelReceiver != null)
-            context.unregisterReceiver(batteryLevelReceiver);
-        if (batteryLevelReceiver != null)
-            batteryLevelReceiver.destroy();
-
+        try {
+            if (context != null && batteryLevelReceiver != null)
+                context.unregisterReceiver(batteryLevelReceiver);
+        }catch (Exception e){
+            L.log.error("", e);
+        }
+        try {
+            if (batteryLevelReceiver != null)
+                batteryLevelReceiver.destroy();
+        }catch (Exception e){
+            L.log.error("", e);
+        }
         batteryLevelReceiver = null;
 
         MediatorMD.destroy();

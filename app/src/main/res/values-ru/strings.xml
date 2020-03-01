@@ -7,4 +7,5 @@
     <string name="initNeed">Ожидает инициализацию</string>
     <string name="initBegin">Инициализация начата</string>
     <string name="startBegin">Запуск работы</string>
+    <string name="modules_list">Выберите нужные модули</string>
 </resources>
