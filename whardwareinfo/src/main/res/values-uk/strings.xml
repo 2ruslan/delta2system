@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="whi_module_name">Hardware info</string>
+    <string name="whi_module_name">Інформація про пристрій</string>
     <string name="whi_msg_bat_low">Батарея розряжена</string>
     <string name="whi_msg_bat_levelprc">Рівень батареї</string>
     <string name="whi_msg_battery">Батарея</string>

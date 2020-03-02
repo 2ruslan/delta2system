@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tdb_module_name">Dropbox transport</string>
+    <string name="tdb_module_name">Трнаспорт Dropbox</string>
     <string name="tdb_sign_in">Увійти</string>
 </resources>

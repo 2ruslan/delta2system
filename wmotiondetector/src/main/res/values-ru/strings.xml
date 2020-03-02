@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="wmd_module_name">Motion Detector</string>
+    <string name="wmd_module_name">Детектор движения</string>
     <string name="wmd_stop">Стоп</string>
     <string name="wmd_start">Старт</string>
     <string name="wmd_show_preview">Показать превью</string>

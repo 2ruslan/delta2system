@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ttm_module_name">Telegram transport</string>
+    <string name="ttm_module_name">Трнаспорт телеграм</string>
     <string name="ttm_phone">Телефон</string>
     <string name="ttm_code">Код телеграм</string>
     <string name="ttm_password">Пароль</string>
