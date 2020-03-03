@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".transportdropbox.LoginActivity"
     android:orientation="vertical"
+    style="@style/BoxStyle"
     >
 
     <ImageView
@@ -24,6 +25,6 @@
         android:layout_weight="1"
         android:text="@string/tdb_sign_in"
         android:onClick="onClick"
-        android:layout_margin="4dp"
+        style="@style/BoxStyle"
         />
 </LinearLayout>

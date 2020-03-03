@@ -2,7 +2,6 @@ package delta2.system.wmotiondetector.motiondetector;
 
 import android.content.Context;
 
-import delta2.system.common.Helper;
 import delta2.system.wmotiondetector.R;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSet;
@@ -16,7 +15,7 @@ public class InfoHelper {
         StringBuilder sb = new StringBuilder("MotionDetector");
         sb.append("\n\n------------------");
 
-        sb.append( String.format("\n\n%s = %s", context.getResources().getString(R.string.status), context.getResources().getString( PreferencesHelper.GetIsActive() ? R.string.status_started : R.string.status_stopped)));
+        sb.append( String.format("\n\n%s = %s", context.getResources().getString(R.string.wmd_status), context.getResources().getString( PreferencesHelper.GetIsActive() ? R.string.wmd_status_started : R.string.wmd_status_stopped)));
 
         sb.append(String.format("\n\n%s = %s",context.getResources().getString(R.string.wmd_delta), PreferencesHelper.getDelta()));
 

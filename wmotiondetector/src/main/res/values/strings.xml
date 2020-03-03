@@ -11,8 +11,11 @@
     <string name="wmd_voice_call">voice call</string>
 
 
-    <string name="status">Status</string>
-    <string name="status_stopped">Stopped</string>
-    <string name="status_started">Working</string>
+    <string name="wmd_status">Status</string>
+    <string name="wmd_status_stopped">Stopped</string>
+    <string name="wmd_status_started">Working</string>
+    <string name="wmd_size">size</string>
+    <string name="wmd_camera">camera</string>
+    <string name="wmd_angle">angle</string>
 
 </resources>

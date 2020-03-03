@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        style="@style/BoxStyle"
         >
 
         <TextView
@@ -24,12 +25,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/border"
-            android:layout_margin="4dp"
+            style="@style/BoxStyle"
             >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/use_to_send"
+                style="@style/BoxStyle"
                 />
 
             <CheckBox
@@ -38,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text"
                 android:onClick="onClick"
-                android:layout_marginLeft="12dp"
+                style="@style/CheckBoxStyle"
                 />
 
             <CheckBox
@@ -47,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/photo"
                 android:onClick="onClick"
-                android:layout_marginLeft="12dp"
+                style="@style/CheckBoxStyle"
                 />
 
             <CheckBox
@@ -56,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/file"
                 android:onClick="onClick"
-                android:layout_marginLeft="12dp"
+                style="@style/CheckBoxStyle"
                 />
         </LinearLayout>
 
@@ -71,7 +73,7 @@
             android:layout_height="wrap_content"
             android:text="@string/button_close_caption"
             android:onClick="onMinimizeClick"
-            android:layout_margin="4dp"
+            style="@style/BoxStyle"
             />
 
 

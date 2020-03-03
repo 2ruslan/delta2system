@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        style="@style/BoxStyle"
         >
 
         <TextView
@@ -23,12 +24,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@drawable/border"
+            style="@style/BoxStyle"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tph_phone"
-                android:layout_marginLeft="12dp"
+                style="@style/BoxStyle"
                 />
 
             <EditText
@@ -37,12 +39,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="phone"
+                style="@style/BoxStyle"
                 />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ok"
                 android:onClick="onSaveClick"
+                style="@style/BoxStyle"
                 />
         </LinearLayout>
 
@@ -51,12 +55,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/border"
+            style="@style/BoxStyle"
             >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/use_to_send"
+            style="@style/BoxStyle"
             />
 
         <CheckBox
@@ -65,7 +71,7 @@
             android:layout_height="wrap_content"
             android:text="@string/text"
             android:onClick="onClick"
-            android:layout_marginLeft="12dp"
+            style="@style/CheckBoxStyle"
             />
         <CheckBox
             android:id="@+id/cbVoiceCall"
@@ -73,7 +79,7 @@
             android:layout_height="wrap_content"
             android:text="@string/voice_call"
             android:onClick="onClick"
-            android:layout_marginLeft="12dp"
+            style="@style/CheckBoxStyle"
             />
 
         </LinearLayout>
@@ -90,6 +96,7 @@
             android:layout_height="wrap_content"
             android:text="@string/button_close_caption"
             android:onClick="onMinimizeClick"
+            style="@style/BoxStyle"
             />
 
     </LinearLayout>

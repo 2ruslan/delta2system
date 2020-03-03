@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        style="@style/BoxStyle"
         >
 
         <ImageView
@@ -27,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_gravity="center"
+            style="@style/BoxStyle"
             />
 
         <LinearLayout
@@ -34,26 +36,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            style="@style/BoxStyle"
             >
 
             <TextView
                 android:text="@string/ttm_phone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/BoxStyle"
+                />
             <EditText
                 android:id="@+id/etPhoneNum"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
-
+                style="@style/BoxStyle"
                 />
             <Button
                 android:id="@+id/btNext1"
                 android:text=">>"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:onClick="ConnectClick" />
+                android:onClick="ConnectClick"
+                style="@style/BoxStyle"
+                />
 
         </LinearLayout>
 
@@ -62,12 +69,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            style="@style/BoxStyle"
             >
 
             <TextView
                 android:text="@string/ttm_code"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/BoxStyle"
+                />
             <EditText
                 android:id="@+id/etCode"
                 android:layout_width="0dp"
@@ -75,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:digits="0123456789"
+                style="@style/BoxStyle"
                 />
             <Button
                 android:id="@+id/btNext2"
@@ -82,6 +93,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:onClick="ConnectClick"
+                style="@style/BoxStyle"
                 />
         </LinearLayout>
 
@@ -90,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            style="@style/BoxStyle"
             >
 
             <TextView
@@ -99,7 +112,7 @@
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textSize="64sp"
-                android:layout_margin="5sp"
+                style="@style/BoxStyle"
                 android:textColor="@color/colorAccent"
                 android:inputType="numberDecimal"
                 android:digits="0123456789"
@@ -113,6 +126,7 @@
                 android:text="@string/ttm_send_code"
                 android:layout_gravity="center"
                 android:textAlignment="center"
+                style="@style/BoxStyle"
                 />
 
         </LinearLayout>
@@ -122,12 +136,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            style="@style/BoxStyle"
             >
 
             <TextView
                 android:text="@string/ttm_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/BoxStyle"
                 />
             <EditText
                 android:id="@+id/edPass"
@@ -135,6 +151,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                style="@style/BoxStyle"
 
                 />
             <Button
@@ -142,7 +159,9 @@
                 android:text=">>"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:onClick="PasswordClick" />
+                android:onClick="PasswordClick"
+                style="@style/BoxStyle"
+                />
 
         </LinearLayout>
 

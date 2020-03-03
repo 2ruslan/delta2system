@@ -11,14 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        style="@style/BoxStyle"
         >
 
         <CheckBox
-            android:layout_margin="4dp"
             android:id="@+id/cbAutostart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/auto_start"
+            style="@style/BoxStyle"
             />
 
 
@@ -28,16 +29,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@drawable/border"
+            style="@style/BoxStyle"
             >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/log_level"
+            style="@style/CheckBoxStyle"
             />
         <Spinner android:id="@+id/spLogLevel"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            style="@style/BoxStyle"
             />
         </LinearLayout>
 
@@ -53,12 +57,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/modules_list"
+                style="@style/BoxStyle"
                 />
             <ListView
                 android:id="@+id/modulsList"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                style="@style/CheckBoxStyle"
                 />
         </LinearLayout>
 
@@ -70,6 +76,7 @@
             android:layout_height="wrap_content"
             android:text="@string/button_close_caption"
             android:onClick="OnExitAndRun"
+            style="@style/BoxStyle"
             />
 
     </LinearLayout>
