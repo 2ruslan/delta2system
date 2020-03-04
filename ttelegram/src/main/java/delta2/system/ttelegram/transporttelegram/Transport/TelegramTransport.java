@@ -260,27 +260,27 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
         else if (object instanceof TdApi.UpdateFile) {
             TdApi.UpdateFile msg = (TdApi.UpdateFile) object;
 
-            if (msg.file.remote.isUploadingCompleted) {
-                if (msg.file.local.path.endsWith(".jpg"))
-                    sendChatActionPhoto();
-                else
-                    sendChatActionFile();
-            }
+            int prc = msg.file.remote.isUploadingCompleted ? 100 : msg.file.expectedSize / msg.file.size;
+            if(msg.file.local.path.endsWith(".jpg"))
+                sendChatActionPhoto(prc);
+            else
+                sendChatActionFile(prc);
+
         }
 
 
     }
 
-    private void sendChatActionPhoto(){
+    private void sendChatActionPhoto(int prc){
         TdApi.SendChatAction cmd = new TdApi.SendChatAction(PreferencesHelper.getChatId(),
-                new TdApi.ChatActionUploadingPhoto(100)
+                new TdApi.ChatActionUploadingPhoto(prc)
         );
         send2t(cmd);
     }
 
-    private void sendChatActionFile(){
+    private void sendChatActionFile(int prc){
         TdApi.SendChatAction cmd = new TdApi.SendChatAction(PreferencesHelper.getChatId(),
-                new TdApi.ChatActionUploadingDocument(100)
+                new TdApi.ChatActionUploadingDocument(prc)
         );
         send2t(cmd);
     }

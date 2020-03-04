@@ -67,16 +67,14 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
 
     private class ViewHolder {
         final ImageButton SettingsButton;
-        final TextView nameView, codeView, stateView, infoViev, timeView;
+        final TextView nameView, codeView, infoViev;
         ViewHolder(View view){
             SettingsButton = view.findViewById(R.id.bSettings);
 
             nameView = view.findViewById(R.id.tName);
             codeView = view.findViewById(R.id.tCode);
 
-            stateView   = view.findViewById(R.id.tState);
             infoViev   = view.findViewById(R.id.tInfo);
-            timeView =  view.findViewById(R.id.tTime);
 
         }
     }
