@@ -8,18 +8,22 @@ import delta2.system.common.preferences.PreferenceValue;
 
 public class PreferencesHelper {
 
-    public static final String APP_PREFERENCES = "tdropbox.preference";
+    public static final String APP_PREFERENCES = "tline.preference";
 
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
-    public static final String DEVICE_NAME = "DEVICE_NAME";
+    public static final String USER_ID = "USER_ID";
+    public static final String CREDENTIAL = "CREDENTIAL";
+
     public static final String SEND_TEXT = "SEND_TEXT";
     public static final String SEND_FILE = "SEND_FILE";
     public static final String SEND_PHOTO = "SEND_PHOTO";
 
 
     private static SharedPreferences mSettings;
+
     private static PreferenceValue _accesToken;
-    private static PreferenceValue _deviceName;
+    private static PreferenceValue _userId;
+    private static PreferenceValue _credential;
     private static PreferenceValue _sendText;
     private static PreferenceValue _sendFile;
     private static PreferenceValue _sendPhoto;
@@ -30,7 +34,8 @@ public class PreferencesHelper {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         _accesToken = new PreferenceValue(mSettings, ACCESS_TOKEN, "");
-        _deviceName = new PreferenceValue(mSettings, DEVICE_NAME, "");
+        _userId = new PreferenceValue(mSettings, USER_ID, "");
+        _credential = new PreferenceValue(mSettings, CREDENTIAL, "");
 
         _sendText = new PreferenceValue(mSettings, SEND_TEXT, true);
         _sendFile = new PreferenceValue(mSettings, SEND_FILE, true);
@@ -55,16 +60,25 @@ public class PreferencesHelper {
     }
     //endregion ACCESS_TOKEN
 
-    //region DEVICE_NAME
-    public static void setDeviceName(String val) {
-        _deviceName.setStr(val);
+    //region USER_ID
+    public static void setUserID(String val) {
+        _userId.setStr(val);
     }
 
-    public static String getDeviceName() {
-        return _deviceName.getStr();
+    public static String getUserID() {
+        return _userId.getStr();
     }
-    //endregion DEVICE_NAME
+    //endregion USER_ID
 
+    //region CREDENTIAL
+    public static void setCredential(String val) {
+        _credential.setStr(val);
+    }
+
+    public static String getCredential() {
+        return _credential.getStr();
+    }
+    //endregion CREDENTIAL
 
     //region SEND_TEXT
     public static void setSendText(boolean val) {

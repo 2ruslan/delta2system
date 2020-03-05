@@ -18,8 +18,11 @@ import com.linecorp.linesdk.widget.LoginButton;
 import java.util.Arrays;
 
 import delta2.system.common.interfaces.IAcnivityCallback;
+import delta2.system.tline.Preferences.PreferencesHelper;
 
 public class LoginActivity extends Activity {
+
+    private static final int REQUEST_CODE = 1;
 
     private LoginDelegate loginDelegate = LoginDelegate.Factory.create();
     LoginButton loginButton;
@@ -50,7 +53,11 @@ public class LoginActivity extends Activity {
         loginButton.addLoginListener(new LoginListener() {
             @Override
             public void onLoginSuccess(@NonNull LineLoginResult result) {
-                // ok
+                String accessToken = result.getLineCredential().getAccessToken().getTokenString();
+                PreferencesHelper.setToken(accessToken);
+
+                PreferencesHelper.setUserID(result.getLineProfile().getUserId());
+
             }
 
             @Override

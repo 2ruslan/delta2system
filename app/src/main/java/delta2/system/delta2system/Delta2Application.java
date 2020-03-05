@@ -2,6 +2,8 @@ package delta2.system.delta2system;
 
 import android.app.Application;
 
+import androidx.multidex.MultiDex;
+
 import delta2.system.common.FileStructure;
 import delta2.system.common.Log.L;
 import delta2.system.common.preferences.PreferenceValue;
@@ -14,6 +16,8 @@ public class Delta2Application extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        MultiDex.install(this);
 
         FileStructure.init();
 
