@@ -61,11 +61,11 @@ public class UploadTask extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
-        String data = filename;
+    //    String data = filename;
 
-        File f = new File(data);
+     //   File f = new File(data);
 
-        f.delete();
+     //   f.delete();
 
     }
 }

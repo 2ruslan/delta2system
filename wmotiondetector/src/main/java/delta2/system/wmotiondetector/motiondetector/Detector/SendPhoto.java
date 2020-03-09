@@ -30,6 +30,7 @@ public class SendPhoto {
             String fileName = FileStructure.getFilePath("pic", "jpg");
             FileOutputStream os = new FileOutputStream(fileName);
             os.write(jpg);
+            os.flush();
             os.close();
             L.log.info( _TAG, "Send photo - save data to file : " + fileName);
 

@@ -61,7 +61,7 @@ public class UploadTask extends AsyncTask {
         super.onPostExecute(o);
 
 
-        file.delete();
+     //   file.delete();
 
     }
 }

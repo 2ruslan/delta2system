@@ -19,6 +19,11 @@ public class RawPicture {
 
     public byte[] getData() {return data;}
 
+    public byte[] getDataCopy(){
+        byte[] copy = new byte[data.length];
+        System.arraycopy(data, 0, copy, 0, data.length);
+        return copy;
+    }
 
     public int w;
 
@@ -55,7 +60,7 @@ public class RawPicture {
         try {
             Helper.Log("RawPicture", "getBitmap" );
 
-            byte[]  copyData = data.clone();
+            byte[]  copyData = getDataCopy();
 
             YuvImage yuv = new YuvImage(copyData, ImageFormat.NV21, w, h, null);
 

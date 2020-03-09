@@ -369,17 +369,6 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             send2t(cmd);
     }
 
-    private void deleteFileLocal(String path){
-        L.log.info("delete local file" + path);
-        try {
-            File f = new File(path);
-            f.delete();
-        }catch (Exception e)
-        {
-            Helper.Ex2Log(e);
-        }
-    }
-
     //region ITransport
 
     public void SendMessage(IMessage msg){

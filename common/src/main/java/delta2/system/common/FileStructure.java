@@ -12,7 +12,7 @@ import java.util.Comparator;
 import delta2.system.common.Log.L;
 
 public class FileStructure {
-    private static final int _OLD_FILES_QNT = 220;
+    private static final int _OLD_FILES_QNT = 30;
     private static final String _D2S_DIR = "/delta2system/";
 
     final static SimpleDateFormat sdfFileShort = new SimpleDateFormat(".yyyy_MM_dd__HH_mm_ss.SSS");
@@ -77,7 +77,7 @@ public class FileStructure {
                 Arrays.sort(sortedByDate, new Comparator<File>() {
                     @Override
                     public int compare(File object1, File object2) {
-                        return (int) ((object1.lastModified() < object2.lastModified()) ? object1.lastModified(): object2.lastModified());
+                        return (int) ((object1.lastModified() > object2.lastModified()) ? object1.lastModified(): object2.lastModified());
                     }
                 });
             }
