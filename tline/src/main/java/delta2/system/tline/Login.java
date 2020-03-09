@@ -23,7 +23,7 @@ public class Login {
     }
 
     public void Check(){
-        if (PreferencesHelper.getToken() == null || PreferencesHelper.getToken().equals(""))
+        if ( PreferencesHelper.getToken() == null || PreferencesHelper.getToken().equals(""))
             try {
                 LoginActivity.init(
                         new IAcnivityCallback() {

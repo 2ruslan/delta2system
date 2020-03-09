@@ -56,7 +56,7 @@ public class LoginActivity extends Activity {
                             view.getContext(),
                             "1653917680",
                             new LineAuthenticationParams.Builder()
-                                    .scopes(Arrays.asList(Scope.PROFILE, Scope.FRIEND, Scope.MESSAGE))
+                                    .scopes(Arrays.asList(Scope.MESSAGE, Scope.PROFILE, Scope.FRIEND ))
                                     // .nonce("<a randomly-generated string>") // nonce can be used to improve security
                                     .build());
                     startActivityForResult(loginIntent, REQUEST_CODE);

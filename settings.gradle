@@ -1,3 +1,4 @@
 include ':app', ':common', ':tdropbox', ':whardwareinfo', ':ttelegram', ':libtd', ':wmotiondetector', ':ttelephony', ':warduinobridge'
 rootProject.name='delta2system'
-include ':tline'
+//include ':tline'
+include ':tftp'

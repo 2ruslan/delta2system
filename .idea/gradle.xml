@@ -15,7 +15,7 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/libtd" />
             <option value="$PROJECT_DIR$/tdropbox" />
-            <option value="$PROJECT_DIR$/tline" />
+            <option value="$PROJECT_DIR$/tftp" />
             <option value="$PROJECT_DIR$/ttelegram" />
             <option value="$PROJECT_DIR$/ttelephony" />
             <option value="$PROJECT_DIR$/warduinobridge" />

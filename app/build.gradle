@@ -4,15 +4,15 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+ //   compileOptions {
+ //       sourceCompatibility JavaVersion.VERSION_1_8
+ //       targetCompatibility JavaVersion.VERSION_1_8
+ //   }
 
     defaultConfig {
         applicationId "delta2.system.delta2system"
         multiDexEnabled true
-        minSdkVersion 17
+        minSdkVersion 14
         targetSdkVersion 29
         versionCode 20
         versionName "1.1.1"
@@ -44,5 +44,5 @@ dependencies {
     implementation project(":wmotiondetector")
     implementation project(":ttelephony")
     implementation project(":warduinobridge")
-    implementation project(":tline")
+    //implementation project(":tline")
 }

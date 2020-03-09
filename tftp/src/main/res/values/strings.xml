@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="tft_sign_in">Sign in</string>
+
+
+    <string name="tft_reset_registration">reset registration</string>
+
+    <string name="tft_name">name</string>
+
+    <string name="tft_ftp_ip">FTP IP</string>
+    <string name="tft_ftp_port">FTP PORT</string>
+    <string name="tft_ftp_usr">FTP USER</string>
+    <string name="tft_ftp_pass">FTP PASS</string>
+    <string name="tft_ftp_path">FTP PATH</string>
+
+</resources>

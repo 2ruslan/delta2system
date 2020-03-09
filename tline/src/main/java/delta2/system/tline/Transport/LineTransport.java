@@ -3,6 +3,7 @@ package delta2.system.tline.Transport;
 import android.content.Context;
 
 import com.linecorp.linesdk.LineAccessToken;
+import com.linecorp.linesdk.LineApiResponse;
 import com.linecorp.linesdk.api.LineApiClient;
 import com.linecorp.linesdk.api.LineApiClientBuilder;
 import com.linecorp.linesdk.message.MessageData;
@@ -10,6 +11,8 @@ import com.linecorp.linesdk.message.TextMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import delta2.system.common.Log.L;
 
 public class LineTransport {
     Context context;
@@ -35,7 +38,9 @@ public class LineTransport {
 
         data.add(t);
 
-        lineApiClient.sendMessage("ruha", data  );
+        LineApiResponse<String> result = lineApiClient.sendMessage("ruha", data  );
+        if (!result.isSuccess())
+            L.log.error(result.toString());
     }
 
 
