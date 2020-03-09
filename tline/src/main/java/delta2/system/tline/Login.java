@@ -30,6 +30,7 @@ public class Login {
                             @Override
                             public void OnActivityCallback(Intent intent) {
                                 loginedHandler.OnLogin(intent.getBooleanExtra(Constants._LOGIN_AND_START, false));
+                                LoginActivity.destroy();
                             }
                         }
                 );
@@ -40,7 +41,7 @@ public class Login {
                 loginedHandler.OnLogin(false);
             }
             finally {
-                LoginActivity.destroy();
+
             }
         else
             loginedHandler.OnLogin(true);

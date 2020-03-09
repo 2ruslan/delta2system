@@ -4,7 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/tln_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.linecorp.linesdk.widget.LoginButton
         android:id="@+id/line_login_btn"
