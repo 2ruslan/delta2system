@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import delta2.system.ttelephony.R;
 import delta2.system.ttelephony.transporttelephony.Preferences.PreferencesHelper;
 
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends AppCompatActivity {
 
     CheckBox cbText;
     CheckBox cbVoiceCall;

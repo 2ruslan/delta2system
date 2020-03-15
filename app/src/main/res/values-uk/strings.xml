@@ -9,4 +9,7 @@
     <string name="startBegin">Запуск роботи</string>
     <string name="modules_list">Вкажіть потрібні модулі</string>
     <string name="uptime">Час роботи</string>
+    <string name="version">Версія</string>
+    <string name="received">Отримано</string>
+    <string name="sended">Відправлено</string>
 </resources>

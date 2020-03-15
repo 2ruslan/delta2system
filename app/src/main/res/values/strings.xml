@@ -17,6 +17,9 @@
     <string name="startBegin">Start Begin</string>
     <string name="modules_list">Select active modules</string>
     <string name="uptime">uptime</string>
+    <string name="version">version</string>
+    <string name="sended">sended</string>
+    <string name="received">received</string>
 
 
 </resources>

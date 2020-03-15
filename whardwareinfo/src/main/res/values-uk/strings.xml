@@ -13,4 +13,6 @@
     <string name="whi_msg_bat_voltage">Вольтаж</string>
     <string name="whi_msg_connection_changed">Підключення змінено</string>
     <string name="whi_msg_connection_current">Поточне підключення</string>
+    <string name="whi_notify_power">Повідомляти про живлення</string>
+    <string name="whi_notify_connection">Повідомляти про мережу</string>
 </resources>

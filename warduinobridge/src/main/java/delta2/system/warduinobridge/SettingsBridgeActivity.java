@@ -17,7 +17,7 @@ import java.util.Set;
 
 import delta2.system.warduinobridge.Preferences.PreferencesHelper;
 
-public class SettingsBridgeActivity extends Activity {
+public class SettingsBridgeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

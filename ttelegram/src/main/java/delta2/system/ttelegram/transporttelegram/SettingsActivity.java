@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import delta2.system.ttelegram.R;
 import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends AppCompatActivity {
 
 
     CheckBox cbText;

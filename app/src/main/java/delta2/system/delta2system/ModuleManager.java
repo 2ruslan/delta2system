@@ -23,6 +23,7 @@ import delta2.system.common.messages.MessageCommand;
 import delta2.system.common.messages.MessageForward;
 import delta2.system.common.messages.MessageText;
 import delta2.system.delta2system.Commands.CommndManager;
+import delta2.system.delta2system.Commands.InfoData;
 import delta2.system.ttelephony.transporttelephony.Transport.TelephonyTransport;
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError, INotifyChanged {
@@ -176,6 +177,8 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     public void RequestSendMessage(IMessage msg) {
         L.log.debug(msg.toString());
 
+        InfoData.PlusSend();
+
         if (msg instanceof MessageCommand){
             OnReceiveMessage(msg);
         }
@@ -199,6 +202,8 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     @Override
     public void OnReceiveMessage(IMessage msg) {
         L.log.debug(msg.toString());
+
+        InfoData.PlusReceive();
 
         if (msg instanceof MessageForward){
             MessageForward f = (MessageForward)msg;
@@ -238,9 +243,8 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
 
     }
 
-
     private void runMainCommnds(ICommand command){
-        IMessage res = CommndManager.Run(command);
+        IMessage res = CommndManager.Run(context, command);
         if (res != null)
             RequestSendMessage(res);
 

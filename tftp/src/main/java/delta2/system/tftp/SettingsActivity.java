@@ -7,9 +7,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import delta2.system.tftp.Preferences.PreferencesHelper;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends AppCompatActivity {
 
     CheckBox cbText;
     CheckBox cbPhoto;

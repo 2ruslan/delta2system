@@ -15,6 +15,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,7 +39,7 @@ import delta2.system.wmotiondetector.motiondetector.Mediator.IGetRawPictureCallb
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 
-public class SettingsActivity extends Activity
+public class SettingsActivity extends AppCompatActivity
         implements IGetRawPictureCallback, ICommandExcecuted, ICameraStarted, AdapterView.OnItemSelectedListener {
 
     private Timer mTimer;

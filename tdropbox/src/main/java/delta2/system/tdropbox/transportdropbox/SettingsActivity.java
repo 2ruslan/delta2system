@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import delta2.system.tdropbox.R;
 import delta2.system.tdropbox.transportdropbox.Preferences.PreferencesHelper;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends AppCompatActivity {
 
     CheckBox cbText;
     CheckBox cbPhoto;
