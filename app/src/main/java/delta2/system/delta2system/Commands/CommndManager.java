@@ -46,7 +46,7 @@ public class CommndManager {
         sb.append( "\n-------------------------\n");
         sb.append(String.format("version: %s \n", BuildConfig.VERSION_NAME));
 
-        sb.append(String.format("uptime:%s \n", MainService.getWorkingTime()));
+        sb.append(String.format("uptime: %s \n", MainService.getWorkingTime()));
 
 
         sb.append( "\n-------------------------");

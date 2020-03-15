@@ -14,7 +14,9 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import delta2.system.common.Log.L;
+import delta2.system.common.commands.Command;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.common.messages.MessageCommand;
 import delta2.system.common.messages.MessageText;
 import delta2.system.warduinobridge.Preferences.PreferencesHelper;
 
@@ -38,10 +40,19 @@ public class BluetoothManager {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == handlerState) {
                     String readMessage = (String) msg.obj;
+
                     sb.append(readMessage);
                     if(sb.toString().contains("\r")) {
-                        requestSendMessage(sb.toString().replace("<br>", "\r\n"));
+                        String str = sb.toString();
+                        String[] parts = str.split("\r");
+
+                        requestSendMessage(parts[0].replace("<br>", "\r\n"));
+
                         sb = new StringBuilder();
+                        if (parts.length > 1){
+                            for (int i = 1; i < parts.length; i++)
+                                sb.append(parts[i]);
+                        }
                     }
                 }
             }
@@ -60,11 +71,17 @@ public class BluetoothManager {
         requestSendMessage = m;
     }
 
-    private void requestSendMessage(String msg){
+    private void requestSendMessage(String msg) {
+        msg = msg.replace("\n", "").replace("\r", "");
         if (requestSendMessage != null)
-            requestSendMessage.RequestSendMessage(
-                    new MessageText(msg)
-            );
+            if (msg.startsWith("<cmd>")) {
+                requestSendMessage.RequestSendMessage(
+                        new MessageCommand(new Command(msg.replace("<cmd>", "").trim(), "")));
+            } else {
+                requestSendMessage.RequestSendMessage(
+                        new MessageText(msg)
+                );
+            }
     }
 
 

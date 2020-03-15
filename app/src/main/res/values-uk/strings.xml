@@ -8,4 +8,5 @@
     <string name="initBegin">Розпочато ініціалізацію</string>
     <string name="startBegin">Запуск роботи</string>
     <string name="modules_list">Вкажіть потрібні модулі</string>
+    <string name="uptime">Час роботи</string>
 </resources>

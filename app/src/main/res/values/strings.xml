@@ -16,6 +16,7 @@
     <string name="initBegin">Init Begin</string>
     <string name="startBegin">Start Begin</string>
     <string name="modules_list">Select active modules</string>
+    <string name="uptime">uptime</string>
 
 
 </resources>

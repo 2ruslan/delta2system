@@ -19,6 +19,7 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModule;
 import delta2.system.common.interfaces.module.IModuleTransport;
 import delta2.system.common.interfaces.module.IModuleWorker;
+import delta2.system.common.messages.MessageCommand;
 import delta2.system.common.messages.MessageForward;
 import delta2.system.common.messages.MessageText;
 import delta2.system.delta2system.Commands.CommndManager;
@@ -174,17 +175,22 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     @Override
     public void RequestSendMessage(IMessage msg) {
         L.log.debug(msg.toString());
-        MessageExt m = new MessageExt(msg);
-        for(IModule module : modules) {
-            if (EqualsName(m.module, module)) {
-                if (module instanceof IModuleTransport){
-                    try {
-                        ((IModuleTransport)module).SendMessage(msg);
-                    }
-                    catch (Exception e){
-                        L.log.error("", e);
-                    }
 
+        if (msg instanceof MessageCommand){
+            OnReceiveMessage(msg);
+        }
+        else {
+            MessageExt m = new MessageExt(msg);
+            for (IModule module : modules) {
+                if (EqualsName(m.module, module)) {
+                    if (module instanceof IModuleTransport) {
+                        try {
+                            ((IModuleTransport) module).SendMessage(msg);
+                        } catch (Exception e) {
+                            L.log.error("", e);
+                        }
+
+                    }
                 }
             }
         }
@@ -199,6 +205,10 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             RequestSendMessage(f.getMessage2forward());
         }
 
+        else if (msg instanceof MessageCommand) {
+            runCommand(CommandExt._ALL, ((MessageCommand)msg).getCommand());
+        }
+
         else if (msg instanceof MessageText) {
             MessageText txtMsg  = (MessageText)msg;
 
@@ -207,19 +217,25 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
             if (c.module.equals(CommandExt._ALL))
                 runMainCommnds(c.cmd);
 
-            for (IModule module : modules) {
-                if (EqualsName(c.module, module)) {
-                    if (module instanceof IModuleWorker)
-                        try {
-                            ((IModuleWorker) module).ExecuteCommand(c.cmd);
-                        }
-                        catch (Exception e){
-                            L.log.error("", e);
-                        }
-
-                }
-            }
+            runCommand(c.module, c.cmd);
         }
+    }
+
+    private void runCommand(String m, ICommand cmd){
+
+        for (IModule module : modules) {
+            if (EqualsName(m, module)) {
+                if (module instanceof IModuleWorker)
+                    try {
+                        ((IModuleWorker) module).ExecuteCommand(cmd);
+                    }
+                    catch (Exception e){
+                        L.log.error("", e);
+                    }
+
+            }
+        };
+
     }
 
 
