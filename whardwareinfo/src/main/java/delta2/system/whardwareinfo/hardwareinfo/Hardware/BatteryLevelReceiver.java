@@ -8,9 +8,11 @@ import android.os.Build;
 
 import java.util.Calendar;
 
+import delta2.system.common.Log.L;
 import delta2.system.common.messages.MessageText;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
+import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
 
 public class BatteryLevelReceiver extends BroadcastReceiver {
 
@@ -81,19 +83,19 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
         if(action.equals(Intent.ACTION_POWER_CONNECTED)) {
             mBatStatus = BatteryManager.BATTERY_STATUS_CHARGING;
 
-            //if(PreferencesHelper.GetPwrBatNotify())
-            //    sendPowerState();
+            if(PreferencesHelper.getNotifyPower())
+                sendPowerState();
 
         }
         else if(action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
             mBatStatus = BatteryManager.BATTERY_STATUS_NOT_CHARGING;
-            //if(PreferencesHelper.GetPwrBatNotify())
-            //    sendPowerState();
+            if(PreferencesHelper.getNotifyPower())
+                sendPowerState();
         }
         if(action.equals(Intent.ACTION_BATTERY_LOW)) {
-            //if( Calendar.getInstance().getTimeInMillis() - _lastPowerMinPrw > _MIN_INTERVAL
-            //       && levelChange && PreferencesHelper.GetPwrBatNotify())
-            //    sendPowerMinLevel();
+            if( Calendar.getInstance().getTimeInMillis() - _lastPowerMinPrw > _MIN_INTERVAL
+                   && levelChange && PreferencesHelper.getNotifyPower())
+                sendPowerMinLevel();
 
             _lastPowerMinPrw = Calendar.getInstance().getTimeInMillis();
         }
@@ -151,12 +153,15 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
         if(mVoltage != _NO_VALUE)
             sb.append(startStr + mContext.getString(R.string.whi_msg_bat_voltage) + " : " + mVoltage + " V");
 
-/*
-        String cc = getBatteryCapacity (mContext);
-        if(!cc.equals(""))
-            sb.append(startStr + cc);
+        try {
+            String cc = getBatteryCapacity(mContext);
+            if (!cc.equals(""))
+                sb.append(startStr + cc);
+        }catch (Exception e)
+        {
+            L.log.error("", e);
+        }
 
-*/
         return sb.toString();
 
     }

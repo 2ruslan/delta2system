@@ -16,6 +16,7 @@ import delta2.system.common.Log.L;
 import delta2.system.common.messages.MessageText;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
+import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
 
 public class WifiReceiver extends BroadcastReceiver {
 
@@ -45,6 +46,9 @@ public class WifiReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!PreferencesHelper.getNotifyConnection())
+            return;
+
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if(conMan != null) {
             NetworkInfo netInfo = conMan.getActiveNetworkInfo();
@@ -65,7 +69,6 @@ public class WifiReceiver extends BroadcastReceiver {
                 catch (Exception e){
                     L.log.error("wifi error", e);
                 }
-
 
                 String msg = mContext.getString(R.string.whi_msg_connection_changed) + "\n" + info;
                 MediatorMD.RequestSendMessage(new MessageText(msg));

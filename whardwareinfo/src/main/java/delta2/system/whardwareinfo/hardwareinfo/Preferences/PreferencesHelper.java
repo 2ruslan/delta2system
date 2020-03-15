@@ -3,17 +3,20 @@ package delta2.system.whardwareinfo.hardwareinfo.Preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import delta2.system.common.preferences.PreferenceValue;
+
 
 public class PreferencesHelper {
 
     public static final String APP_PREFERENCES = "whardwareinfo.preference";
 
-    public static final String AUTO_START = "AUTO_START";
-
+    public static final String NOTIFY_POWER = "NOTIFY_POWER";
+    public static final String NOTIFY_CONNECTION = "NOTIFY_CONNECTION";
 
 
     private static SharedPreferences mSettings;
-    //private static PreferenceValue _autoStart;
+    private static PreferenceValue _notifyPower;
+    private static PreferenceValue _notifyConnection;
 
 
 
@@ -21,22 +24,30 @@ public class PreferencesHelper {
     public static void init(Context context) {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
 
-       // _autoStart  = new PreferenceValue(mSettings, AUTO_START, true);
-
+        _notifyPower = new PreferenceValue(mSettings, NOTIFY_POWER, true);
+        _notifyConnection= new PreferenceValue(mSettings, NOTIFY_CONNECTION, true);
 
     }
 
 
-    //region AUTO_START
-    /*
-    public static void setAutoStart(boolean val) {
-        _autoStart.setBool(val);
+    //region NOTIFY_POWER
+    public static void setNotifyPower(boolean val) {
+        _notifyPower.setBool(val);
     }
 
-    public static boolean getAutoStart() {
-        return _autoStart.getBool();
+    public static boolean getNotifyPower() {
+        return _notifyPower.getBool();
     }
-    */
-    //endregion AUTO_START
+    //endregion NOTIFY_POWER
 
+
+    //region NOTIFY_CONNECTION
+    public static void setNotifyConnection(boolean val) {
+        _notifyConnection.setBool(val);
+    }
+
+    public static boolean getNotifyConnection() {
+        return _notifyConnection.getBool();
+    }
+    //endregion NOTIFY_CONNECTION
 }

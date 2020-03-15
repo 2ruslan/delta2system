@@ -5,7 +5,7 @@
     <string name="whi_msg_bat_levelprc">Уровень батареи</string>
     <string name="whi_msg_battery">Батарея</string>
     <string name="whi_msg_power_full">Полностью заряжена</string>
-    <string name="whi_msg_power_on">Подклбчено к питанию</string>
+    <string name="whi_msg_power_on">Подключено к питанию</string>
     <string name="whi_msg_power_off">Отключено от питания</string>
     <string name="whi_msg_bat_temperature">Температура</string>
     <string name="whi_msg_bat_haelth">Здоровье</string>

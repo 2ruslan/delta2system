@@ -10,6 +10,7 @@ import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.CpuStat;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
+import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
 
 
 public class CommandManager{
@@ -31,28 +32,37 @@ public class CommandManager{
     }
 
     public void CheckCommand(Command cmd) {
-        if(cmd.GetCommand().toLowerCase().equals("info")){
-
-            StringBuilder sb = new StringBuilder("Hardware info");
-            sb.append( "\n\n-------------------------");
-
-            try {
-                String ci =new CpuStat().toString();
-                if(!ci.equals(""))
-                    sb.append("\n\n" + ci);
-            }
-            catch (Exception e){
-                Helper.Ex2Log(e);
-            }
-
-            sb.append("\n\n" + BatteryLevelReceiver.getBatInfo());
-
-            sb.append("\n\n" + WifiReceiver.getConInfo());
-            sb.append( "\n\n-------------------------");
-
-
-            MediatorMD.RequestSendMessage(new MessageText(cmd.getMsgId(), sb.toString()));
-
+        String scom =cmd.GetCommand().toLowerCase().trim();
+        if(scom.equals("info")){
+            sendInfo(cmd.getMsgId());
         }
+        else if (scom.startsWith("set notify power")){
+            PreferencesHelper.setNotifyPower(scom.endsWith("on"));
+        }
+        else if (scom.startsWith("set notify connection")){
+            PreferencesHelper.setNotifyConnection(scom.endsWith("on"));
+        }
+    }
+
+    private void sendInfo(String  msgId){
+        StringBuilder sb = new StringBuilder("Hardware info");
+        sb.append( "\n\n-------------------------");
+
+        try {
+            String ci =new CpuStat().toString();
+            if(!ci.equals(""))
+                sb.append("\n\n" + ci);
+        }
+        catch (Exception e){
+            Helper.Ex2Log(e);
+        }
+
+        sb.append("\n\n" + BatteryLevelReceiver.getBatInfo());
+
+        sb.append("\n\n" + WifiReceiver.getConInfo());
+        sb.append( "\n\n-------------------------");
+
+
+        MediatorMD.RequestSendMessage(new MessageText(msgId, sb.toString()));
     }
 }
