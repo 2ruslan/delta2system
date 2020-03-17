@@ -45,8 +45,8 @@ public class CommndManager {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("Main\n"));
-        sb.append( "\n-------------------------\n");
+        sb.append(cnt.getString(R.string.app_name ));
+        sb.append(String.format("\n\n%s\n", cnt.getString(R.string.delimiter_line)));
 
         sb.append(String.format("%s: %s \n", cnt.getString(R.string.received), InfoData.GetReceive()));
         sb.append(String.format("%s: %s \n", cnt.getString(R.string.sended), InfoData.GetSend()));
@@ -56,7 +56,7 @@ public class CommndManager {
         sb.append(String.format("\n%s: %s \n", cnt.getString(R.string.uptime), MainService.getWorkingTime()));
 
 
-        sb.append( "\n-------------------------");
+        sb.append(String.format("\n%s", cnt.getString(R.string.delimiter_line)));
 
         return new MessageText(cmd.getMsgId(), sb.toString());
     }

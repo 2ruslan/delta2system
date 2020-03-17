@@ -6,6 +6,7 @@ import delta2.system.common.Helper;
 import delta2.system.common.commands.Command;
 import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.messages.MessageText;
+import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.CpuStat;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
@@ -45,8 +46,8 @@ public class CommandManager{
     }
 
     private void sendInfo(String  msgId){
-        StringBuilder sb = new StringBuilder("Hardware info");
-        sb.append( "\n\n-------------------------");
+        StringBuilder sb = new StringBuilder(context.getString(R.string.whi_module_name));
+        sb.append(String.format("\n\n%s", context.getString( R.string.delimiter_line)));
 
         try {
             String ci =new CpuStat().toString();
@@ -60,8 +61,8 @@ public class CommandManager{
         sb.append("\n\n" + BatteryLevelReceiver.getBatInfo());
 
         sb.append("\n\n" + WifiReceiver.getConInfo());
-        sb.append( "\n\n-------------------------");
 
+        sb.append(String.format("\n\n%s", context.getString( R.string.delimiter_line)));
 
         MediatorMD.RequestSendMessage(new MessageText(msgId, sb.toString()));
     }

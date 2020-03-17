@@ -72,7 +72,11 @@ public class BluetoothManager {
     }
 
     private void requestSendMessage(String msg) {
-        msg = msg.replace("\n", "").replace("\r", "");
+        if (msg.startsWith("\n"))
+            msg = msg.substring(1);
+        if (msg.startsWith("\r"))
+            msg = msg.substring(1);
+
         if (requestSendMessage != null)
             if (msg.startsWith("<cmd>")) {
                 requestSendMessage.RequestSendMessage(

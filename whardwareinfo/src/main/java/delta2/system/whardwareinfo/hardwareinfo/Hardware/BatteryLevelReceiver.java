@@ -193,7 +193,7 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
             Long chargeCounter = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
             Long capacity = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
 
-            if (chargeCounter != null && capacity != null) {
+            if (chargeCounter != null && capacity != null && chargeCounter != Long.MAX_VALUE ) {
                 long value = (long) (((float) chargeCounter / (float) capacity) * 100f);
 
                 return chargeCounter + " mah / " + value + " mah (" + capacity + "%)";

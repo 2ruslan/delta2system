@@ -12,8 +12,8 @@ import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelpe
 
 public class InfoHelper {
     public static void sendInfo( String msgId, Context context){
-        StringBuilder sb = new StringBuilder("MotionDetector");
-        sb.append("\n\n------------------");
+        StringBuilder sb = new StringBuilder(context.getString(R.string.wmd_module_name));
+        sb.append(String.format("\n\n%s", context.getString(R.string.delimiter_line)));
 
         sb.append( String.format("\n\n%s = %s", context.getResources().getString(R.string.wmd_status), context.getResources().getString( PreferencesHelper.GetIsActive() ? R.string.wmd_status_started : R.string.wmd_status_stopped)));
 
@@ -23,6 +23,7 @@ public class InfoHelper {
         sb.append(getCamProp(CmdCameraSizeSet._COMMAND));
         sb.append(getCamProp(CmdCameraAngleSet._COMMAND));
 
+        sb.append(String.format("\n\n%s", context.getString(R.string.delimiter_line)));
 
         MediatorMD.sendText (msgId, sb.toString());
     }
