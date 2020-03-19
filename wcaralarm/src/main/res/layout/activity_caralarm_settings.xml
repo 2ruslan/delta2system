@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        style="@style/BoxStyle"
+        >
+<!--
+        <TextView
+            style="@style/ModuleHeaderStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/whi_module_name"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/border"
+            style="@style/BoxStyle"
+            >
+
+            <CheckBox
+                android:id="@+id/cbNotifyPower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/whi_notify_power"
+                android:onClick="onClick"
+                style="@style/CheckBoxStyle"
+                />
+            <CheckBox
+                android:id="@+id/cbNotifyConnection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/whi_notify_connection"
+                android:onClick="onClick"
+                style="@style/CheckBoxStyle"
+                />
+
+        </LinearLayout>
+-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btMinimize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_close_caption"
+        android:onClick="onMinimizeClick"
+        style="@style/BoxStyle"
+        />
+    </LinearLayout>
+</LinearLayout>
