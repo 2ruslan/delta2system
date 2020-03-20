@@ -6,8 +6,7 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import rock.delta2.carwatchdog.Helper;
-import rock.delta2.carwatchdog.Mediator.MediatorMD;
+import delta2.system.common.Helper;
 
 public class GpsManager {
 
@@ -113,13 +112,13 @@ public class GpsManager {
             GPS_Result gps = g.getResult();
 
             if (gps.accuracy == 0) {
-                MediatorMD.setSpeed(0);
+               // MediatorMD.setSpeed(0);
                 return;
             }
 
             long currentTime = Calendar.getInstance().getTimeInMillis();
 
-            MediatorMD.setSpeed(gps.speed);
+          //  MediatorMD.setSpeed(gps.speed);
 
             if( (currentTime - _prevSend > 30000) //&&
             //     (gps.speed > PreferencesHelper.getGpsSpeed() || mMode == en_mode.one ||mMode == en_mode.allone)
@@ -127,7 +126,7 @@ public class GpsManager {
 
                 _prevSend = currentTime;
 
-                MediatorMD.sendLocation("0", String.valueOf(gps.latitude), String.valueOf(gps.longitude));
+             //   MediatorMD.sendLocation("0", String.valueOf(gps.latitude), String.valueOf(gps.longitude));
 
 
                 //  prev_latitude = gps.latitude;

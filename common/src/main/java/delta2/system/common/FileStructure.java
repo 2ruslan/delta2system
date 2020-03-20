@@ -12,7 +12,7 @@ import java.util.Comparator;
 import delta2.system.common.Log.L;
 
 public class FileStructure {
-    private static final int _OLD_FILES_QNT = 30;
+    private static final int _OLD_FILES_QNT = 300;
     private static final String _D2S_DIR = "/delta2system/";
 
     final static SimpleDateFormat sdfFileShort = new SimpleDateFormat(".yyyy_MM_dd__HH_mm_ss.SSS");
@@ -82,8 +82,10 @@ public class FileStructure {
                 });
             }
 
-            for (int i=0; i < 20; i++ )
+            for (int i=0; i < 20; i++ ) {
+                L.log.debug("Deleted file : %s",  sortedByDate[i].getName());
                 sortedByDate[i].delete();
+            }
         }
     }
 }

@@ -39,7 +39,6 @@ import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
 import delta2.system.ttelegram.transporttelegram.Preferences.TelegramPreferences;
 
 public class TelegramTransport implements Client.ResultHandler, Client.ExceptionHandler {
-    private static final String _TAG = TelegramTransport.class.getName();
 
     private static final int _ONLINE_INTERVAL = 5 * 60 *1000;
     private static final int _DELETE_HISTORY_INTERVAL = 6 * 60 * 60 *1000;
@@ -198,7 +197,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                 send2t(new TdApi.SetUsername(PreferencesHelper.getPhoneNum()));
             }
 
-            L.log.error(_TAG, e.code + " " + e.message);
+            L.log.error( e.code + " " + e.message);
 
         }
 
@@ -287,7 +286,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
     @Override
     public void onException(Throwable e) {
-        L.log.error(_TAG, e);
+        L.log.error("", e);
     }
 
     //region register
@@ -297,24 +296,24 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
         if(PreferencesHelper.getPhoneNum().equals("")) {
             s.putExtra(LoginActivity._LOGIN_PARAM, LoginActivity._PARAM_PHONE);
-            L.log.debug(_TAG, "LoginActivity set param" + LoginActivity._PARAM_PHONE);
+            L.log.debug( "LoginActivity set param" + LoginActivity._PARAM_PHONE);
         }
 
         else if (PreferencesHelper.code.equals("")) {
             s.putExtra(LoginActivity._LOGIN_PARAM, LoginActivity._PARAM_TCODE);
-            L.log.debug(_TAG, "LoginActivity set param" + LoginActivity._PARAM_TCODE);
+            L.log.debug( "LoginActivity set param" + LoginActivity._PARAM_TCODE);
         }
 
         else  if (PreferencesHelper.pass.equals("")) {
             s.putExtra(LoginActivity._LOGIN_PARAM, LoginActivity._PARAM_PASSWORD);
             s.putExtra(LoginActivity._PARAM_PASSHINT_VAL, passHint);
-            L.log.debug(_TAG, "LoginActivity set param" + LoginActivity._PARAM_PASSWORD);
+            L.log.debug( "LoginActivity set param" + LoginActivity._PARAM_PASSWORD);
         }
 
-        L.log.debug(_TAG, "Open LoginActivity start");
+        L.log.debug("Open LoginActivity start");
         LoginActivity.SetTransport(this);
         _context.startActivity (s);
-        L.log.debug(_TAG, "Open LoginActivity end");
+        L.log.debug( "Open LoginActivity end");
 
     }
 
@@ -425,7 +424,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             }
         }catch (Exception e)
         {
-            L.log.error(_TAG, e);
+            L.log.error("", e);
         }
     }
 
@@ -460,7 +459,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }
         } catch (Exception e) {
-            L.log.error(_TAG, e);
+            L.log.error("", e);
         }
     }
 
@@ -478,7 +477,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     rplId = Long.valueOf(msg.getMsgId());
                 }
                 catch (Exception e){
-                    L.log.error(_TAG, e);
+                    L.log.error("", e);
                 }
 
                 Thread.sleep(1100);
@@ -549,7 +548,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }
         } catch (Exception e) {
-            L.log.error(_TAG, e);
+            L.log.error("", e);
         }
     }
 
@@ -609,7 +608,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
             }catch (Exception ex)
             {
-                L.log.error(_TAG, ex);
+                L.log.error("", ex);
             }
         }
     }

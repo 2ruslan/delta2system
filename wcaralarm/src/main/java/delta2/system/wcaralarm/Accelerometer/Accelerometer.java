@@ -6,7 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import rock.delta2.carwatchdog.Helper;
+import delta2.system.common.Helper;
 
 public class Accelerometer  implements SensorEventListener {
 

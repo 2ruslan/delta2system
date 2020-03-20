@@ -12,7 +12,9 @@ import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
+
+
+import androidx.core.app.ActivityCompat;
 
 import java.util.Calendar;
 
@@ -42,7 +44,8 @@ public class GPS implements LocationListener, GpsStatus.Listener {
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                GpsStatus status = locationManagerGPS.getGpsStatus(null);
+            /*
+               GpsStatus status = locationManagerGPS.getGpsStatus(null);
                 Iterable<GpsSatellite> sats = status.getSatellites();
 
                 currentResult.satTotal = 0;
@@ -68,7 +71,7 @@ public class GPS implements LocationListener, GpsStatus.Listener {
 
                 if(currentResult.satAct  > 0)
                     IsReseting = false;
-
+*/
             }catch (Exception ex) {
 
             }
@@ -129,8 +132,8 @@ public class GPS implements LocationListener, GpsStatus.Listener {
                 }
             }
 
-            locationManagerGPS.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, (float) 0.0, this, Looper.getMainLooper());
-            locationManagerGPS.addGpsStatusListener(this);
+           // locationManagerGPS.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, (float) 0.0, this, Looper.getMainLooper());
+           // locationManagerGPS.addGpsStatusListener(this);
 
 
             xtra();
@@ -144,7 +147,7 @@ public class GPS implements LocationListener, GpsStatus.Listener {
                 && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManagerGPS.removeUpdates(this);
+ //       locationManagerGPS.removeUpdates(this);
         locationManagerGPS.removeGpsStatusListener(this);
         locationManagerGPS = null;
     }

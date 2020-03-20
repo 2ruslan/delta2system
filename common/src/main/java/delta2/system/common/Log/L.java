@@ -55,6 +55,7 @@ public class L {
 
         PatternLayoutEncoder encoder = new PatternLayoutEncoder();
         encoder.setPattern("%d{yyyy.MM.dd HH:mm:ss.SSS} [%thread] [%-5level] %logger{36} - %msg%n");
+
         encoder.setContext(context);
         encoder.start();
 

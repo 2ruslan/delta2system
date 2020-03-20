@@ -5,9 +5,9 @@ import android.content.Context;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import rock.delta2.carwatchdog.Helper;
-import rock.delta2.carwatchdog.Mediator.MediatorMD;
-import rock.delta2.carwatchdog.Preferences.PreferencesHelper;
+import delta2.system.common.Helper;
+import delta2.system.wcaralarm.Preferences.PreferencesHelper;
+
 
 public class AccelerationManager {
 
@@ -91,7 +91,7 @@ public class AccelerationManager {
 
             try {
                 Accelerometer_Result res = g.getResult();
-
+/*
                 if (res.acceleration > PreferencesHelper.getAccLevel()) {
                     prev_acc = res.acceleration;
                     MediatorMD.setAcceleration(res.acceleration);
@@ -101,6 +101,8 @@ public class AccelerationManager {
                         MediatorMD.sendText("0", msg);
                     }
                 }
+
+ */
             }catch (Exception e){
                 Helper.Ex2Log(e);
             }

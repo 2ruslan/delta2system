@@ -21,22 +21,21 @@ import delta2.system.common.Log.L;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 
 public class SendPhoto {
-    private static final String _TAG = SendPhoto.class.getName();
 
     public static void Send(String msgId, Context contest, byte[] jpg, String info, int h, int w){
 
         try {
-            L.log.info( _TAG, "Send photo - start");
+            L.log.info( "Send photo - start");
             String fileName = FileStructure.getFilePath("pic", "jpg");
             FileOutputStream os = new FileOutputStream(fileName);
             os.write(jpg);
             os.flush();
             os.close();
-            L.log.info( _TAG, "Send photo - save data to file : " + fileName);
+            L.log.info( "Send photo - save data to file : " + fileName);
 
             MediatorMD.sendPhoto( msgId, fileName, Helper.getNowDT() + " " + info, h, w);
 
-            L.log.info( _TAG, "Send photo end");
+            L.log.info( "Send photo end");
 
         } catch (Exception e) {
             Helper.Ex2Log(e);

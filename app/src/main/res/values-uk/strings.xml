@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">delta2system</string>
-    <string name="delimiter_line">------------------------------------------------</string>
+
     <string name="log_level">рівень логування</string>
     <string name="error">Помилка</string>
     <string name="work">Працює</string>

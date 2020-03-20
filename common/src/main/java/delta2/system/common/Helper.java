@@ -18,8 +18,6 @@ import delta2.system.common.Log.L;
 
 public class Helper {
 
-    public static final String _TAG = Helper.class.getName();
-
     //region workdir
     static File _WorkDir;
     static File nomediaDir;
@@ -36,7 +34,7 @@ public class Helper {
                 try {
                     nomediaDir.createNewFile();
                 }catch (Exception e){
-                    L.log.error(_TAG, e);
+                    L.log.error("", e);
                 }
         }
     }
@@ -96,7 +94,7 @@ public class Helper {
     }
 
     public static void Ex2Log(Throwable ex){
-            L.log.error(_TAG, ex);
+            L.log.error("", ex);
     }
 
 

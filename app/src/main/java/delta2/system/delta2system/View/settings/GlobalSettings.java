@@ -21,7 +21,6 @@ import delta2.system.delta2system.R;
 import delta2.system.delta2system.View.StarterApp;
 
 public class GlobalSettings extends AppCompatActivity {
-    private static final String _TAG = GlobalSettings.class.getName();
 
     ListView modulesList;
     ModuleAllAdapter adapter;
@@ -33,7 +32,7 @@ public class GlobalSettings extends AppCompatActivity {
 
         MainService.stopApp();
 
-        L.log.debug(_TAG, "open");
+        L.log.debug( "open");
 
         connectToAdapter();
 
@@ -70,11 +69,11 @@ public class GlobalSettings extends AppCompatActivity {
     }
 
     private void connectToAdapter(){
-        L.log.debug(_TAG, "connectToAdapter start");
+        L.log.debug( "connectToAdapter start");
         adapter = new ModuleAllAdapter(this, R.layout.list_item_select, ModuleManager.GetAllModules());
         modulesList = findViewById(R.id.modulsList);
         modulesList.setAdapter(adapter);
-        L.log.debug(_TAG, "connectToAdapter stop");
+        L.log.debug( "connectToAdapter stop");
     }
 
     public void OnExitAndRun(View v){
