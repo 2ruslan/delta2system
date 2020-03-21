@@ -29,6 +29,8 @@ public class Module implements IModuleWorker, IError {
 
     IRequestSendMessage requestSendMessage;
 
+    CommandManager commandManager;
+
     private AccelerationManager accelerationManager;
     private GpsManager gpsManager;
 
@@ -88,8 +90,8 @@ public class Module implements IModuleWorker, IError {
     @Override
     public void ExecuteCommand(ICommand cmd) {
         try {
-          //  if (commandManager != null)
-          //      commandManager.ExcuteCommand(cmd);
+            if (commandManager != null)
+                commandManager.ExcuteCommand(cmd);
         }
         catch (Exception ex){
             OnError(ex);
@@ -159,6 +161,8 @@ public class Module implements IModuleWorker, IError {
     private boolean initVars(){
         try {
             PreferencesHelper.init(context);
+
+            commandManager = new CommandManager(context);
 
             accelerationManager = new AccelerationManager(context, requestSendMessage);
             gpsManager = new GpsManager(context, requestSendMessage);

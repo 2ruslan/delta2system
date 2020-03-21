@@ -107,8 +107,8 @@ public class GpsManager {
 
             if(PreferencesHelper.getIsStarted() &&
                PreferencesHelper.getIsGpsActive() &&
-               (currentTime - _prevSend > 30000) //&&
-               //      (gps.speed > PreferencesHelper.getGpsSpeed() || mMode == en_mode.one ||mMode == en_mode.allone)
+               (currentTime - _prevSend > 10000)  &&
+                     (gps.speed > PreferencesHelper.getGpsSpeed() || mMode == en_mode.one ||mMode == en_mode.allone)
             ) {
 
                 _prevSend = currentTime;
