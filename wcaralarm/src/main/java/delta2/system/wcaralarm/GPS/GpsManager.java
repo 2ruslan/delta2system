@@ -7,13 +7,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import delta2.system.common.Helper;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.common.messages.MessageLocation;
+import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 
 public class GpsManager {
 
     static GpsManager mGpsManager;
 
     Context mContext;
-
+    IRequestSendMessage requestSendMessage;
 
     static private Timer mTimer;
     static private MyTimerTask mMyTimerTask;
@@ -28,16 +31,9 @@ public class GpsManager {
 
     en_mode mMode = en_mode.none;
 
-    public static GpsManager getInstance(Context c){
-        if(mGpsManager == null)
-            mGpsManager = new GpsManager(c);
-
-        return mGpsManager;
-    }
-
-
-    protected GpsManager(Context c){
+    public GpsManager(Context c, IRequestSendMessage msg){
         mContext = c;
+        requestSendMessage = msg;
     }
 
     public void onDestroy(){
@@ -84,10 +80,6 @@ public class GpsManager {
         Helper.Log("gps", "stop end", true);
     }
 
-    public boolean GetIsActive(){
-        return mMode == en_mode.all;
-    }
-
     public void getLoc(){
         start(en_mode.one);
     }
@@ -111,22 +103,17 @@ public class GpsManager {
 
             GPS_Result gps = g.getResult();
 
-            if (gps.accuracy == 0) {
-               // MediatorMD.setSpeed(0);
-                return;
-            }
-
             long currentTime = Calendar.getInstance().getTimeInMillis();
 
-          //  MediatorMD.setSpeed(gps.speed);
-
-            if( (currentTime - _prevSend > 30000) //&&
-            //     (gps.speed > PreferencesHelper.getGpsSpeed() || mMode == en_mode.one ||mMode == en_mode.allone)
+            if(PreferencesHelper.getIsStarted() &&
+               PreferencesHelper.getIsGpsActive() &&
+               (currentTime - _prevSend > 30000) //&&
+               //      (gps.speed > PreferencesHelper.getGpsSpeed() || mMode == en_mode.one ||mMode == en_mode.allone)
             ) {
 
                 _prevSend = currentTime;
 
-             //   MediatorMD.sendLocation("0", String.valueOf(gps.latitude), String.valueOf(gps.longitude));
+                requestSendMessage.RequestSendMessage(new MessageLocation("", String.valueOf(gps.latitude), String.valueOf(gps.longitude)));
 
 
                 //  prev_latitude = gps.latitude;

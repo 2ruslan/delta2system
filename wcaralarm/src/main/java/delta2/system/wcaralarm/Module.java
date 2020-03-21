@@ -3,12 +3,10 @@ package delta2.system.wcaralarm;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 
 import java.util.ArrayList;
 
 import delta2.system.common.Helper;
-import delta2.system.common.Log.L;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.commands.ICommand;
@@ -16,6 +14,8 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.permission.CheckPermission;
+import delta2.system.wcaralarm.Accelerometer.AccelerationManager;
+import delta2.system.wcaralarm.GPS.GpsManager;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 
 
@@ -26,6 +26,12 @@ public class Module implements IModuleWorker, IError {
     private IModuleStateChanged moduleStateChanged;
 
     private ModuleState moduleState;
+
+    IRequestSendMessage requestSendMessage;
+
+    private AccelerationManager accelerationManager;
+    private GpsManager gpsManager;
+
 
     private void setModuleState(ModuleState s){
         moduleState = s;
@@ -52,14 +58,13 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetShortName() {
-        return "whi";
+        return "wca";
     }
 
     @Override
     public String GetDescription() {
         return context.getResources().getString(R.string.wca_module_name);
     }
-
 
     @Override
     public void SetOnModuleStateChanged(IModuleStateChanged h) {
@@ -77,7 +82,7 @@ public class Module implements IModuleWorker, IError {
     }
     @Override
     public void RegisterRequestSendMessage(IRequestSendMessage msg) {
-      //  MediatorMD.RegisterRequestSendMessage(msg);
+        requestSendMessage = msg;
     }
 
     @Override
@@ -94,7 +99,7 @@ public class Module implements IModuleWorker, IError {
     @Override
     public void OpenSettings() {
         try {
-            Intent s = new Intent(context, SettingsActivity.class);
+            Intent s = new Intent(context, SettingsCarAlarmActivity.class);
             s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(s);
         }
@@ -105,11 +110,17 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void Start() {
+        accelerationManager.start();
+        gpsManager.start();
+
         setModuleState(ModuleState.work);
     }
 
     @Override
     public void Stop() {
+        accelerationManager.stop();
+        gpsManager.stop();
+
         setModuleState(ModuleState.stop);
     }
 
@@ -138,9 +149,9 @@ public class Module implements IModuleWorker, IError {
                         });
         p.Check(
                 new ArrayList<String>(){{
-                    add(Manifest.permission.ACCESS_NETWORK_STATE);
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                    add(Manifest.permission.ACCESS_WIFI_STATE);
+                    add(Manifest.permission.ACCESS_FINE_LOCATION);
+                    add(Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS);
+                    add(Manifest.permission.ACCESS_COARSE_LOCATION);
                 }}
         );
     }
@@ -149,8 +160,8 @@ public class Module implements IModuleWorker, IError {
         try {
             PreferencesHelper.init(context);
 
-         //   commandManager = new CommandManager(context);
-
+            accelerationManager = new AccelerationManager(context, requestSendMessage);
+            gpsManager = new GpsManager(context, requestSendMessage);
 
             return true;
         }
@@ -162,8 +173,10 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void destroy() {
-      //  if (commandManager != null)
-      //      commandManager.destroy();
+        if (accelerationManager != null)
+            accelerationManager.onDestroy();
+        if (gpsManager != null)
+            gpsManager.onDestroy();
 
     }
 }

@@ -200,7 +200,12 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
             L.log.error( e.code + " " + e.message);
 
         }
-
+        else if (object instanceof TdApi.UpdateChatLastMessage){
+            TdApi.UpdateChatLastMessage m = (TdApi.UpdateChatLastMessage) object;
+            if (m.lastMessage.content instanceof TdApi.MessageLocation){
+                locationMsgId = m.lastMessage.id;
+            }
+        }
         else if (object instanceof TdApi.UpdateMessageSendSucceeded){
             TdApi.UpdateMessageSendSucceeded m = (TdApi.UpdateMessageSendSucceeded) object;
 

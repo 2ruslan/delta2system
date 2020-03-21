@@ -6,6 +6,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import delta2.system.common.Helper;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.common.messages.MessageText;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 
 
@@ -15,19 +17,14 @@ public class AccelerationManager {
     static private Timer mTimer;
     static private MyTimerTask mMyTimerTask;
 
+    IRequestSendMessage requestSendMessage;
+
 
     public static AccelerationManager mAccelerationManager;
 
-    public static AccelerationManager getInstance(Context c){
-        if (mAccelerationManager == null)
-            mAccelerationManager = new AccelerationManager(c);
-
-
-        return mAccelerationManager;
-    }
-
-    protected AccelerationManager(Context c){
+    public AccelerationManager(Context c, IRequestSendMessage msg){
         mContext = c;
+        requestSendMessage = msg;
     }
 
 
@@ -63,10 +60,6 @@ public class AccelerationManager {
     }
 
 
-    public boolean GetIsActive(){
-        return _isStarted;
-    }
-
     public void onDestroy(){
         stop();
         mAccelerationManager = null;
@@ -91,18 +84,17 @@ public class AccelerationManager {
 
             try {
                 Accelerometer_Result res = g.getResult();
-/*
-                if (res.acceleration > PreferencesHelper.getAccLevel()) {
-                    prev_acc = res.acceleration;
-                    MediatorMD.setAcceleration(res.acceleration);
 
-                    if (MediatorMD.isSendAcc() ) {
-                        String msg = String.format("acceleration=%s", res.acceleration);
-                        MediatorMD.sendText("0", msg);
+                prev_acc = res.acceleration;
+
+                if (res.acceleration > PreferencesHelper.getAccLevel()) {
+                    if (PreferencesHelper.getIsStarted() &&
+                        PreferencesHelper.getIsAccActive()) {
+                        requestSendMessage.RequestSendMessage( new MessageText(String.format("acceleration=%s", res.acceleration)));
                     }
                 }
 
- */
+
             }catch (Exception e){
                 Helper.Ex2Log(e);
             }

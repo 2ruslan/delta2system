@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="wca_module_name">Car alarm</string>
+
+    <string name="wca_use_gps">Скорость</string>
+    <string name="wca_use_acc">Датчик удара</string>
 </resources>

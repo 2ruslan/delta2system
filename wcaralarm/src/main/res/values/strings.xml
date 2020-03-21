@@ -2,6 +2,9 @@
 
     <string name="wca_module_name">Car alarm</string>
 
+    <string name="wca_use_gps">Use speed</string>
+    <string name="wca_use_acc">Use acceleration</string>
+
 
 
 </resources>

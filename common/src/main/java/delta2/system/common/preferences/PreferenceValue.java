@@ -9,11 +9,13 @@ public class PreferenceValue {
     String m_defaultValueStr;
     int m_defaultValueNumInt;
     long m_defaultValueNumLong;
+    float m_defaultValueNumFloat;
     boolean m_defaultValueBool;
 
     String m_currentValueStr;
     int m_currentValueNumInt;
     long m_currentValueNumLong;
+    float m_currentValueNumFloat;
     boolean m_currentValueBool;
 
     boolean m_isNoActivate = true;
@@ -32,6 +34,11 @@ public class PreferenceValue {
         m_settings = settings;
         m_valueName = valueName;
         m_defaultValueNumLong = defaultValue;
+    }
+    public PreferenceValue(SharedPreferences settings, String valueName, float defaultValue){
+        m_settings = settings;
+        m_valueName = valueName;
+        m_defaultValueNumFloat = defaultValue;
     }
     public PreferenceValue(SharedPreferences settings, String valueName, boolean defaultValue){
         m_settings = settings;
@@ -157,5 +164,31 @@ public class PreferenceValue {
         }
     }
     //endregion bool
+
+    //region float
+    public float getFloat(){
+        if (m_isNoActivate){
+            try {
+                m_currentValueNumFloat = m_settings.getFloat(m_valueName, m_defaultValueNumFloat);
+                m_isNoActivate = false;
+            }
+            catch (Exception e)
+            {
+                m_currentValueNumFloat = m_defaultValueNumFloat;
+            }
+        }
+        return m_currentValueNumFloat;
+    }
+
+    public void setFloat(float val){
+        if(m_currentValueNumFloat != val) {
+            SharedPreferences.Editor editor = m_settings.edit();
+            editor.putFloat(m_valueName, val);
+            editor.apply();
+            m_currentValueNumFloat = val;
+            m_isNoActivate = false;
+        }
+    }
+    //endregion float
 
 }

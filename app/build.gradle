@@ -45,5 +45,6 @@ dependencies {
     implementation project(":ttelephony")
     implementation project(":warduinobridge")
     implementation project(":wcaralarm")
+    implementation project(":tftp")
     //implementation project(":tline")
 }

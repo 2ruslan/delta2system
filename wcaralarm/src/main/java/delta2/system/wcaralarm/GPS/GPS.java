@@ -44,7 +44,7 @@ public class GPS implements LocationListener, GpsStatus.Listener {
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-            /*
+
                GpsStatus status = locationManagerGPS.getGpsStatus(null);
                 Iterable<GpsSatellite> sats = status.getSatellites();
 
@@ -71,7 +71,7 @@ public class GPS implements LocationListener, GpsStatus.Listener {
 
                 if(currentResult.satAct  > 0)
                     IsReseting = false;
-*/
+
             }catch (Exception ex) {
 
             }
@@ -132,8 +132,8 @@ public class GPS implements LocationListener, GpsStatus.Listener {
                 }
             }
 
-           // locationManagerGPS.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, (float) 0.0, this, Looper.getMainLooper());
-           // locationManagerGPS.addGpsStatusListener(this);
+            locationManagerGPS.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, (float) 0.0, this, Looper.getMainLooper());
+            locationManagerGPS.addGpsStatusListener(this);
 
 
             xtra();
