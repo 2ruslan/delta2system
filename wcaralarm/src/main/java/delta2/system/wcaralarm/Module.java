@@ -91,7 +91,7 @@ public class Module implements IModuleWorker, IError {
     public void ExecuteCommand(ICommand cmd) {
         try {
             if (commandManager != null)
-                commandManager.ExcuteCommand(cmd);
+                commandManager.ExcuteCommand(cmd, requestSendMessage);
         }
         catch (Exception ex){
             OnError(ex);

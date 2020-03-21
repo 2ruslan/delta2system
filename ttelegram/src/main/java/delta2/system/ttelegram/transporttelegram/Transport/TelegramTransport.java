@@ -530,11 +530,13 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
 
                 long currentTime = Calendar.getInstance().getTimeInMillis();
 
-                if(currentTime - lastSendTime > 120000 || locationMsgId == 0) {
+
+                if(currentTime - lastSendTime > (5 * 60 * 1000) || locationMsgId == 0 || rplId > 0 ) {
                     TdApi.InputMessageLocation  m = new TdApi.InputMessageLocation(l, 86400)  ;
 
                     TdApi.SendMessageOptions options = new TdApi.SendMessageOptions(false, true, null);
 
+                    lastSendTime = currentTime;
 
                     TdApi.SendMessage request = new TdApi.SendMessage(PreferencesHelper.getChatId()
                             , rplId, options, null, m);
@@ -549,7 +551,7 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     send2t(request);
                 }
 
-                lastSendTime = currentTime;
+
 
             }
         } catch (Exception e) {

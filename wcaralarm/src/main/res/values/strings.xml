@@ -5,7 +5,11 @@
     <string name="wca_use_gps">Use speed</string>
     <string name="wca_use_acc">Use acceleration</string>
 
+    <string name="wca_speed">Speed</string>
+    <string name="wca_acceleration">Acceleration</string>
 
-
+    <string name="wca_status">status</string>
+    <string name="wca_started">started</string>
+    <string name="wca_stoped">stoped</string>
 </resources>
 

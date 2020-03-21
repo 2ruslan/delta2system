@@ -4,4 +4,12 @@
 
     <string name="wca_use_gps">Скорость</string>
     <string name="wca_use_acc">Датчик удара</string>
+
+    <string name="wca_speed">Скорость</string>
+    <string name="wca_acceleration">Ускорение</string>
+
+    <string name="wca_status">статус</string>
+    <string name="wca_started">работает</string>
+    <string name="wca_stoped">остановлено</string>
+
 </resources>

@@ -13,23 +13,11 @@ import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 
 public class GpsManager {
 
-    static GpsManager mGpsManager;
-
     Context mContext;
-    IRequestSendMessage requestSendMessage;
+    static IRequestSendMessage requestSendMessage;
 
     static private Timer mTimer;
     static private MyTimerTask mMyTimerTask;
-
-    public enum en_mode{
-        none,
-        one,
-        all,
-        allone
-
-    }
-
-    en_mode mMode = en_mode.none;
 
     public GpsManager(Context c, IRequestSendMessage msg){
         mContext = c;
@@ -41,19 +29,10 @@ public class GpsManager {
     }
 
 
-    public void start() {
-        start(en_mode.all);
-    }
-
-
-    public void start(en_mode m){
+    public void start(){
         Helper.Log("gps", "start begin", true);
         stop();
 
-        if (mMode == en_mode.all && m == en_mode.one)
-            m = en_mode.allone;
-
-        mMode = m;
 
         mTimer = new Timer();
         mMyTimerTask = new MyTimerTask(mContext);
@@ -66,7 +45,6 @@ public class GpsManager {
 
     public void  stop(){
         Helper.Log("gps", "stop begin", true);
-        mMode = en_mode.none;
 
         if (mTimer != null) {
             mTimer.cancel();
@@ -79,19 +57,19 @@ public class GpsManager {
         }
         Helper.Log("gps", "stop end", true);
     }
+    static double prev_latitude;
+    static double prev_longitude;
 
-    public void getLoc(){
-        start(en_mode.one);
+    public static void getLoc(String msgId){
+        if (requestSendMessage != null)
+            requestSendMessage.RequestSendMessage(new MessageLocation(msgId, String.valueOf(prev_latitude), String.valueOf(prev_longitude)));
     }
 
     long _prevSend = 0;
     public class MyTimerTask extends TimerTask {
 
         GPS g;
-        int cntUp = 0;
 
-        //  double prev_latitude;
-        //  double prev_longitude;
 
         public MyTimerTask(Context c) {
 
@@ -107,23 +85,17 @@ public class GpsManager {
 
             if(PreferencesHelper.getIsStarted() &&
                PreferencesHelper.getIsGpsActive() &&
-               (currentTime - _prevSend > 10000)  &&
-                     (gps.speed > PreferencesHelper.getGpsSpeed() || mMode == en_mode.one ||mMode == en_mode.allone)
+               (currentTime - _prevSend > 10000)  && // 10sec
+                     (gps.speed > PreferencesHelper.getGpsSpeed())
             ) {
 
                 _prevSend = currentTime;
 
                 requestSendMessage.RequestSendMessage(new MessageLocation("", String.valueOf(gps.latitude), String.valueOf(gps.longitude)));
-
-
-                //  prev_latitude = gps.latitude;
-                //  prev_longitude = gps.longitude;
             }
 
-            if(mMode== en_mode.one)
-                stop();
-            if(mMode == en_mode.allone)
-                mMode = en_mode.all;
+            prev_latitude = gps.latitude;
+            prev_longitude = gps.longitude;
         }
 
         public void stopTmt() {

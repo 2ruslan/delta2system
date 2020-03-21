@@ -38,6 +38,7 @@
                 android:onClick="onClick"
                 style="@style/CheckBoxStyle"
                 />
+
             <CheckBox
                 android:id="@+id/cbUseAcc"
                 android:layout_width="match_parent"
@@ -46,6 +47,68 @@
                 android:onClick="onClick"
                 style="@style/CheckBoxStyle"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/border"
+                style="@style/BoxStyle"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wca_speed"
+                    style="@style/BoxStyle"
+                    />
+
+                <EditText
+                    android:id="@+id/etSpeed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    style="@style/BoxStyle"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ok"
+                    android:onClick="onSaveSpeedClick"
+                    style="@style/BoxStyle"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/border"
+                style="@style/BoxStyle"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wca_acceleration"
+                    style="@style/BoxStyle"
+                    />
+
+                <EditText
+                    android:id="@+id/etAcceleration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="numberDecimal"
+                    style="@style/BoxStyle"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ok"
+                    android:onClick="onSaveAccClick"
+                    style="@style/BoxStyle"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
 
