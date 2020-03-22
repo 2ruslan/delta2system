@@ -91,7 +91,7 @@ public class BluetoothManager {
 
     public void connect(){
         if(!PreferencesHelper.getDeviceAddress().equals("") ){
-
+            L.log.debug("bluetoth connect start");
             if (mConnectedThread != null){
                 try {
                     mConnectedThread = null;
@@ -118,6 +118,7 @@ public class BluetoothManager {
                 mBluetoothSocket = device.createRfcommSocketToServiceRecord(u);
 
                 mBluetoothSocket.connect();
+                L.log.debug("bluetoth connect ok");
 
                 mConnectedThread = new ConnectedThread(mBluetoothSocket);
                 mConnectedThread.start();
@@ -128,6 +129,7 @@ public class BluetoothManager {
                 L.log.error("", e);
                 needReconect = true;
             }
+            L.log.debug("bluetoth connect end");
         }
     }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wss_module_name">Авто Старт-Стоп</string>
+    <string name="wss_main_device">Виберіть основний пристрій</string>
+</resources>

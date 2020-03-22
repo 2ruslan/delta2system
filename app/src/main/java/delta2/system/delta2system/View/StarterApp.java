@@ -42,7 +42,7 @@ public class StarterApp extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_permission);
+        setContentView(R.layout.activity_starter_app);
 
         Helper.setWorkDir(this.getFilesDir());
 

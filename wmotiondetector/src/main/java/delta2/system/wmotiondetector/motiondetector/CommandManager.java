@@ -90,9 +90,7 @@ public class CommandManager implements ICommandCheckMessage {
 
         }
 
-
-
-            CheckMessage(msgId, inTxt, false, false) ;
+         CheckMessage(msgId, inTxt, true, false) ;
 
     }
 

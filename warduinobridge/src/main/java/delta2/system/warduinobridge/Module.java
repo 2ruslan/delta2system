@@ -146,6 +146,7 @@ public class Module implements IModuleWorker, IError {
                 new ArrayList<String>(){{
                     add(Manifest.permission.BLUETOOTH);
                     add(Manifest.permission.BLUETOOTH_ADMIN);
+                    add(Manifest.permission.ACCESS_FINE_LOCATION);
                 }}
         );
     }

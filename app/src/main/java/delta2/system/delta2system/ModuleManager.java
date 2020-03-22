@@ -24,7 +24,6 @@ import delta2.system.common.messages.MessageForward;
 import delta2.system.common.messages.MessageText;
 import delta2.system.delta2system.Commands.CommndManager;
 import delta2.system.delta2system.Commands.InfoData;
-import delta2.system.ttelephony.transporttelephony.Transport.TelephonyTransport;
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError, INotifyChanged {
 
@@ -57,6 +56,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         modulesAll.add(new delta2.system.wmotiondetector.Module(c));
         modulesAll.add(new delta2.system.warduinobridge.Module(c));
         modulesAll.add(new delta2.system.wcaralarm.Module(c));
+        modulesAll.add(new delta2.system.wstartstop.Module(c));
     }
 
     public static ArrayList<IModule> GetAllModules(){
