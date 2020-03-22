@@ -24,15 +24,41 @@ import delta2.system.wstartstop.Preferences.PreferencesHelper;
 public class BluetoothManager {
     private Context _context;
     private BluetoothAdapter mAdapter;
-    BluetoothDevice device;
-    IRequestSendMessage requestSendMessage;
+    private BluetoothSocket mBluetoothSocket;
+    private Handler bluetoothIn;
+    final int handlerState = 0;
+    private ConnectedThread mConnectedThread;
+    private IRequestSendMessage requestSendMessage;
 
-    int prevState = -1;
+    private boolean needReconect = false;
 
     public BluetoothManager(Context c){
         _context = c;
 
+        bluetoothIn = new Handler() {
+            StringBuilder sb = new StringBuilder();
+
+            public void handleMessage(android.os.Message msg) {
+                if (msg.what == handlerState) {
+                    String readMessage = (String) msg.obj;
+
+                    sb.append(readMessage);
+                    if(sb.toString().contains("\r")) {
+                        String str = sb.toString();
+                        String[] parts = str.split("\r");
+                        sb = new StringBuilder();
+                        if (parts.length > 1){
+                            for (int i = 1; i < parts.length; i++)
+                                sb.append(parts[i]);
+                        }
+                    }
+                }
+            }
+
+        };
+
         mAdapter = BluetoothAdapter.getDefaultAdapter();
+
     }
 
     public void Start(){
@@ -43,25 +69,120 @@ public class BluetoothManager {
         requestSendMessage = m;
     }
 
-    public void chekConnection(){
 
-        if (PreferencesHelper.getDeviceAddress().equals(""))
+    boolean prevIsConnected = false;
+    private void requestSendMessage(boolean isConnected) {
+
+        if (prevIsConnected == isConnected)
             return;
 
-        if (device == null || !device.getAddress().equals(PreferencesHelper.getDeviceAddress()))
-            device = mAdapter.getRemoteDevice(PreferencesHelper.getDeviceAddress());
+        if (requestSendMessage != null)
+                requestSendMessage.RequestSendMessage(new MessageCommand(new Command("", isConnected ? "stop" : "start" )));
 
-
-        int state = device.getBondState();
-
-        if (prevState != state){
-            requestSendMessage.RequestSendMessage( new MessageCommand(
-                    new Command("", state == BluetoothDevice.BOND_BONDED ? "stop" : "start" )
-            ) );
-        }
-        prevState = state;
     }
 
+
+    public void connect(){
+        if(!PreferencesHelper.getDeviceAddress().equals("") ){
+            L.log.debug("bluetoth connect start");
+            if (mConnectedThread != null){
+                try {
+                    mConnectedThread = null;
+                }
+                catch (Exception e){
+                    L.log.error("bluetoth disconnect 0", e);
+                }
+            }
+
+            if (mBluetoothSocket != null){
+                try {
+                    mBluetoothSocket.close();
+                    mBluetoothSocket = null;
+                }
+                catch (Exception e){
+                    L.log.error("bluetoth disconnect 1", e);
+                }
+            }
+
+            try {
+                BluetoothDevice device = mAdapter.getRemoteDevice(PreferencesHelper.getDeviceAddress());
+
+                mBluetoothSocket = device.createRfcommSocketToServiceRecord( Common._BLUETOOTH_UID);
+
+                mBluetoothSocket.connect();
+
+                requestSendMessage(true);
+
+                mConnectedThread = new ConnectedThread(mBluetoothSocket);
+                mConnectedThread.start();
+
+                needReconect = false;
+
+            }catch (Exception e){
+                requestSendMessage(false);
+                needReconect = true;
+            }
+            L.log.debug("bluetoth connect end");
+        }
+    }
+
+
+    public void BTSendText(String txt) {
+        if (txt.length() > 0 && mConnectedThread != null) {
+            mConnectedThread.write(txt);
+        }
+    }
+
+
+    private class ConnectedThread extends Thread {
+        private final InputStream mmInStream;
+        private final OutputStream mmOutStream;
+
+        public ConnectedThread(BluetoothSocket socket) {
+            InputStream tmpIn = null;
+            OutputStream tmpOut = null;
+
+            try {
+                tmpIn = socket.getInputStream();
+                tmpOut = socket.getOutputStream();
+            } catch (IOException e) { }
+            mmInStream = tmpIn;
+            mmOutStream = tmpOut;
+        }
+
+        public void run() {
+            byte[] buffer = new byte[256];
+            int bytes;
+
+            while (true) {
+                try {
+                    bytes = mmInStream.read(buffer);
+                    String readMessage = new String(buffer, 0, bytes);
+                    bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
+                } catch (IOException e) {
+                    L.log.error("bluetoothIn read ", e);
+                    needReconect = true;
+                    break;
+                }
+            }
+        }
+
+        public void write(String input) {
+            byte[] msgBuffer = input.getBytes();
+            try {
+                mmOutStream.write(msgBuffer);
+            } catch (IOException e) {
+                L.log.error("", e);
+                needReconect = true;
+            }
+        }
+    }
+
+    private void chekConnection(){
+
+        if (mBluetoothSocket == null || !mBluetoothSocket.isConnected() || needReconect)
+            connect();
+    }
 
     OnlineTimertask _TimerTask ;
     Timer _Timer;

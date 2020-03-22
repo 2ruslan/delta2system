@@ -46,6 +46,6 @@ dependencies {
     implementation project(":warduinobridge")
     implementation project(":wcaralarm")
     implementation project(":tftp")
-    implementation project(":wstartstop")
+//    implementation project(":wstartstop")
 
 }
