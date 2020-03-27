@@ -66,4 +66,5 @@ public class CommandManager{
 
         MediatorMD.RequestSendMessage(new MessageText(msgId, sb.toString()));
     }
+
 }

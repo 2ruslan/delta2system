@@ -1,6 +1,5 @@
 include ':app', ':common', ':tdropbox', ':whardwareinfo', ':ttelegram', ':libtd', ':wmotiondetector', ':ttelephony', ':warduinobridge'
 include ':tftp'
 rootProject.name='delta2system'
-//include ':tline'
 include ':wcaralarm'
-include ':wstartstop'
+include ':wtrinket'

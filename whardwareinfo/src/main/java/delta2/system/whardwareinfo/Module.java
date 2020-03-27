@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import delta2.system.common.Helper;
 import delta2.system.common.Log.L;
 import delta2.system.common.enums.ModuleState;
+import delta2.system.common.execmd.ExeCmdManager;
 import delta2.system.common.interfaces.IError;
 import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
@@ -22,11 +23,15 @@ import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
 import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
 import delta2.system.whardwareinfo.hardwareinfo.SettingsActivity;
+import delta2.system.whardwareinfo.hardwareinfo.commands.ModuleExeCmdManager;
 
 public class Module implements IModuleWorker, IError {
 
     BatteryLevelReceiver batteryLevelReceiver;
     CommandManager commandManager;
+
+    ModuleExeCmdManager exeCmdManager;
+
     Context context;
 
     private IModuleStateChanged moduleStateChanged;
@@ -66,7 +71,6 @@ public class Module implements IModuleWorker, IError {
         return context.getResources().getString(R.string.whi_module_name);
     }
 
-
     @Override
     public void SetOnModuleStateChanged(IModuleStateChanged h) {
         moduleStateChanged = h;
@@ -83,14 +87,15 @@ public class Module implements IModuleWorker, IError {
     }
     @Override
     public void RegisterRequestSendMessage(IRequestSendMessage msg) {
+        exeCmdManager = new ModuleExeCmdManager(msg, context);
         MediatorMD.RegisterRequestSendMessage(msg);
     }
 
     @Override
     public void ExecuteCommand(ICommand cmd) {
         try {
-            if (commandManager != null)
-                commandManager.ExcuteCommand(cmd);
+            if (exeCmdManager != null)
+                exeCmdManager.Run(cmd);
         }
         catch (Exception ex){
             OnError(ex);
