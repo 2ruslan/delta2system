@@ -18,6 +18,9 @@
 
     <string name="whi_notify_power">Notify on power changed</string>
     <string name="whi_notify_connection">Notify on connection changed</string>
+    <string name="whi_hc_info">get info about hardware</string>
+    <string name="whi_hc_notify_pwr">Notify power connect-disconnect (on - set nodify, off - disable notification)</string>
+    <string name="whi_hc_notify_connection">Notify change internet connection (on - set nodify, off - disable notification)</string>
 
 </resources>
 

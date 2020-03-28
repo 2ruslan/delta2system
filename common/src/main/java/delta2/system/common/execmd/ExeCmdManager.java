@@ -38,19 +38,19 @@ public class ExeCmdManager {
 
             if (result.GetState() != ExeCmdResult.enState.none) {
                 if (result.IsNeedAnswer())
-                    SendMessage(GetMessage(cmdText, result), command.getMsgId());
+                    SendMessage(GetMessage(c, result), command.getMsgId());
                 return;
             }
         }
     }
 
-    private String GetMessage(String cmdText, ExeCmdResult result){
+    private String GetMessage(ExeBaseCmd command, ExeCmdResult result){
         if (result.IsMessageNotEmpty())
-            return String.format("%s : \n%s", cmdText, result.GetMessage());
+            return String.format("%s : \n%s", command.GetCommandText(), result.GetMessage());
         else if (result.GetState() == ExeCmdResult.enState.error)
-            return String.format("%s : error", cmdText);
+            return String.format("%s : error\n%s", command.GetCommandText(), command.GetHelp());
         else if (result.GetState() == ExeCmdResult.enState.ok)
-            return String.format("%s : ok", cmdText);
+            return String.format("%s : ok", command.GetCommandText());
         else
             return "";
     }

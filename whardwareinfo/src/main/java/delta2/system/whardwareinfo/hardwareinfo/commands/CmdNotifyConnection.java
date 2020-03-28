@@ -8,15 +8,15 @@ import delta2.system.common.execmd.ParamsOnOff;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
 
-public class CmdNotifyPower extends ExeBaseCmd {
+public class CmdNotifyConnection extends ExeBaseCmd {
 
-    public CmdNotifyPower(Context c) {
+    public CmdNotifyConnection(Context c) {
         super(c);
     }
 
     @Override
     protected String GetCommandText() {
-        return "set notify power ";
+        return "set notify connection ";
     }
 
     @Override
@@ -26,7 +26,7 @@ public class CmdNotifyPower extends ExeBaseCmd {
 
     @Override
     protected String RunCommand(ICmdParams params) {
-        PreferencesHelper.setNotifyPower( ((ParamsOnOff)params).GetIsOn() );
+        PreferencesHelper.setNotifyConnection( ((ParamsOnOff)params).GetIsOn() );
         return null;
     }
 
@@ -37,7 +37,7 @@ public class CmdNotifyPower extends ExeBaseCmd {
 
     @Override
     public String GetHelp() {
-        return String.format("%s on|off - %s", GetCommandText(), context.getString(R.string.whi_hc_notify_pwr));
+        return String.format("%s on|off - %s", GetCommandText(), context.getString(R.string.whi_hc_notify_connection));
     }
 
 }

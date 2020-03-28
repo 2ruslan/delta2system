@@ -17,7 +17,6 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.permission.CheckPermission;
-import delta2.system.whardwareinfo.hardwareinfo.CommandManager;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
@@ -28,7 +27,6 @@ import delta2.system.whardwareinfo.hardwareinfo.commands.ModuleExeCmdManager;
 public class Module implements IModuleWorker, IError {
 
     BatteryLevelReceiver batteryLevelReceiver;
-    CommandManager commandManager;
 
     ModuleExeCmdManager exeCmdManager;
 
@@ -160,8 +158,6 @@ public class Module implements IModuleWorker, IError {
         try {
             PreferencesHelper.init(context);
 
-            commandManager = new CommandManager(context);
-
             WifiReceiver.init(context);
 
             batteryLevelReceiver = new BatteryLevelReceiver();
@@ -178,8 +174,6 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void destroy() {
-        if (commandManager != null)
-            commandManager.destroy();
 
         WifiReceiver.destroy();
 

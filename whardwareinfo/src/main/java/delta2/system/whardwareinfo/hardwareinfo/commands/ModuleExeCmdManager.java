@@ -14,6 +14,7 @@ public class ModuleExeCmdManager extends ExeCmdManager {
     private void init(Context c){
         Add(new CmdInfo(c));
         Add(new CmdNotifyPower(c));
+        Add(new CmdNotifyConnection(c));
     }
 
 }

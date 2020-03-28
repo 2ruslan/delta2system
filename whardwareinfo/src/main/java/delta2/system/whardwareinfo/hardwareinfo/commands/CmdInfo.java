@@ -3,9 +3,8 @@ package delta2.system.whardwareinfo.hardwareinfo.commands;
 import android.content.Context;
 
 import delta2.system.common.Helper;
-import delta2.system.common.Log.L;
 import delta2.system.common.execmd.ExeBaseCmd;
-import delta2.system.common.execmd.ExeCmdResult;
+import delta2.system.common.execmd.ICmdParams;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.CpuStat;
@@ -27,13 +26,18 @@ public class CmdInfo extends ExeBaseCmd {
     }
 
     @Override
-    protected String RunCommand(String cmd) {
+    protected String RunCommand(ICmdParams params) {
         return GetInfo();
     }
 
     @Override
+    protected ICmdParams ParseParams(String args) {
+        return EmptyCmdParams;
+    }
+
+    @Override
     public String GetHelp() {
-        return null;
+        return String.format("%s - %s", GetCommandText(), context.getString(R.string.whi_hc_info));
     }
 
     private String GetInfo(){
