@@ -26,9 +26,7 @@ import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaSet;
 
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdTurn;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdVoiceCallSet;
 import delta2.system.wmotiondetector.motiondetector.Common.RawPicture;
 import delta2.system.wmotiondetector.motiondetector.Detector.CamearaProps;
@@ -39,6 +37,7 @@ import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 import delta2.system.wmotiondetector.motiondetector.commands.CmdStart;
 import delta2.system.wmotiondetector.motiondetector.commands.CmdStop;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdTurn;
 
 public class SettingsActivity extends AppCompatActivity
         implements IGetRawPictureCallback, ICommandExcecuted, ICameraStarted, AdapterView.OnItemSelectedListener {
@@ -154,23 +153,16 @@ public class SettingsActivity extends AppCompatActivity
     private void refresh(String prop){
         boolean isAll = prop.equals("");
 
-
-        if (isAll || prop.equals(CmdStart._COMMAND) || prop.equals(CmdStop._COMMAND) || prop.equals(CmdTurn._COMMAND) )
             setStartStop();
 
-        if (isAll || prop.equals(CmdVoiceCallSet._COMMAND))
             cbVoiceCall.setChecked(PreferencesHelper.getIsVoiceCall());
 
-        if (isAll || prop.equals(CmdCameraSet._COMMAND))
             refreshSpinner(spCamera, CmdCameraGet._COMMAND);
 
-        if (isAll || prop.equals(CmdCameraSizeSet._COMMAND))
             refreshSpinner(spCameraSize, CmdCameraSizeSet._COMMAND);
 
-        if (isAll || prop.equals(CmdCameraSizeSet._COMMAND))
             refreshSpinner(spCameraAngle, CmdCameraAngleSet._COMMAND);
 
-        if (isAll || prop.equals(CmdDeltaSet._COMMAND))
             edDelta.setText( String.valueOf(PreferencesHelper.getDelta()));
 
 
@@ -218,7 +210,8 @@ public class SettingsActivity extends AppCompatActivity
     }
 
     public void onClickOkDelta(View view) {
-        MediatorMD.CheckMessage("",String.format("set %s %s", CmdDeltaSet._COMMAND, edDelta.getText()));
+
+        PreferencesHelper.setDelta(Integer.valueOf(edDelta.getText().toString()));
     }
 
 

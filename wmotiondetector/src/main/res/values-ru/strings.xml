@@ -15,4 +15,7 @@
     <string name="wmd_hc_info">возвращает информацию о детекторе движения</string>
     <string name="wmd_hc_stop">останавливает детектор движения</string>
     <string name="wmd_hc_start">запускает детектор движения</string>
+    <string name="wmd_hc_turn">turn active state (if started - set stop, if stoped - set start)</string>
+    <string name="wmd_hc_delta_get">get delta</string>
+    <string name="wmd_hc_delta_set">set delta</string>
 </resources>

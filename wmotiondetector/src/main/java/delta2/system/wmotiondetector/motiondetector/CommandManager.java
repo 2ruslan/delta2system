@@ -14,12 +14,10 @@ import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaGet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaSet;
+
 
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdPhotoGet;
 
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdTurn;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdVoiceCallGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdVoiceCallSet;
 import delta2.system.wmotiondetector.motiondetector.Common.CmdBase;
@@ -46,8 +44,6 @@ public class CommandManager implements ICommandCheckMessage {
         _commands = new ArrayList<>();
         _CmdPhotoGet = new CmdPhotoGet();
 
-        _commands.add(new CmdTurn());
-        
         _commands.add(new CmdCameraSet());
         _commands.add(new CmdCameraGet());
 
@@ -57,8 +53,6 @@ public class CommandManager implements ICommandCheckMessage {
         _commands.add(new CmdCameraAngleSet());
         _commands.add(new CmdCameraAngleGet());
 
-        _commands.add(new CmdDeltaSet());
-        _commands.add(new CmdDeltaGet());
 
         _commands.add(new CmdVoiceCallSet());
         _commands.add(new CmdVoiceCallGet());

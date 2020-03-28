@@ -24,6 +24,9 @@ public class ModuleExeCmdManager extends ExeCmdManager {
         Add(new CmdInfo(c));
         Add(new CmdStart(c));
         Add(new CmdStop(c));
+        Add(new CmdTurn(c));
+        Add(new CmdDeltaSet(c));
+        Add(new CmdDeltaGet(c));
 
     }
 

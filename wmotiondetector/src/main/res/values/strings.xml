@@ -20,5 +20,8 @@
     <string name="wmd_hc_info">get info about motion detector</string>
     <string name="wmd_hc_stop">stop motion detector</string>
     <string name="wmd_hc_start">start motion detector</string>
+    <string name="wmd_hc_turn">turn active state (if started - set stop, if stoped - set start)</string>
+    <string name="wmd_hc_delta_get">get delta</string>
+    <string name="wmd_hc_delta_set">set delta</string>
 
 </resources>
