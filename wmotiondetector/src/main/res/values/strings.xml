@@ -17,5 +17,8 @@
     <string name="wmd_size">size</string>
     <string name="wmd_camera">camera</string>
     <string name="wmd_angle">angle</string>
+    <string name="wmd_hc_info">get info about motion detector</string>
+    <string name="wmd_hc_stop">stop motion detector</string>
+    <string name="wmd_hc_start">start motion detector</string>
 
 </resources>

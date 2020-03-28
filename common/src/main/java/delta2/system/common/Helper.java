@@ -18,6 +18,15 @@ import delta2.system.common.Log.L;
 
 public class Helper {
 
+
+    public static String GetMessageHeader( String moduleName, String moduleCode){
+        StringBuilder sb = new StringBuilder(String.format("%s [%s]", moduleName, moduleCode));
+        sb.append("\n-----------------------------------\n");
+        return sb.toString();
+    }
+
+    //-------------------- old -----------------------------
+
     //region workdir
     static File _WorkDir;
     static File nomediaDir;
@@ -39,13 +48,6 @@ public class Helper {
         }
     }
 
-    public static String getWorkDirpath(){
-        try {
-            return getWorkDir().getCanonicalPath();
-        }catch (Exception e){
-            return "";
-        }
-    }
 
     //endregion workdir
 

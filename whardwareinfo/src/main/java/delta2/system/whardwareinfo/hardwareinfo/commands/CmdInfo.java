@@ -5,12 +5,14 @@ import android.content.Context;
 import delta2.system.common.Helper;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.whardwareinfo.Module;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.CpuStat;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
 
 public class CmdInfo extends ExeBaseCmd {
+
     public CmdInfo(Context c) {
         super(c);
     }
@@ -26,7 +28,7 @@ public class CmdInfo extends ExeBaseCmd {
     }
 
     @Override
-    protected String RunCommand(ICmdParams params) {
+    protected String RunCommand(ICmdParams params, String msgId) {
         return GetInfo();
     }
 
@@ -41,8 +43,7 @@ public class CmdInfo extends ExeBaseCmd {
     }
 
     private String GetInfo(){
-        StringBuilder sb = new StringBuilder(context.getString(R.string.whi_module_name));
-        sb.append(String.format("\n\n%s", context.getString( R.string.delimiter_line)));
+        StringBuilder sb = new StringBuilder(Helper.GetMessageHeader(context.getString(R.string.whi_module_name), Module._MODULE_CODE));
 
         try {
             String ci =new CpuStat().toString();
@@ -56,8 +57,6 @@ public class CmdInfo extends ExeBaseCmd {
         sb.append("\n\n" + BatteryLevelReceiver.getBatInfo());
 
         sb.append("\n\n" + WifiReceiver.getConInfo());
-
-        sb.append(String.format("\n\n%s", context.getString( R.string.delimiter_line)));
 
         return sb.toString();
     }

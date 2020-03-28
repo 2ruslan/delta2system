@@ -16,6 +16,6 @@
     <string name="whi_notify_power">Повідомляти про живлення</string>
     <string name="whi_notify_connection">Повідомляти про мережу</string>
     <string name="whi_hc_info">отримати інформацію про пристрій</string>
-    <string name="whi_hc_notify_pwr">Повідомлення про підключення-відключення живлення(on - включити повідомлення, off - відключити повідомлення)</string>
-    <string name="whi_hc_notify_connection">Повідомлення про зміну типу підключення до інтернету(on - включити повідомлення, off - відключити повідомлення)</string>
+    <string name="whi_hc_notify_pwr">повідомлення про підключення-відключення живлення(on - включити повідомлення, off - відключити повідомлення)</string>
+    <string name="whi_hc_notify_connection">повідомлення про зміну типу підключення до інтернету(on - включити повідомлення, off - відключити повідомлення)</string>
 </resources>

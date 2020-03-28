@@ -25,7 +25,7 @@ public class CmdNotifyConnection extends ExeBaseCmd {
     }
 
     @Override
-    protected String RunCommand(ICmdParams params) {
+    protected String RunCommand(ICmdParams params, String msgId) {
         PreferencesHelper.setNotifyConnection( ((ParamsOnOff)params).GetIsOn() );
         return null;
     }

@@ -20,12 +20,17 @@ import delta2.system.wmotiondetector.motiondetector.Detector.MDManager;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 import delta2.system.wmotiondetector.motiondetector.SettingsActivity;
+import delta2.system.wmotiondetector.motiondetector.commands.ModuleExeCmdManager;
 
 public class Module implements IModuleWorker {
+
+    public static final String _MODULE_CODE = "wmd";
 
     Context context;
     MDManager Manager;
 
+    IRequestSendMessage requestSendMessage;
+    ModuleExeCmdManager moduleExeCmdManager;
     private IModuleStateChanged moduleStateChanged;
 
     private ModuleState moduleState;
@@ -50,6 +55,7 @@ public class Module implements IModuleWorker {
 
     @Override
     public void RegisterRequestSendMessage(IRequestSendMessage msg) {
+        requestSendMessage = msg;
         MediatorMD.RegisterRequestSendMessage(msg);
     }
 
@@ -57,6 +63,7 @@ public class Module implements IModuleWorker {
     public void ExecuteCommand(ICommand cmd) {
         if (cmd instanceof Command) {
             Command c = (Command)cmd;
+            moduleExeCmdManager.Run(c);
             MediatorMD.CheckMessage(c.getMsgId(), c.GetCommand());
         }
     }
@@ -68,7 +75,7 @@ public class Module implements IModuleWorker {
 
     @Override
     public String GetShortName() {
-        return "wmd";
+        return _MODULE_CODE;
     }
 
     @Override
@@ -137,6 +144,8 @@ public class Module implements IModuleWorker {
     private boolean initVars(){
         try {
             PreferencesHelper.init(context);
+
+            moduleExeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
             Manager = new MDManager(context);
             MediatorMD.setCommandCheckMessage(new CommandManager(context));

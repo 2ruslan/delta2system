@@ -17,9 +17,12 @@ import delta2.system.common.permission.CheckPermission;
 import delta2.system.wcaralarm.Accelerometer.AccelerationManager;
 import delta2.system.wcaralarm.GPS.GpsManager;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
+import delta2.system.wcaralarm.commands.ModuleExeCmdManager;
 
 
 public class Module implements IModuleWorker, IError {
+
+    public static final String _MODULE_CODE = "wca";
 
     Context context;
 
@@ -29,7 +32,7 @@ public class Module implements IModuleWorker, IError {
 
     IRequestSendMessage requestSendMessage;
 
-    CommandManager commandManager;
+    ModuleExeCmdManager moduleExeCmdManager;
 
     private AccelerationManager accelerationManager;
     private GpsManager gpsManager;
@@ -60,7 +63,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetShortName() {
-        return "wca";
+        return _MODULE_CODE;
     }
 
     @Override
@@ -90,8 +93,8 @@ public class Module implements IModuleWorker, IError {
     @Override
     public void ExecuteCommand(ICommand cmd) {
         try {
-            if (commandManager != null)
-                commandManager.ExcuteCommand(cmd, requestSendMessage);
+            if (moduleExeCmdManager != null)
+                moduleExeCmdManager.Run(cmd);
         }
         catch (Exception ex){
             OnError(ex);
@@ -162,7 +165,7 @@ public class Module implements IModuleWorker, IError {
         try {
             PreferencesHelper.init(context);
 
-            commandManager = new CommandManager(context);
+            moduleExeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
             accelerationManager = new AccelerationManager(context, requestSendMessage);
             gpsManager = new GpsManager(context, requestSendMessage);

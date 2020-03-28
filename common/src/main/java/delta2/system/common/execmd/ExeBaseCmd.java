@@ -18,7 +18,7 @@ public abstract class ExeBaseCmd {
 
     protected abstract boolean IsNeedAnswer();
 
-    protected abstract String RunCommand(ICmdParams params);
+    protected abstract String RunCommand(ICmdParams params, String msgId);
 
     protected abstract ICmdParams ParseParams(String args);
 
@@ -31,7 +31,7 @@ public abstract class ExeBaseCmd {
         return lengthCommandText;
     }
 
-    public ExeCmdResult Run(String cmd){
+    public ExeCmdResult Run(String cmd, String msgId){
         if (cmd.startsWith(GetCommandText())) {
 
             ICmdParams params = null;
@@ -44,7 +44,7 @@ public abstract class ExeBaseCmd {
             }
 
             try {
-                return new ExeCmdResult(ExeCmdResult.enState.ok, RunCommand(params), IsNeedAnswer());
+                return new ExeCmdResult(ExeCmdResult.enState.ok, RunCommand(params, msgId), IsNeedAnswer());
             } catch (Exception e) {
                 L.log.error("", e);
                 return new ExeCmdResult(ExeCmdResult.enState.error, e.getMessage(), IsNeedAnswer());

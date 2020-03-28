@@ -26,6 +26,9 @@ import delta2.system.whardwareinfo.hardwareinfo.commands.ModuleExeCmdManager;
 
 public class Module implements IModuleWorker, IError {
 
+    public static final String _MODULE_CODE = "whi";
+
+    IRequestSendMessage requestSendMessage;
     BatteryLevelReceiver batteryLevelReceiver;
 
     ModuleExeCmdManager exeCmdManager;
@@ -61,7 +64,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetShortName() {
-        return "whi";
+        return _MODULE_CODE;
     }
 
     @Override
@@ -85,7 +88,8 @@ public class Module implements IModuleWorker, IError {
     }
     @Override
     public void RegisterRequestSendMessage(IRequestSendMessage msg) {
-        exeCmdManager = new ModuleExeCmdManager(msg, context);
+        requestSendMessage = msg;
+
         MediatorMD.RegisterRequestSendMessage(msg);
     }
 
@@ -157,6 +161,8 @@ public class Module implements IModuleWorker, IError {
     private boolean initVars(){
         try {
             PreferencesHelper.init(context);
+
+            exeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
             WifiReceiver.init(context);
 

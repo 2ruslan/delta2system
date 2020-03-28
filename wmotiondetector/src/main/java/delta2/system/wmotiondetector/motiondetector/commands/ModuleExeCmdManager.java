@@ -1,12 +1,12 @@
-package delta2.system.whardwareinfo.hardwareinfo.commands;
+package delta2.system.wmotiondetector.motiondetector.commands;
 
 import android.content.Context;
 
 import delta2.system.common.Helper;
 import delta2.system.common.execmd.ExeCmdManager;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
-import delta2.system.whardwareinfo.Module;
-import delta2.system.whardwareinfo.R;
+import delta2.system.wmotiondetector.Module;
+import delta2.system.wmotiondetector.R;
 
 public class ModuleExeCmdManager extends ExeCmdManager {
 
@@ -17,13 +17,14 @@ public class ModuleExeCmdManager extends ExeCmdManager {
 
     @Override
     protected String GetHelpHeader() {
-        return Helper.GetMessageHeader(context.getString(R.string.whi_module_name), Module._MODULE_CODE);
+        return Helper.GetMessageHeader(context.getString(R.string.wmd_module_name), Module._MODULE_CODE);
     }
 
     private void init(Context c){
         Add(new CmdInfo(c));
-        Add(new CmdNotifyPower(c));
-        Add(new CmdNotifyConnection(c));
+        Add(new CmdStart(c));
+        Add(new CmdStop(c));
+
     }
 
 }

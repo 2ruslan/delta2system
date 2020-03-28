@@ -11,4 +11,12 @@
     <string name="wca_status">статус</string>
     <string name="wca_started">працює</string>
     <string name="wca_stoped">зупинено</string>
+    <string name="wca_hc_info">отримати інформацію про модуль автосингналізації</string>
+    <string name="wca_hc_start">вмикає автосигнлізацю</string>
+    <string name="wca_hc_stop">вимикає автосигнлізацю</string>
+    <string name="wca_hc_set_speed">встановлює мінімальну швидкість, починаючи з якої відправляються повідомлення</string>
+    <string name="wca_hc_set_acc">встановлює мінімальну чутливість, починаючи з якої відправляються повідомлення</string>
+    <string name="wca_hc_set_active_acc">вмикає-вимикає датчик удару</string>
+    <string name="wca_hc_set_active_gps">вмикає-вимикає відслідковування по gps</string>
+    <string name="wca_hc_loc">відправляє поточно місцязнаходження</string>
 </resources>

@@ -27,8 +27,7 @@ import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdStart;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdStop;
+
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdTurn;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdVoiceCallSet;
 import delta2.system.wmotiondetector.motiondetector.Common.RawPicture;
@@ -38,6 +37,8 @@ import delta2.system.wmotiondetector.motiondetector.Mediator.ICommandExcecuted;
 import delta2.system.wmotiondetector.motiondetector.Mediator.IGetRawPictureCallback;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdStart;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdStop;
 
 public class SettingsActivity extends AppCompatActivity
         implements IGetRawPictureCallback, ICommandExcecuted, ICameraStarted, AdapterView.OnItemSelectedListener {
@@ -212,7 +213,7 @@ public class SettingsActivity extends AppCompatActivity
 
 
     public void onStartStopClick(View view) {
-        MediatorMD.CheckMessage("",PreferencesHelper.GetIsActive()? CmdStop._COMMAND : CmdStart._COMMAND);
+        PreferencesHelper.SetIsActive(!PreferencesHelper.GetIsActive());
 
     }
 

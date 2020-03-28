@@ -16,10 +16,9 @@ import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeSet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdDeltaSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdInfo;
+
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdPhotoGet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdStart;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdStop;
+
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdTurn;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdVoiceCallGet;
 import delta2.system.wmotiondetector.motiondetector.Commands.CmdVoiceCallSet;
@@ -47,8 +46,6 @@ public class CommandManager implements ICommandCheckMessage {
         _commands = new ArrayList<>();
         _CmdPhotoGet = new CmdPhotoGet();
 
-        _commands.add(new CmdStart());
-        _commands.add(new CmdStop());
         _commands.add(new CmdTurn());
         
         _commands.add(new CmdCameraSet());
@@ -66,7 +63,6 @@ public class CommandManager implements ICommandCheckMessage {
         _commands.add(new CmdVoiceCallSet());
         _commands.add(new CmdVoiceCallGet());
 
-        _commands.add(new CmdInfo());
 
     }
 
@@ -130,11 +126,7 @@ public class CommandManager implements ICommandCheckMessage {
                 } else {
                     chkError(_CmdPhotoGet.exec(msgId,_context, inTxt, inLines));
                 }
-            } else if (cmdResult.result == CmdBase.en_result.ok &&
-                    (cmdType == CmdBase.en_type.set
-                            || CmdStart._COMMAND.equals(inLines[0])
-                            || CmdStop._COMMAND.equals(inLines[0]))
-                    ) {
+            } else if (cmdResult.result == CmdBase.en_result.ok && cmdType == CmdBase.en_type.set) {
                 if (!isSilent)
                     MediatorMD.sendText(msgId,(repeatCmd ? (inTxt + " : ") : "") + _OK);
                 else

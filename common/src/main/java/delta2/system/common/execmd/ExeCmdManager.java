@@ -1,5 +1,7 @@
 package delta2.system.common.execmd;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 import delta2.system.common.commands.Command;
@@ -7,12 +9,17 @@ import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.messages.MessageText;
 
-public class ExeCmdManager {
+public abstract class ExeCmdManager {
+
+    protected abstract String GetHelpHeader();
+
+    protected Context context;
 
     private ArrayList<ExeBaseCmd> commands = new ArrayList<ExeBaseCmd>();
     private IRequestSendMessage sender;
 
-    public ExeCmdManager(IRequestSendMessage s){
+    public ExeCmdManager(Context c, IRequestSendMessage s){
+        context = c;
         sender = s;
     }
 
@@ -20,28 +27,30 @@ public class ExeCmdManager {
         commands.add(cmd);
     }
 
-    public void Run(ICommand cmd){
+    public boolean Run(ICommand cmd){
 
         if (cmd == null || !(cmd instanceof Command))
-            return;
+            return false;
 
         Command command = (Command)cmd;
         String cmdText = command.GetCommand();
 
-        if (cmdText.equals("help")){
+        if (cmdText.equals("help") || cmdText.equals("?")){
             GetHelp(command.getMsgId());
-            return;
+            return true;
         }
 
         for (ExeBaseCmd c : commands){
-            ExeCmdResult result = c.Run(cmdText);
+            ExeCmdResult result = c.Run(cmdText, command.getMsgId());
 
             if (result.GetState() != ExeCmdResult.enState.none) {
                 if (result.IsNeedAnswer())
                     SendMessage(GetMessage(c, result), command.getMsgId());
-                return;
+                return true;
             }
         }
+
+        return false;
     }
 
     private String GetMessage(ExeBaseCmd command, ExeCmdResult result){
@@ -56,9 +65,9 @@ public class ExeCmdManager {
     }
 
     private void GetHelp(String msgId){
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(GetHelpHeader());
         for (ExeBaseCmd c : commands)
-            sb.append(String.format("%s/n", c.GetHelp()));
+            sb.append(String.format("%s\n\n", c.GetHelp()));
 
         SendMessage(sb.toString(), msgId);
     }

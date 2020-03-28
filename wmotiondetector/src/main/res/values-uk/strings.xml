@@ -12,4 +12,7 @@
     <string name="wmd_size">размір</string>
     <string name="wmd_camera">камера</string>
     <string name="wmd_angle">поворт</string>
+    <string name="wmd_hc_info">повертає інформацію про детектор руху</string>
+    <string name="wmd_hc_stop">зупииняє детектор руху</string>
+    <string name="wmd_hc_start">запускає детектор руху</string>
 </resources>
