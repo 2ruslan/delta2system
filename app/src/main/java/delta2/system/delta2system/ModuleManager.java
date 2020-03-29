@@ -56,6 +56,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         modulesAll.add(new delta2.system.wmotiondetector.Module(c));
         modulesAll.add(new delta2.system.warduinobridge.Module(c));
         modulesAll.add(new delta2.system.wcaralarm.Module(c));
+        modulesAll.add(new delta2.system.wsu.Module(c));
     //    modulesAll.add(new delta2.system.wstartstop.Module(c));
     }
 

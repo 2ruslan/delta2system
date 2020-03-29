@@ -15,7 +15,6 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.permission.CheckPermission;
-import delta2.system.wmotiondetector.motiondetector.CommandManager;
 import delta2.system.wmotiondetector.motiondetector.Detector.MDManager;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
@@ -64,7 +63,6 @@ public class Module implements IModuleWorker {
         if (cmd instanceof Command) {
             Command c = (Command)cmd;
             moduleExeCmdManager.Run(c);
-            MediatorMD.CheckMessage(c.getMsgId(), c.GetCommand());
         }
     }
 
@@ -148,7 +146,6 @@ public class Module implements IModuleWorker {
             moduleExeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
             Manager = new MDManager(context);
-            MediatorMD.setCommandCheckMessage(new CommandManager(context));
 
             return true;
         }

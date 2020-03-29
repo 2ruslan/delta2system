@@ -4,10 +4,10 @@ import android.hardware.Camera;
 
 import java.util.List;
 
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleGet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraGet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeGet;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraAngleGet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraGet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSizeGet;
 
 public class CameraPropHelper {
 

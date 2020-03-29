@@ -15,7 +15,14 @@
     <string name="wmd_hc_info">возвращает информацию о детекторе движения</string>
     <string name="wmd_hc_stop">останавливает детектор движения</string>
     <string name="wmd_hc_start">запускает детектор движения</string>
-    <string name="wmd_hc_turn">turn active state (if started - set stop, if stoped - set start)</string>
-    <string name="wmd_hc_delta_get">get delta</string>
-    <string name="wmd_hc_delta_set">set delta</string>
+    <string name="wmd_hc_turn">изменяет активное состояние на противоположное (запущено-остановлено)</string>
+    <string name="wmd_hc_delta_get">возвращает delta</string>
+    <string name="wmd_hc_delta_set">устанавливает delta</string>
+    <string name="wmd_hc_angle_set">устанавливает угол поворота камеры</string>
+    <string name="wmd_hc_angle_get">возвращает угол поворота камеры</string>
+    <string name="wmd_hc_camera_get">возвращает активную камеру</string>
+    <string name="wmd_hc_camera_set">устанавливает активную камеру</string>
+    <string name="wmd_hc_camera_size_set">устанавливает размер фото</string>
+    <string name="wmd_hc_camera_size_get">возвращает размер фото</string>
+    <string name="wmd_hc_get_photo">другие символы - получить фото</string>
 </resources>

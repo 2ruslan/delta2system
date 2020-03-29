@@ -20,18 +20,6 @@ public class MediatorMD {
 
     //endregion ITransport
 
-    //region ICommandCheckMessage
-    private static ICommandCheckMessage _CommandCheckMessage;
-
-    public static void setCommandCheckMessage(ICommandCheckMessage t){
-        _CommandCheckMessage = t;
-    }
-
-    public static void CheckMessage(String msgId, String inTxt){
-        if(_CommandCheckMessage != null)
-            _CommandCheckMessage.CheckMessage(msgId, inTxt);
-    }
-
     //endregion ICommandCheckMessage
 
     // region IGetRawPciture

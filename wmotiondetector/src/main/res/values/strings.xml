@@ -23,5 +23,12 @@
     <string name="wmd_hc_turn">turn active state (if started - set stop, if stoped - set start)</string>
     <string name="wmd_hc_delta_get">get delta</string>
     <string name="wmd_hc_delta_set">set delta</string>
+    <string name="wmd_hc_angle_set">set camera angle</string>
+    <string name="wmd_hc_angle_get">get camera angle</string>
+    <string name="wmd_hc_camera_get">get active camera</string>
+    <string name="wmd_hc_camera_set">set active camera</string>
+    <string name="wmd_hc_camera_size_set">set photo size</string>
+    <string name="wmd_hc_camera_size_get">get photo size</string>
+    <string name="wmd_hc_get_photo">other symbols -  get photo</string>
 
 </resources>

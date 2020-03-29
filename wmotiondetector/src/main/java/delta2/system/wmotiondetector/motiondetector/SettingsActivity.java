@@ -22,12 +22,7 @@ import java.util.TimerTask;
 
 import delta2.system.common.Helper;
 import delta2.system.wmotiondetector.R;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraAngleSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraGet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeSet;
 
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdVoiceCallSet;
 import delta2.system.wmotiondetector.motiondetector.Common.RawPicture;
 import delta2.system.wmotiondetector.motiondetector.Detector.CamearaProps;
 import delta2.system.wmotiondetector.motiondetector.Mediator.ICameraStarted;
@@ -35,9 +30,10 @@ import delta2.system.wmotiondetector.motiondetector.Mediator.ICommandExcecuted;
 import delta2.system.wmotiondetector.motiondetector.Mediator.IGetRawPictureCallback;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
-import delta2.system.wmotiondetector.motiondetector.commands.CmdStart;
-import delta2.system.wmotiondetector.motiondetector.commands.CmdStop;
-import delta2.system.wmotiondetector.motiondetector.commands.CmdTurn;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraAngleSet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraGet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSizeSet;
 
 public class SettingsActivity extends AppCompatActivity
         implements IGetRawPictureCallback, ICommandExcecuted, ICameraStarted, AdapterView.OnItemSelectedListener {
@@ -225,11 +221,13 @@ public class SettingsActivity extends AppCompatActivity
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(parent.equals(spCamera) && PreferencesHelper.getCameraIdx() != position)
-            MediatorMD.CheckMessage("",String.format("set %s %s", CmdCameraSet._COMMAND, position));
+            PreferencesHelper.setCameraSizeIdx(position);
+
         else if(parent.equals(spCameraSize) && PreferencesHelper.getCameraSizeIdx() != position)
-            MediatorMD.CheckMessage("",String.format("set %s %s", CmdCameraSizeSet._COMMAND, position));
+            PreferencesHelper.setCameraSizeIdx(position);
+
         else if(parent.equals(spCameraAngle) && PreferencesHelper.getCameraAngleIdx() != position)
-            MediatorMD.CheckMessage("",String.format("set %s %s", CmdCameraAngleSet._COMMAND, position));
+            PreferencesHelper.setCameraAngleIdx(position);
 
     }
 

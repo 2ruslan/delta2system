@@ -33,7 +33,7 @@ public abstract class ExeCmdManager {
             return false;
 
         Command command = (Command)cmd;
-        String cmdText = command.GetCommand();
+        String cmdText = GetNormalizeCommand(command.GetCommand());
 
         if (cmdText.equals("help") || cmdText.equals("?")){
             GetHelp(command.getMsgId());
@@ -74,6 +74,18 @@ public abstract class ExeCmdManager {
 
     private void SendMessage(String msg, String msgId){
         sender.RequestSendMessage(new MessageText(msgId, msg));
+    }
+
+    private String GetNormalizeCommand(String c){
+        String result = c.toLowerCase().trim();
+
+        while (result.contains("\t"))
+            result = result.replace("\t", " ");
+
+        while (result.contains("  "))
+            result = result.replace("  ", " ");
+
+        return result;
     }
 
 }

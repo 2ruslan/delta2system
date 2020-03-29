@@ -14,8 +14,8 @@ android {
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 24
-        versionName "1.1.5"
+        versionCode 27
+        versionName "1.1.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -47,5 +47,6 @@ dependencies {
     implementation project(":wcaralarm")
     implementation project(":tftp")
     implementation project(":wtrinket")
+    implementation project(":wsu")
 
 }

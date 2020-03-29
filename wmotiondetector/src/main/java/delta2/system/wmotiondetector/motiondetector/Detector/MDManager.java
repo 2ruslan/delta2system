@@ -10,13 +10,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import delta2.system.common.Helper;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSet;
-import delta2.system.wmotiondetector.motiondetector.Commands.CmdCameraSizeSet;
+
 import delta2.system.wmotiondetector.motiondetector.Common.RawPicture;
 import delta2.system.wmotiondetector.motiondetector.Mediator.ICommandExcecuted;
 import delta2.system.wmotiondetector.motiondetector.Mediator.IGetRawPictureCallback;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSizeSet;
 
 public class MDManager implements IGetRawPictureCallback, ICommandExcecuted {
     private Context mContext;

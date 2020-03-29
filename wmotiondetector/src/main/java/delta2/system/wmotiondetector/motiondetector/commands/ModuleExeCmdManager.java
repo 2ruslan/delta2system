@@ -22,12 +22,24 @@ public class ModuleExeCmdManager extends ExeCmdManager {
 
     private void init(Context c){
         Add(new CmdInfo(c));
+
         Add(new CmdStart(c));
         Add(new CmdStop(c));
         Add(new CmdTurn(c));
+
         Add(new CmdDeltaSet(c));
         Add(new CmdDeltaGet(c));
 
+        Add(new CmdCameraGet(c));
+        Add(new CmdCameraSet(c));
+
+        Add(new CmdCameraAngleGet(c));
+        Add(new CmdCameraAngleSet(c));
+
+        Add(new CmdCameraSizeGet(c));
+        Add(new CmdCameraSizeSet(c));
+
+        Add(new CmdPhotoGet(c));
     }
 
 }

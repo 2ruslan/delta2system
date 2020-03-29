@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 
 import delta2.system.common.Constants;
@@ -62,6 +63,9 @@ public class CheckPermissionActivity extends Activity {
                         }
                     }
                 }
+                else if (Constants._ROOT_PERMISSION.equals(permission)){
+                    checkRoot();
+                }
                 else {
                     int res = this.checkCallingOrSelfPermission(permission);
                     if (res != PackageManager.PERMISSION_GRANTED) {
@@ -101,6 +105,29 @@ public class CheckPermissionActivity extends Activity {
                 OnFinish(false);
             }
         }
+    }
+
+    private void checkRoot(){
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec("su");
+
+            DataOutputStream os = new DataOutputStream(p.getOutputStream());
+            os.writeBytes("echo \"Do I have root?\" >/system/sd/temporary.txt\n");
+
+            os.writeBytes("exit\n");
+            os.flush();
+            p.waitFor();
+            if (p.exitValue() != 255) {
+                checkAllPermission();
+                return;
+            }
+        }catch (Exception ex)
+        {
+        }
+
+        checkAllPermission();
+       // finish();
     }
 
     private void OnFinish(boolean isOk){

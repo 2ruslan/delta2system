@@ -5,7 +5,6 @@ import android.content.Context;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
 import delta2.system.wmotiondetector.R;
-import delta2.system.wmotiondetector.motiondetector.InfoHelper;
 
 public class CmdInfo extends ExeBaseCmd {
 
@@ -35,7 +34,7 @@ public class CmdInfo extends ExeBaseCmd {
 
     @Override
     public String GetHelp() {
-        return String.format("%s - %s", GetCommandText(), context.getString(R.string.wmd_hc_info));
+        return String.format("%s - %s", GetCommandText(),  context.getString(R.string.wmd_hc_info));
     }
 
 }

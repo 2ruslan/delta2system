@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="wsu_module_name">Root actions</string>
+    <string name="wsu_reboot">reboot divice</string>
+    <string name="wsu_top">run top command</string>
+
+
+</resources>
+
