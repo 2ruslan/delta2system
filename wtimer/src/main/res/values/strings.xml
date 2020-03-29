@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="wat_module_name">Timer</string>
+    <string name="wat_get_at">get at</string>
+    <string name="wat_del_at">del at</string>
+    <string name="wat_add_at">add at</string>
+
+
+</resources>
+

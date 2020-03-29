@@ -48,5 +48,6 @@ dependencies {
     implementation project(":tftp")
     implementation project(":wtrinket")
     implementation project(":wsu")
+    implementation project(":wtimer")
 
 }
