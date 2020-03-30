@@ -18,6 +18,7 @@ public abstract class ExeCmdManager {
     private ArrayList<ExeBaseCmd> commands = new ArrayList<ExeBaseCmd>();
     private IRequestSendMessage sender;
 
+
     public ExeCmdManager(Context c, IRequestSendMessage s){
         context = c;
         sender = s;

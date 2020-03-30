@@ -10,7 +10,7 @@
     <string name="whi_msg_bat_temperature">Температра</string>
     <string name="whi_msg_bat_haelth">Здоровья</string>
     <string name="whi_msg_bat_level">Рівень заряду</string>
-    <string name="whi_msg_bat_voltage">Вольтаж</string>
+    <string name="whi_msg_bat_voltage">Напруга</string>
     <string name="whi_msg_connection_changed">Підключення змінено</string>
     <string name="whi_msg_connection_current">Поточне підключення</string>
     <string name="whi_notify_power">Повідомляти про живлення</string>

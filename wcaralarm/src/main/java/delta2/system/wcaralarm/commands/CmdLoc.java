@@ -4,14 +4,15 @@ import android.content.Context;
 
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wcaralarm.GPS.GpsManager;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 import delta2.system.wcaralarm.R;
 
 public class CmdLoc extends ExeBaseCmd {
 
-    public CmdLoc(Context c) {
-        super(c);
+    public CmdLoc(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

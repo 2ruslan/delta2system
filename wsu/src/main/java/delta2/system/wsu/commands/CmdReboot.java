@@ -6,12 +6,13 @@ import android.os.PowerManager;
 import delta2.system.common.Log.L;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wsu.R;
 
 public class CmdReboot extends ExeBaseCmd {
 
-    public CmdReboot(Context c) {
-        super(c);
+    public CmdReboot(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

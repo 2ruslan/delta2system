@@ -5,12 +5,13 @@ import android.content.Context;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
 
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wtimer.R;
 
 public class CmdGetAt extends ExeBaseCmd {
 
-    public CmdGetAt(Context c) {
-        super(c);
+    public CmdGetAt(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

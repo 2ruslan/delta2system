@@ -12,7 +12,7 @@ public class ModuleExeCmdManager extends ExeCmdManager {
 
     public ModuleExeCmdManager(Context c, IRequestSendMessage s) {
         super(c, s);
-        init(c);
+        init(c, s);
     }
 
     @Override
@@ -20,26 +20,26 @@ public class ModuleExeCmdManager extends ExeCmdManager {
         return Helper.GetMessageHeader(context.getString(R.string.wmd_module_name), Module._MODULE_CODE);
     }
 
-    private void init(Context c){
-        Add(new CmdInfo(c));
+    private void init(Context c, IRequestSendMessage s){
+        Add(new CmdInfo(c, s));
 
-        Add(new CmdStart(c));
-        Add(new CmdStop(c));
-        Add(new CmdTurn(c));
+        Add(new CmdStart(c, s));
+        Add(new CmdStop(c, s));
+        Add(new CmdTurn(c, s));
 
-        Add(new CmdDeltaSet(c));
-        Add(new CmdDeltaGet(c));
+        Add(new CmdDeltaSet(c, s));
+        Add(new CmdDeltaGet(c, s));
 
-        Add(new CmdCameraGet(c));
-        Add(new CmdCameraSet(c));
+        Add(new CmdCameraGet(c, s));
+        Add(new CmdCameraSet(c, s));
 
-        Add(new CmdCameraAngleGet(c));
-        Add(new CmdCameraAngleSet(c));
+        Add(new CmdCameraAngleGet(c, s));
+        Add(new CmdCameraAngleSet(c, s));
 
-        Add(new CmdCameraSizeGet(c));
-        Add(new CmdCameraSizeSet(c));
+        Add(new CmdCameraSizeGet(c, s));
+        Add(new CmdCameraSizeSet(c, s));
 
-        Add(new CmdPhotoGet(c));
+        Add(new CmdPhotoGet(c, s));
     }
 
 }

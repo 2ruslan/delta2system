@@ -5,6 +5,7 @@ import android.content.Context;
 import delta2.system.common.Helper;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.whardwareinfo.Module;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
@@ -13,8 +14,8 @@ import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
 
 public class CmdInfo extends ExeBaseCmd {
 
-    public CmdInfo(Context c) {
-        super(c);
+    public CmdInfo(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

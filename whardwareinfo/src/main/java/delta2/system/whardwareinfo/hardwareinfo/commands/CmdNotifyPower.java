@@ -5,13 +5,14 @@ import android.content.Context;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
 import delta2.system.common.execmd.ParamsOnOff;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
 
 public class CmdNotifyPower extends ExeBaseCmd {
 
-    public CmdNotifyPower(Context c) {
-        super(c);
+    public CmdNotifyPower(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

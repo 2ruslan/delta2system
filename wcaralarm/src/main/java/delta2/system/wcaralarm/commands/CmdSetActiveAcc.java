@@ -6,13 +6,14 @@ import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
 import delta2.system.common.execmd.ParamsInt;
 import delta2.system.common.execmd.ParamsOnOff;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 import delta2.system.wcaralarm.R;
 
 public class CmdSetActiveAcc extends ExeBaseCmd {
 
-    public CmdSetActiveAcc(Context c) {
-        super(c);
+    public CmdSetActiveAcc(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

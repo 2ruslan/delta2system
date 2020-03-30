@@ -5,13 +5,14 @@ import android.content.Context;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
 import delta2.system.common.execmd.ParamsOnOff;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 import delta2.system.wcaralarm.R;
 
 public class CmdSetActiveGps extends ExeBaseCmd {
 
-    public CmdSetActiveGps(Context c) {
-        super(c);
+    public CmdSetActiveGps(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

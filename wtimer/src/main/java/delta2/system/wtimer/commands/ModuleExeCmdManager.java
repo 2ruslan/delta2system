@@ -12,7 +12,7 @@ public class ModuleExeCmdManager extends ExeCmdManager {
 
     public ModuleExeCmdManager(Context c, IRequestSendMessage s) {
         super(c, s);
-        init(c);
+        init(c, s);
     }
 
     @Override
@@ -20,10 +20,10 @@ public class ModuleExeCmdManager extends ExeCmdManager {
         return Helper.GetMessageHeader(context.getString(R.string.wat_module_name), Module._MODULE_CODE);
     }
 
-    private void init(Context c){
-        Add(new CmdAddAt(c));
-        Add(new CmdDelAt(c));
-        Add(new CmdGetAt(c));
+    private void init(Context c, IRequestSendMessage s){
+        Add(new CmdAddAt(c, s));
+        Add(new CmdDelAt(c, s));
+        Add(new CmdGetAt(c, s));
     }
 
 }

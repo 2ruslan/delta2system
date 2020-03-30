@@ -4,14 +4,15 @@ import android.content.Context;
 
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wmotiondetector.R;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 
 public class CmdStop extends ExeBaseCmd {
     public static final String _COMMAND = "stop";
 
-    public CmdStop(Context c) {
-        super(c);
+    public CmdStop(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class CmdStop extends ExeBaseCmd {
 
     @Override
     protected String RunCommand(ICmdParams params, String msgId) {
-        PreferencesHelper.SetIsActive(true);
+        PreferencesHelper.SetIsActive(false);
         return null;
     }
 

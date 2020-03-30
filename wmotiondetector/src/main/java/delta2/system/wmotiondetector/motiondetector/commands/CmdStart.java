@@ -4,15 +4,16 @@ import android.content.Context;
 
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wmotiondetector.R;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 
 public class CmdStart extends ExeBaseCmd {
 
-    public static final String _COMMAND = "stop";
+    public static final String _COMMAND = "start";
 
-    public CmdStart(Context c) {
-        super(c);
+    public CmdStart(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class CmdStart extends ExeBaseCmd {
 
     @Override
     protected String RunCommand(ICmdParams params, String msgId) {
-        PreferencesHelper.SetIsActive(false);
+        PreferencesHelper.SetIsActive(true);
         return null;
     }
 

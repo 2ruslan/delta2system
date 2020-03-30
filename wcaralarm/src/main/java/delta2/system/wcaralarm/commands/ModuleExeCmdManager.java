@@ -12,7 +12,7 @@ public class ModuleExeCmdManager extends ExeCmdManager {
 
     public ModuleExeCmdManager(Context c, IRequestSendMessage s) {
         super(c, s);
-        init(c);
+        init(c, s);
     }
 
     @Override
@@ -20,15 +20,15 @@ public class ModuleExeCmdManager extends ExeCmdManager {
         return Helper.GetMessageHeader(context.getString(R.string.wca_module_name), Module._MODULE_CODE);
     }
 
-    private void init(Context c){
-        Add(new CmdInfo(c));
-        Add(new CmdStart(c));
-        Add(new CmdStop(c));
-        Add(new CmdSetSpeed(c));
-        Add(new CmdSetAcc(c));
-        Add(new CmdSetActiveAcc(c));
-        Add(new CmdSetActiveGps(c));
-        Add(new CmdLoc(c));
+    private void init(Context c, IRequestSendMessage s){
+        Add(new CmdInfo(c, s));
+        Add(new CmdStart(c, s));
+        Add(new CmdStop(c, s));
+        Add(new CmdSetSpeed(c, s));
+        Add(new CmdSetAcc(c, s));
+        Add(new CmdSetActiveAcc(c, s));
+        Add(new CmdSetActiveGps(c, s));
+        Add(new CmdLoc(c, s));
     }
 
 }

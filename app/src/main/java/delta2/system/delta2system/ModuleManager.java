@@ -22,13 +22,22 @@ import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.messages.MessageCommand;
 import delta2.system.common.messages.MessageForward;
 import delta2.system.common.messages.MessageText;
-import delta2.system.delta2system.Commands.CommndManager;
-import delta2.system.delta2system.Commands.InfoData;
+import delta2.system.delta2system.commands.ModuleExeCmdManager;
+
 
 public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IInit, IError, INotifyChanged {
 
     static private Context context;
+
     static ArrayList<IModule> modulesAll;
+
+    static ArrayList<String> moduleNames;
+
+    private ModuleExeCmdManager moduleExeCmdManager;
+
+    public ModuleManager(){
+        moduleExeCmdManager = new ModuleExeCmdManager(context, this);
+    }
 
     private INotifyChanged notifyChanged;
     public void SetNotifyChanged(INotifyChanged n){
@@ -59,6 +68,10 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         modulesAll.add(new delta2.system.wsu.Module(c));
         modulesAll.add(new delta2.system.wtimer.Module(c));
     //    modulesAll.add(new delta2.system.wstartstop.Module(c));
+
+        moduleNames = new ArrayList<>();
+        for (IModule m : modulesAll)
+            moduleNames.add((m.GetShortName()));
     }
 
     public static ArrayList<IModule> GetAllModules(){
@@ -125,11 +138,20 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         }
     }
 
+
+    boolean isStarted = false;
     private void checkModulesWork(){
-     //   OnNotifyChanged();
+        if (!isStarted) {
+            sendMainInfo();
+            isStarted = true;
+        }
+
     }
     // endregion check modules state
 
+    public void sendMainInfo(){
+        moduleExeCmdManager.Run(new Command("", "info"));
+    }
 
     private void initModules(){
         modules = new ModulesList();
@@ -247,10 +269,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     }
 
     private void runMainCommnds(ICommand command){
-        IMessage res = CommndManager.Run(context, command);
-        if (res != null)
-            RequestSendMessage(res);
-
+        moduleExeCmdManager.Run(command);
     }
     //endregion route
 
@@ -272,20 +291,34 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         NotifyChanged();
     }
 
-    private class CommandExt{
+    private abstract class BaseExt{
+
         public static final String _ALL = "*";
 
-        public CommandExt(MessageText m){
-            cmd = new Command(m.getMsgId(), m.GetText());
-        }
-
-        public ICommand cmd;
         public String module = _ALL;
     }
 
-    private class MessageExt{
-        public static final String _ALL = "*";
+    private class CommandExt extends BaseExt{
+        public ICommand cmd;
 
+        public CommandExt(MessageText m){
+
+            String full = m.GetText();
+            String text = full;
+
+            if (full.length() > 4 && full.charAt(3) == ' ' ){
+                String candidate = full.substring(0, 3);
+                if (moduleNames.contains(candidate)){
+                    module = candidate;
+                    text = full.substring(4);
+                }
+            }
+
+            cmd = new Command(m.getMsgId(), text);
+        }
+    }
+
+    private class MessageExt extends BaseExt{
         public MessageExt(IMessage m){
             msg = m;
         }

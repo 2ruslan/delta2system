@@ -4,6 +4,7 @@ import android.content.Context;
 
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wmotiondetector.R;
 import delta2.system.wmotiondetector.motiondetector.Common.RawPicture;
 
@@ -15,8 +16,8 @@ public class CmdPhotoGet extends ExeBaseCmd implements IGetRawPictureCallback {
 
     RawPicture _currentPict = null;
 
-    public CmdPhotoGet(Context c) {
-        super(c);
+    public CmdPhotoGet(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

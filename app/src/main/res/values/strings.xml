@@ -20,6 +20,10 @@
     <string name="version">version</string>
     <string name="sended">sended</string>
     <string name="received">received</string>
+    <string name="app_hc_info">get common info</string>
+    <string name="app_hc_set_log_level">set log level</string>
+    <string name="app_hc_get_log">get log file</string>
+    <string name="app_active_modules">active modules</string>
 
 
 </resources>

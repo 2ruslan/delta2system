@@ -13,4 +13,8 @@
     <string name="version">Версія</string>
     <string name="received">Отримано</string>
     <string name="sended">Відправлено</string>
+    <string name="app_hc_info">отримати загальну інформацію</string>
+    <string name="app_hc_set_log_level">set log level</string>
+    <string name="app_hc_get_log">get log file</string>
+    <string name="app_active_modules">Активні модулі</string>
 </resources>

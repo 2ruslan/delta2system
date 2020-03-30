@@ -3,15 +3,18 @@ package delta2.system.common.execmd;
 import android.content.Context;
 
 import delta2.system.common.Log.L;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 
 public abstract class ExeBaseCmd {
 
     protected static final EmptyCmdParams EmptyCmdParams = new EmptyCmdParams();
 
     protected Context context;
+    protected IRequestSendMessage sender;
 
-    public ExeBaseCmd(Context c){
+    public ExeBaseCmd(Context c, IRequestSendMessage s){
         context = c;
+        sender = s;
     }
 
     protected abstract String GetCommandText();

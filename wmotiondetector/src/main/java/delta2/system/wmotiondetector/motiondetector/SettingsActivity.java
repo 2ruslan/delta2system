@@ -30,10 +30,9 @@ import delta2.system.wmotiondetector.motiondetector.Mediator.ICommandExcecuted;
 import delta2.system.wmotiondetector.motiondetector.Mediator.IGetRawPictureCallback;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
-import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraAngleSet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraAngleGet;
 import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraGet;
-import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSet;
-import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSizeSet;
+import delta2.system.wmotiondetector.motiondetector.commands.CmdCameraSizeGet;
 
 public class SettingsActivity extends AppCompatActivity
         implements IGetRawPictureCallback, ICommandExcecuted, ICameraStarted, AdapterView.OnItemSelectedListener {
@@ -147,17 +146,15 @@ public class SettingsActivity extends AppCompatActivity
     }
 
     private void refresh(String prop){
-        boolean isAll = prop.equals("");
-
             setStartStop();
 
             cbVoiceCall.setChecked(PreferencesHelper.getIsVoiceCall());
 
             refreshSpinner(spCamera, CmdCameraGet._COMMAND);
 
-            refreshSpinner(spCameraSize, CmdCameraSizeSet._COMMAND);
+            refreshSpinner(spCameraSize, CmdCameraSizeGet._COMMAND);
 
-            refreshSpinner(spCameraAngle, CmdCameraAngleSet._COMMAND);
+            refreshSpinner(spCameraAngle, CmdCameraAngleGet._COMMAND);
 
             edDelta.setText( String.valueOf(PreferencesHelper.getDelta()));
 

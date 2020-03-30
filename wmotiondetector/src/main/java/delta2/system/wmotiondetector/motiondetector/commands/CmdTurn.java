@@ -4,13 +4,14 @@ import android.content.Context;
 
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wmotiondetector.R;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
 
 public class CmdTurn extends ExeBaseCmd {
 
-    public CmdTurn(Context c) {
-        super(c);
+    public CmdTurn(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override

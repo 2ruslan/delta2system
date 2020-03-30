@@ -5,6 +5,7 @@ import android.content.Context;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
 import delta2.system.common.execmd.ParamsInt;
+import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wmotiondetector.R;
 import delta2.system.wmotiondetector.motiondetector.Mediator.MediatorMD;
 import delta2.system.wmotiondetector.motiondetector.Preferences.PreferencesHelper;
@@ -13,8 +14,8 @@ public class CmdCameraAngleSet extends ExeBaseCmd {
 
     public static final String _COMMAND = "set angle ";
 
-    public CmdCameraAngleSet(Context c) {
-        super(c);
+    public CmdCameraAngleSet(Context c, IRequestSendMessage s) {
+        super(c, s);
     }
 
     @Override
