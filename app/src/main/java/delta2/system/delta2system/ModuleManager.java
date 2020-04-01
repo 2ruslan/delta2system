@@ -114,12 +114,12 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         for(IModule m : modules){
             if (m.GetModuleState() == ModuleState.initNeed) {
                 try {
-                    m.init();
-
                     if (m instanceof IModuleWorker)
                         ((IModuleWorker)m).RegisterRequestSendMessage(this);
                     else if (m instanceof IModuleTransport)
                         ((IModuleTransport)m).RegisterReceiveMessage(this);
+
+                    m.init();
                 }
                 catch (Exception ex){
                     OnError(ex);

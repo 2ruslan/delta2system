@@ -15,6 +15,7 @@ import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleWorker;
 import delta2.system.common.permission.CheckPermission;
 import delta2.system.wtimer.commands.ModuleExeCmdManager;
+import delta2.system.wtimer.timers.TimerCommand;
 
 public class Module implements IModuleWorker, IError {
 
@@ -50,7 +51,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetModuleID() {
-        return "7f57efba-204c-4e59-b38a-e1482965fe7c";
+        return "f2f1cf66-1a3a-45dd-8bf0-c262514dd244";
     }
 
     @Override
@@ -125,31 +126,23 @@ public class Module implements IModuleWorker, IError {
     public void init() {
         setModuleState(ModuleState.initBegin);
 
-        CheckPermission p = new CheckPermission(context, this);
-        p.SetOnChecked(
-                        new CheckPermission.ICheckedPermission(){
-                               @Override
-                               public void OnChecked(boolean IsOk) {
-                                    if (IsOk && initVars()) {
-                                        setModuleState(ModuleState.initFinish);
-                                        setModuleState(ModuleState.startNeed);
-                                    }
-                                    else
-                                        setModuleState(ModuleState.error);
-                               }
-                        });
-        p.Check(
-                new ArrayList<String>(){{
-                    add(Constants._ROOT_PERMISSION);
-                }}
-        );
+        if (initVars()) {
+            setModuleState(ModuleState.initFinish);
+            setModuleState(ModuleState.startNeed);
+         }
+         else
+            setModuleState(ModuleState.error);
+
     }
+
+    TimerCommand testc;
 
     private boolean initVars(){
         try {
 
             exeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
+            testc = new TimerCommand(requestSendMessage, "-t 12:30 -p 24:00 reboot");
 
             return true;
         }
