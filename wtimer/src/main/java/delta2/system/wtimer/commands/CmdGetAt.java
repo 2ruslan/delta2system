@@ -7,6 +7,7 @@ import delta2.system.common.execmd.ICmdParams;
 
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wtimer.R;
+import delta2.system.wtimer.timers.TimerManager;
 
 public class CmdGetAt extends ExeBaseCmd {
 
@@ -41,6 +42,10 @@ public class CmdGetAt extends ExeBaseCmd {
 
     private String GetData() {
         StringBuilder sb = new StringBuilder();
+
+        int idx = 0;
+        for( String cmd : TimerManager.GetInstance(sender).GetRawCommands())
+            sb.append(String.format("[%s] %s", idx++, cmd ));
 
         return sb.toString();
     }

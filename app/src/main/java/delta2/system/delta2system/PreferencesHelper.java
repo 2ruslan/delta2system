@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import delta2.system.common.preferences.PreferenceValue;
+import delta2.system.common.preferences.PreferencesHelperBase;
 
 
-public class PreferencesHelper {
+public class PreferencesHelper extends PreferencesHelperBase {
 
     public static final String APP_PREFERENCES = "preference.main";
 
@@ -19,7 +20,7 @@ public class PreferencesHelper {
     private static PreferenceValue _LogLevel;
 
 
-    public static void init(Context context) {
+    static {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         _autoStart  = new PreferenceValue(mSettings, AUTO_START, true);

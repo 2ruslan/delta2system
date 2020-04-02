@@ -58,8 +58,6 @@ public class SettingsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motiondetector_settings);
 
-        PreferencesHelper.init(this);
-
         MediatorMD.registerCommandExcecuted(this);
         MediatorMD.setOnCameraStarted(this);
 

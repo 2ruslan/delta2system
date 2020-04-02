@@ -46,7 +46,6 @@ public class Module implements IModuleTransport, IError {
     public Module(Context c){
         context = c;
         setModuleState(ModuleState.none);
-        PreferencesHelper.init(context);
     }
 
 
@@ -148,8 +147,6 @@ public class Module implements IModuleTransport, IError {
 
     private boolean initVars(){
         try {
-            PreferencesHelper.init(context);
-
             transport = new TelegramTransport(context);
             transport.RegisterReceiveMessage(reciever);
 

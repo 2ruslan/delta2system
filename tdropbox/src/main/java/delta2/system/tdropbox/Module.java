@@ -162,7 +162,6 @@ public class Module implements IModuleTransport, IError {
 
     private boolean initVars(){
         try {
-            PreferencesHelper.init(context);
 
             return true;
         }

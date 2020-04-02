@@ -4,8 +4,10 @@ import android.content.Context;
 
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
+import delta2.system.common.execmd.ParamsString;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.wtimer.R;
+import delta2.system.wtimer.timers.TimerManager;
 
 public class CmdAddAt extends ExeBaseCmd {
 
@@ -25,24 +27,17 @@ public class CmdAddAt extends ExeBaseCmd {
 
     @Override
     protected String RunCommand(ICmdParams params, String msgId) {
-        return GetData();
+        TimerManager.GetInstance(sender).AddTimer(((ParamsString)params).GetValue());
+        return "";
     }
 
     @Override
     protected ICmdParams ParseParams(String args) {
-        return EmptyCmdParams;
+        return new ParamsString(args);
     }
 
     @Override
     public String GetHelp() {
         return String.format("%s - %s", GetCommandText(), context.getString(R.string.wat_add_at));
     }
-
-    private String GetData() {
-        StringBuilder sb = new StringBuilder();
-
-        return sb.toString();
-    }
-
-
 }

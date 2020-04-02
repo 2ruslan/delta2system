@@ -3,9 +3,6 @@ package delta2.system.wtimer;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.ArrayList;
-
-import delta2.system.common.Constants;
 import delta2.system.common.Helper;
 import delta2.system.common.enums.ModuleState;
 import delta2.system.common.interfaces.IError;
@@ -13,9 +10,9 @@ import delta2.system.common.interfaces.commands.ICommand;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.interfaces.module.IModuleStateChanged;
 import delta2.system.common.interfaces.module.IModuleWorker;
-import delta2.system.common.permission.CheckPermission;
+import delta2.system.wtimer.Preferences.PreferencesHelper;
 import delta2.system.wtimer.commands.ModuleExeCmdManager;
-import delta2.system.wtimer.timers.TimerCommand;
+import delta2.system.wtimer.timers.TimerManager;
 
 public class Module implements IModuleWorker, IError {
 
@@ -24,6 +21,8 @@ public class Module implements IModuleWorker, IError {
     IRequestSendMessage requestSendMessage;
 
     ModuleExeCmdManager exeCmdManager;
+
+    TimerManager timerManager;
 
     Context context;
 
@@ -97,7 +96,7 @@ public class Module implements IModuleWorker, IError {
     @Override
     public void OpenSettings() {
         try {
-            Intent s = new Intent(context, SettingsActivity.class);
+            Intent s = new Intent(context, SettingsTimerActivity.class);
             s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(s);
         }
@@ -135,14 +134,11 @@ public class Module implements IModuleWorker, IError {
 
     }
 
-    TimerCommand testc;
-
     private boolean initVars(){
         try {
 
             exeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
-
-            testc = new TimerCommand(requestSendMessage, "-t 12:30 -p 24:00 reboot");
+            timerManager = TimerManager.GetInstance(requestSendMessage);
 
             return true;
         }
@@ -154,5 +150,6 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void destroy() {
+        timerManager.destriy();
     }
 }

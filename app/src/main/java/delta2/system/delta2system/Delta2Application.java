@@ -18,7 +18,7 @@ public class Delta2Application extends Application {
 
         FileStructure.init();
 
-        PreferencesHelper.init(this);
+        PreferencesHelper.SetContext(this);
 
         L.configureLogback(PreferencesHelper.getLogLevel());
 

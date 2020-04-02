@@ -5,9 +5,10 @@ import android.content.SharedPreferences;
 
 import delta2.system.common.interfaces.IInit;
 import delta2.system.common.preferences.PreferenceValue;
+import delta2.system.common.preferences.PreferencesHelperBase;
 
 
-public class PreferencesHelper {
+public class PreferencesHelper extends PreferencesHelperBase {
 
     public static final String APP_PREFERENCES = "tdropbox.preference";
 
@@ -27,7 +28,7 @@ public class PreferencesHelper {
 
 
 
-    public static void init(Context context) {
+    static {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         _accesToken = new PreferenceValue(mSettings, ACCESS_TOKEN, "");

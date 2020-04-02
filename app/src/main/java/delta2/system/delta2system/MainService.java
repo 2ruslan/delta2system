@@ -43,8 +43,6 @@ public class MainService extends Service {
                 "d2s::MainService");
         wakeLock.acquire();
 
-        PreferencesHelper.init(this);
-
         moduleManager = new ModuleManager();
 
         startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);

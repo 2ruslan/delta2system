@@ -141,8 +141,6 @@ public class Module implements IModuleWorker {
 
     private boolean initVars(){
         try {
-            PreferencesHelper.init(context);
-
             moduleExeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
             Manager = new MDManager(context);

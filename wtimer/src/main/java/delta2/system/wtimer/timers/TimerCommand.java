@@ -21,7 +21,15 @@ public class TimerCommand extends Timer {
     public static final String _DATE = "-d";
     public static final String _PERIOD = "-p";
 
+    private String fullCommand;
+    public String GetFullCommand(){
+        return fullCommand;
+    }
+
+
     public TimerCommand(IRequestSendMessage sender, String rawCommand){
+        fullCommand = rawCommand;
+
         long period = -1;
         Date dtD = null;
         Date dtT = null;
@@ -97,9 +105,6 @@ public class TimerCommand extends Timer {
             requestSendMessage = s;
             message = new MessageCommand( new Command("", c));
         }
-
-
-
 
         @Override
         public void run() {

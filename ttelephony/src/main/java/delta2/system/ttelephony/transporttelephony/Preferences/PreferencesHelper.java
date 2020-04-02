@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import delta2.system.common.preferences.PreferenceValue;
+import delta2.system.common.preferences.PreferencesHelperBase;
 
 
-public class PreferencesHelper {
+public class PreferencesHelper extends PreferencesHelperBase {
 
     public static final String APP_PREFERENCES = "preference";
 
@@ -21,7 +22,7 @@ public class PreferencesHelper {
     private static PreferenceValue _voiceCall;
     private static PreferenceValue _phoneNum;
 
-    public static void init(Context context) {
+    static {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         _sendText = new PreferenceValue(mSettings, SEND_TEXT, true);

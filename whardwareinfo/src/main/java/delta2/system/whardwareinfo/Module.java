@@ -160,8 +160,6 @@ public class Module implements IModuleWorker, IError {
 
     private boolean initVars(){
         try {
-            PreferencesHelper.init(context);
-
             exeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
             WifiReceiver.init(context);

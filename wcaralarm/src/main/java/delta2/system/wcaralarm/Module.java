@@ -163,8 +163,6 @@ public class Module implements IModuleWorker, IError {
 
     private boolean initVars(){
         try {
-            PreferencesHelper.init(context);
-
             moduleExeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
 
             accelerationManager = new AccelerationManager(context, requestSendMessage);
