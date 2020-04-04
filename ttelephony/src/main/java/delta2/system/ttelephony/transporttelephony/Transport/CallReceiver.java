@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 import delta2.system.common.Log.L;
@@ -15,6 +17,8 @@ import delta2.system.ttelephony.transporttelephony.Preferences.PreferencesHelper
 public class CallReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
+        boolean isOkNUmber = false;
+
         if (intent.getAction().equals("android.intent.action.PHONE_STATE")){
             String phone_state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
             String number = "";
@@ -26,8 +30,8 @@ public class CallReceiver extends BroadcastReceiver {
 
                     String etPh = PreferencesHelper.getPhoneNum();
                     etPh = etPh.substring(etPh.length() - 6);
-
-                    if (endNumber.equals(etPh)) {
+                    isOkNUmber = endNumber.equals(etPh);
+                    if (isOkNUmber ) {
                         Module.OnRecieveMsg("turn");
                     }
                     //else{
@@ -36,13 +40,10 @@ public class CallReceiver extends BroadcastReceiver {
 
                 }
                 catch (Exception e){
-                    //if (!number.equals(""))
-                    //    MediatorMD.TexSendText("call from " + number, null);
-                    //Helper.Ex2Log(e);
                     L.log.error("CallReceiver", e);
                 }
                 finally {
-                    endCall(context);
+                        endCall(context);
                 }
 
             }
@@ -63,5 +64,6 @@ public class CallReceiver extends BroadcastReceiver {
             ex.printStackTrace();
         }
     }
+
 
 }

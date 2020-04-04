@@ -19,5 +19,7 @@
     <string name="wca_hc_set_active_acc">включает -выключает датчик удара</string>
     <string name="wca_hc_set_active_gps">включает -выключает отслеживание по gps</string>
     <string name="wca_hc_loc">отправляет текущее местоположение</string>
+    <string name="wca_acc_info">уровень датчика удара</string>
+    <string name="wca_hc_get_acc">возвращает минимальныую чуствительность датчика удара , начиная с которой отправялются уведомления</string>
 
 </resources>

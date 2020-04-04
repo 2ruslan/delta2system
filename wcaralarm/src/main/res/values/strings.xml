@@ -19,5 +19,7 @@
     <string name="wca_hc_set_active_acc">set active acceleration</string>
     <string name="wca_hc_set_active_gps">set active gps location</string>
     <string name="wca_hc_loc">send current location</string>
+    <string name="wca_acc_info">acceleration level</string>
+    <string name="wca_hc_get_acc">get acceleration level</string>
 </resources>
 

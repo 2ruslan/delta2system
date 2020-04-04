@@ -16,6 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     CheckBox cbText;
     CheckBox cbVoiceCall;
+
     EditText etPhone;
 
 

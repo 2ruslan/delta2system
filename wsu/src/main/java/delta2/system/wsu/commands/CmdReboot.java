@@ -3,10 +3,13 @@ package delta2.system.wsu.commands;
 import android.content.Context;
 import android.os.PowerManager;
 
+import java.util.Calendar;
+
 import delta2.system.common.Log.L;
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.wsu.Preferences.PreferencesHelper;
 import delta2.system.wsu.R;
 
 public class CmdReboot extends ExeBaseCmd {
@@ -42,8 +45,11 @@ public class CmdReboot extends ExeBaseCmd {
     }
 
     private void reboot(){
-        rebootPM();
-        rebootSu();
+        if (Calendar.getInstance().getTime().getTime() - PreferencesHelper.getLastRebootTime() > 20 * 60 * 1000 ) {
+            PreferencesHelper.setLastRebootTime(Calendar.getInstance().getTime().getTime());
+            rebootPM();
+            rebootSu();
+        }
     }
 
     private void rebootPM(){
