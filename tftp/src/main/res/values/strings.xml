@@ -12,5 +12,6 @@
     <string name="tft_ftp_usr">FTP USER</string>
     <string name="tft_ftp_pass">FTP PASS</string>
     <string name="tft_ftp_path">FTP PATH</string>
+    <string name="tft_module_name">FTP transport</string>
 
 </resources>

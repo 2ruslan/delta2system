@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 
 import delta2.system.common.FileStructure;
 import delta2.system.common.Log.L;
+import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.tftp.Preferences.PreferencesHelper;
 
 public class FtpTransport {
@@ -25,6 +26,10 @@ public class FtpTransport {
 
     public void close() {
         _context = null;
+
+    }
+
+    public void SendMessage(IMessage msg){
 
     }
 
