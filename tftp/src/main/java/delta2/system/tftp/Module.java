@@ -87,7 +87,7 @@ public class Module implements IModuleTransport, IError {
     @Override
     public void OpenSettings() {
         try {
-            Intent s = new Intent(context, SettingsActivity.class);
+            Intent s = new Intent(context, SettingsTftpActivity.class);
             s.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(s);
         }

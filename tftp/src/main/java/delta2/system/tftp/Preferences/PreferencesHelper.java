@@ -105,16 +105,6 @@ public class PreferencesHelper extends PreferencesHelperBase {
     }
     //endregion FTP_PASS
 
-    //region DEVICE_NAME
-    public static void setDeviceName(String val) {
-        _deviceName.setStr(val);
-    }
-
-    public static String getDeviceName() {
-        return _deviceName.getStr();
-    }
-    //endregion DEVICE_NAME
-
 
     //region SEND_TEXT
     public static void setSendText(boolean val) {

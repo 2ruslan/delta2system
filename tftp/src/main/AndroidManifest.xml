@@ -7,7 +7,7 @@
 
 
     <application>
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SettingsTftpActivity" />
     </application>
 
 </manifest>

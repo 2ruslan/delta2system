@@ -57,15 +57,4 @@ public class UploadTask extends AsyncTask {
         return null;
     }
 
-    @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
-
-    //    String data = filename;
-
-     //   File f = new File(data);
-
-     //   f.delete();
-
-    }
 }

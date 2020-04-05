@@ -9,6 +9,9 @@ import java.io.OutputStreamWriter;
 import delta2.system.common.FileStructure;
 import delta2.system.common.Log.L;
 import delta2.system.common.interfaces.messages.IMessage;
+import delta2.system.common.messages.MessageFile;
+import delta2.system.common.messages.MessagePhoto;
+import delta2.system.common.messages.MessageText;
 import delta2.system.tftp.Preferences.PreferencesHelper;
 
 public class FtpTransport {
@@ -20,16 +23,15 @@ public class FtpTransport {
     }
 
 
-    public void init(Context context) {
-        _context = context;
-    }
-
-    public void close() {
-        _context = null;
-
-    }
-
     public void SendMessage(IMessage msg){
+        if (msg instanceof MessageText)
+            sendTxt( ((MessageText)msg).GetText() );
+        else if (msg instanceof MessageFile)
+            sendFile( ((MessageFile)msg).GetFile() );
+        else if (msg instanceof MessagePhoto) {
+            MessagePhoto mp = (MessagePhoto)msg;
+            sendPhoto(mp.GetFile(), mp.GetCaption());
+        }
 
     }
 
