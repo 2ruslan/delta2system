@@ -19,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
     CheckBox cbPhoto;
     CheckBox cbFile;
     CheckBox cbLocation;
+    CheckBox cbNotifyOnline;
     Button btClose;
 
     @Override
@@ -31,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
         cbPhoto = findViewById(R.id.cbPhoto);
         cbLocation = findViewById(R.id.cbLocation);
         btClose = findViewById(R.id.btClose);
+        cbNotifyOnline = findViewById(R.id.cbNotifyOnline);
 
         init();
     }
@@ -40,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
         cbFile.setChecked(PreferencesHelper.getSendFile());
         cbPhoto.setChecked(PreferencesHelper.getSendPhoto());
         cbLocation.setChecked(PreferencesHelper.getSendLocation());
+        cbNotifyOnline.setChecked(PreferencesHelper.GetNotifyOnline());
     }
 
     public void onClick(View view) {
@@ -50,8 +53,9 @@ public class SettingsActivity extends AppCompatActivity {
         else if (view.equals(cbPhoto))
             PreferencesHelper.setSendPhoto(cbPhoto.isChecked());
         else if (view.equals(cbLocation))
-
-        PreferencesHelper.setSendLocation(cbLocation.isChecked());
+            PreferencesHelper.setSendLocation(cbLocation.isChecked());
+        else if (view.equals(cbNotifyOnline))
+            PreferencesHelper.SetNotifyOnline(cbNotifyOnline.isChecked());
     }
 
     public void onCloseClick(View view) {

@@ -34,8 +34,7 @@ public class Module implements IModuleWorker, IError {
 
     ModuleExeCmdManager moduleExeCmdManager;
 
-    private AccelerationManager accelerationManager;
-    private GpsManager gpsManager;
+    CarAlarmManager carAlarmManager;
 
 
     private void setModuleState(ModuleState s){
@@ -115,16 +114,14 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void Start() {
-        accelerationManager.start();
-        gpsManager.start();
+        carAlarmManager.start();
 
         setModuleState(ModuleState.work);
     }
 
     @Override
     public void Stop() {
-        accelerationManager.stop();
-        gpsManager.stop();
+        carAlarmManager.stop();
 
         setModuleState(ModuleState.stop);
     }
@@ -164,9 +161,7 @@ public class Module implements IModuleWorker, IError {
     private boolean initVars(){
         try {
             moduleExeCmdManager = new ModuleExeCmdManager(context, requestSendMessage);
-
-            accelerationManager = new AccelerationManager(context, requestSendMessage);
-            gpsManager = new GpsManager(context, requestSendMessage);
+            carAlarmManager = new CarAlarmManager(context, requestSendMessage);
 
             return true;
         }
@@ -178,10 +173,6 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void destroy() {
-        if (accelerationManager != null)
-            accelerationManager.onDestroy();
-        if (gpsManager != null)
-            gpsManager.onDestroy();
-
+        carAlarmManager.destroy();
     }
 }

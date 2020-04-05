@@ -10,13 +10,9 @@ public class PreferencesHelper extends PreferencesHelperBase {
 
     public static final String APP_PREFERENCES = "ttelegram.preference";
 
-
-    public static final String DEVICE_NAME = "DEVICE_NAME";
-    public static final String AUTO_START = "AUTO_START";
     public static final String PHONE_NUM = "PHONE_NUM";
     public static final String CHAT_ID = "CHAT_ID";
     public static final String MY_ID = "MY_ID";
-    public static final String DEL_HIST = "DEL_HIST";
     public static final String NOTIFY_ONLINE = "NOTIFY_ONLINE";
 
     public static final String SEND_TEXT = "SEND_TEXT";
@@ -41,8 +37,6 @@ public class PreferencesHelper extends PreferencesHelperBase {
     static {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        _deviceName = new PreferenceValue(mSettings, DEVICE_NAME, "");
-
         _phoneNum = new PreferenceValue(mSettings, PHONE_NUM, "");
         _chatId = new PreferenceValue(mSettings, CHAT_ID, -1);
         _myId = new PreferenceValue(mSettings, MY_ID, -1);
@@ -55,16 +49,6 @@ public class PreferencesHelper extends PreferencesHelperBase {
 
     }
 
-
-    //region DEVICE_NAME
-    public static void setDeviceName(String val) {
-        _deviceName.setStr(val);
-    }
-
-    public static String getDeviceName() {
-        return _deviceName.getStr();
-    }
-    //endregion DEVICE_NAME
 
     //region NOTIFY_ONLINE
     public static void SetNotifyOnline(boolean val) {

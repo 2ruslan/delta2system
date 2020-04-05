@@ -12,5 +12,6 @@
 
     <string name="ttm_password">Password</string>
     <string name="ttm_code_need">Enter the code for the telegrams.\\nHe will come in sms or another detector delta (or telegram) to the registration number</string>
+    <string name="ttm_notify_online">keep online status</string>
 
 </resources>

@@ -77,8 +77,6 @@ public class AccelerationManager {
             g = new Accelerometer(c);
         }
 
-
-
         @Override
         public void run() {
 
