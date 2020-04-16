@@ -238,9 +238,11 @@ public class TelegramTransport implements Client.ResultHandler, Client.Exception
                     if (!PreferencesHelper.existsChatId() && ft.text.equals(userChkCode)) {
                         registerUserStop(m.message.chatId);
 
-                    } else {
+                    } else if (PreferencesHelper.existsChatId()
+                            && PreferencesHelper.getChatId() == m.message.chatId ){
                         receiveMessage.OnReceiveMessage( new MessageText(String.valueOf(m.message.id), ft.text));
                     }
+
                     if (m.message.chatId != PreferencesHelper.getChatId()) {
                         if (ft.text.contains("code:")) {
                             Helper.showDialog( _context, "code", ft.text);

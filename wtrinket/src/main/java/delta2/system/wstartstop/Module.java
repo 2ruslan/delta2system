@@ -20,7 +20,7 @@ import delta2.system.wstartstop.Preferences.PreferencesHelper;
 public class Module implements IModuleWorker, IError {
 
 
-    private BluetoothManager bluetoothManager;
+    private BluetoothServerManager bluetoothManager;
     Context context;
 
     private IModuleStateChanged moduleStateChanged;
@@ -101,7 +101,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void Start() {
-        bluetoothManager.Start();
+        //bluetoothManager.Start();
         setModuleState(ModuleState.work);
     }
 
@@ -144,8 +144,8 @@ public class Module implements IModuleWorker, IError {
 
     private boolean initVars(){
         try {
-            bluetoothManager = new BluetoothManager(context);
-            bluetoothManager.setRequestSendMessage(requestSendMessage);
+            bluetoothManager = new BluetoothServerManager();
+            //bluetoothManager.setRequestSendMessage(requestSendMessage);
 
             return true;
         }

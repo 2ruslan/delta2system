@@ -1,4 +1,4 @@
-include ':app', ':common', ':tdropbox', ':whardwareinfo', ':ttelegram', ':libtd', ':wmotiondetector', ':ttelephony', ':warduinobridge'
+include ':app', ':common', ':tdropbox', ':whardwareinfo', ':ttelegram', ':libtd', ':wmotiondetector', ':ttelephony', ':warduinobridge', ':signal', ':java'
 include ':tftp'
 rootProject.name='delta2system'
 include ':wcaralarm'

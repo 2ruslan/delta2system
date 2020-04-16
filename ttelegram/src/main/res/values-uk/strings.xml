@@ -8,4 +8,5 @@
     <string name="ttm_phone_need">Введдіть номер телефону в інтернаціональному форматі. Використовуйте номер який не використовується в основному аккаунті телеграм.</string>
     <string name="ttm_code_need">Введіть код телеграм. Він прийде в реєстраційний номер sms або іншої дельти детектора (або телеграми).</string>
     <string name="ttm_notify_online">Підтримувати статус онлайн</string>
+    <string name="ttm_del_register_data">Delete registration</string>
 </resources>

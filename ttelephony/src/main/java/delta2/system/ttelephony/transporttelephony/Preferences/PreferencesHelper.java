@@ -25,7 +25,7 @@ public class PreferencesHelper extends PreferencesHelperBase {
     static {
         mSettings = context.getSharedPreferences(PreferencesHelper.APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        _sendText = new PreferenceValue(mSettings, SEND_TEXT, true);
+        _sendText = new PreferenceValue(mSettings, SEND_TEXT, false);
 
         _voiceCall = new PreferenceValue(mSettings, VOICE_CALL, true);
         _phoneNum = new PreferenceValue(mSettings, PHONE_NUM, "");
