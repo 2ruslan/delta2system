@@ -14,6 +14,7 @@ import java.net.SocketAddress;
 import delta2.system.common.Helper;
 import delta2.system.common.Log.L;
 import delta2.system.common.messages.MessageText;
+import delta2.system.whardwareinfo.Module;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
 import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
@@ -71,7 +72,7 @@ public class WifiReceiver extends BroadcastReceiver {
                 }
 
                 String msg = mContext.getString(R.string.whi_msg_connection_changed) + "\n" + info;
-                MediatorMD.RequestSendMessage(new MessageText(msg));
+                MediatorMD.RequestSendMessage(new MessageText(Module._MODULE_CODE, msg));
             }
             prevType =type;
         }

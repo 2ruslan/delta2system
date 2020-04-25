@@ -23,6 +23,8 @@ import delta2.system.ttelephony.transporttelephony.Transport.TelephonyTransport;
 
 public class Module implements IModuleTransport, IError {
 
+    public static final String _MODULE_NAME = "tph";
+
     private static Module instance;
 
     private TelephonyTransport transport;
@@ -59,7 +61,7 @@ public class Module implements IModuleTransport, IError {
 
     @Override
     public String GetShortName() {
-        return "tph";
+        return _MODULE_NAME;
     }
 
     @Override
@@ -182,14 +184,14 @@ public class Module implements IModuleTransport, IError {
 
     public static void OnRecieveMsg(String msg){
         if (instance != null && instance.reciever != null)
-            instance.reciever.OnReceiveMessage(new MessageText(msg));
+            instance.reciever.OnReceiveMessage(new MessageText(_MODULE_NAME, msg));
 
     }
 
     public static void OnResendMsg(String msg){
         if (instance != null && instance.reciever != null)
             instance.reciever.OnReceiveMessage(
-                    new MessageForward(new MessageText(msg))
+                    new MessageForward(_MODULE_NAME, new MessageText(_MODULE_NAME, msg))
             );
     }
 

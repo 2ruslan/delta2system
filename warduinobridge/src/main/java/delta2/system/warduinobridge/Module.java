@@ -18,7 +18,7 @@ import delta2.system.common.permission.CheckPermission;
 import delta2.system.warduinobridge.Preferences.PreferencesHelper;
 
 public class Module implements IModuleWorker, IError {
-
+    public static final String _MODULE_NAME = "wab";
 
     private BluetoothManager bluetoothManager;
     Context context;
@@ -52,7 +52,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetShortName() {
-        return "wab";
+        return _MODULE_NAME ;
     }
 
     @Override

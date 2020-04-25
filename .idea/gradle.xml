@@ -13,9 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
-            <option value="$PROJECT_DIR$/java" />
             <option value="$PROJECT_DIR$/libtd" />
-            <option value="$PROJECT_DIR$/signal" />
             <option value="$PROJECT_DIR$/tdropbox" />
             <option value="$PROJECT_DIR$/tftp" />
             <option value="$PROJECT_DIR$/tsignal" />

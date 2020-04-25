@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import delta2.system.common.Helper;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.messages.MessageLocation;
+import delta2.system.wcaralarm.Module;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 
 public class GpsManager {
@@ -62,7 +63,7 @@ public class GpsManager {
 
     public static void getLoc(String msgId){
         if (requestSendMessage != null)
-            requestSendMessage.RequestSendMessage(new MessageLocation(msgId, String.valueOf(prev_latitude), String.valueOf(prev_longitude)));
+            requestSendMessage.RequestSendMessage(new MessageLocation(Module._MODULE_CODE, msgId, String.valueOf(prev_latitude), String.valueOf(prev_longitude)));
     }
 
     long _prevSend = 0;
@@ -91,7 +92,7 @@ public class GpsManager {
 
                 _prevSend = currentTime;
 
-                requestSendMessage.RequestSendMessage(new MessageLocation("", String.valueOf(gps.latitude), String.valueOf(gps.longitude)));
+                requestSendMessage.RequestSendMessage(new MessageLocation(Module._MODULE_CODE, "", String.valueOf(gps.latitude), String.valueOf(gps.longitude)));
             }
 
             prev_latitude = gps.latitude;

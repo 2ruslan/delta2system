@@ -58,7 +58,7 @@ public class CmdSetLogLevel extends ExeBaseCmd {
             result = "no";
         }
 
-        return new MessageText(result);
+        return new MessageText("main", result);
 
 
     }

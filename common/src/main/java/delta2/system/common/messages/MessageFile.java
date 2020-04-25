@@ -7,10 +7,12 @@ import delta2.system.common.interfaces.messages.IMessage;
 public class MessageFile implements IMessage {
 
     private String file;
+    private String module;
 
-    public MessageFile(String m, String f){
+    public MessageFile(String m, String id, String f){
         file = f;
-        msgId = m;
+        msgId = id;
+        module = m;
     }
 
     public String GetFile(){
@@ -20,6 +22,11 @@ public class MessageFile implements IMessage {
     private String msgId;
     public String getMsgId(){
         return msgId;
+    }
+
+    @Override
+    public String getSrcModule() {
+        return module;
     }
 
     @NonNull

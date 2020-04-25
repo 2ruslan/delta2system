@@ -16,6 +16,7 @@ import delta2.system.common.Log.L;
 import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.messages.MessageText;
 import delta2.system.common.messages.MessageVoiceCall;
+import delta2.system.ttelephony.Module;
 import delta2.system.ttelephony.transporttelephony.Preferences.PreferencesHelper;
 
 public class TelephonyTransport  {
@@ -30,10 +31,12 @@ public class TelephonyTransport  {
         if (PreferencesHelper.getPhoneNum() == null || PreferencesHelper.getPhoneNum().length() < 5 )
             return;
 
-        if (msg instanceof MessageText && PreferencesHelper.getSendText())
+        if (msg instanceof MessageText)
         {
-            MessageText m = (MessageText)msg;
-            sendTxt(m.GetText());
+            if (PreferencesHelper.getSendText() || msg.getSrcModule().equals(Module._MODULE_NAME) ) {
+                MessageText m = (MessageText) msg;
+                sendTxt(m.GetText());
+            }
         }
         if (msg instanceof MessageVoiceCall && PreferencesHelper.getVoiceCall()){
             callVoice();

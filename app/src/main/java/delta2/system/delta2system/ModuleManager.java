@@ -151,7 +151,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
     // endregion check modules state
 
     public void sendMainInfo(){
-        moduleExeCmdManager.Run(new Command("", "info"));
+        moduleExeCmdManager.Run(new Command("info"));
     }
 
     private void initModules(){
@@ -315,7 +315,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
                 }
             }
 
-            cmd = new Command(m.getMsgId(), text);
+            cmd = new Command(m, text);
         }
     }
 

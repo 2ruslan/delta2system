@@ -15,6 +15,7 @@ import delta2.system.delta2system.MainService;
 import delta2.system.delta2system.ModuleManager;
 import delta2.system.delta2system.PreferencesHelper;
 import delta2.system.delta2system.R;
+import delta2.system.delta2system.View.main.ModuleAdapter;
 
 public class CmdInfo extends ExeBaseCmd {
 
@@ -57,7 +58,7 @@ public class CmdInfo extends ExeBaseCmd {
         sb.append(String.format("%s : \n", context.getString(R.string.app_active_modules )));
         for(IModule m : ModuleManager.GetAllModules()){
             if (PreferencesHelper.getIsActiveModule(m.GetModuleID())){
-                sb.append(String.format("  [%s]  %s\n", m.GetShortName(), m.GetDescription() ));
+                sb.append(String.format("  [%s] [%s] - %s\n", m.GetShortName(), ModuleAdapter.getStateDescr(context, m.GetModuleState()),  m.GetDescription() ));
             }
         }
 
@@ -70,6 +71,4 @@ public class CmdInfo extends ExeBaseCmd {
 
         return sb.toString();
     }
-
-
 }

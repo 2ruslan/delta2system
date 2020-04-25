@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import delta2.system.common.Log.L;
 import delta2.system.common.messages.MessageText;
+import delta2.system.whardwareinfo.Module;
 import delta2.system.whardwareinfo.R;
 import delta2.system.whardwareinfo.hardwareinfo.Mediator.MediatorMD;
 import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
@@ -112,16 +113,16 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
 
     private void sendPowerMinLevel(){
         String msg = mContext.getString(R.string.whi_msg_bat_low);
-        MediatorMD.RequestSendMessage(new MessageText(msg));
+        MediatorMD.RequestSendMessage(new MessageText(Module._MODULE_CODE, msg));
     }
 
     private static void sendPowerState(){
-        MediatorMD.RequestSendMessage(new MessageText(getBatInfo()));
+        MediatorMD.RequestSendMessage(new MessageText(Module._MODULE_CODE,getBatInfo()));
     }
 
     private void sendPowerProc(float level){
         String msg = mContext.getString(R.string.whi_msg_bat_levelprc) + " = " +  level;
-        MediatorMD.RequestSendMessage(new MessageText(msg));
+        MediatorMD.RequestSendMessage(new MessageText(Module._MODULE_CODE, msg));
     }
 
     public static String getBatInfo(){

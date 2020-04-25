@@ -80,10 +80,10 @@ public class BluetoothManager {
         if (requestSendMessage != null)
             if (msg.startsWith("<cmd>")) {
                 requestSendMessage.RequestSendMessage(
-                        new MessageCommand(new Command(msg.replace("<cmd>", "").trim(), "")));
+                        new MessageCommand(Module._MODULE_NAME, new Command(msg.replace("<cmd>", "").trim() ) ));
             } else {
                 requestSendMessage.RequestSendMessage(
-                        new MessageText(msg)
+                        new MessageText(Module._MODULE_NAME, msg)
                 );
             }
     }

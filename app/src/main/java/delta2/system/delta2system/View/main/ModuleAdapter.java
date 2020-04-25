@@ -49,7 +49,7 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
         //String workingTime = Helper.getWorkingTime(_context,  product.GetWorkingTime());
         //viewHolder.timeView.setText(workingTime);
 
-        viewHolder.infoViev.setText(String.valueOf(getStateDescr(module.GetModuleState())));
+        viewHolder.infoViev.setText(String.valueOf(getStateDescr(_context, module.GetModuleState())));
 
         //viewHolder.stateView.setText(product.getCurrentState() == 1 ? "state:OK" : "state:Bad" );
 
@@ -80,17 +80,17 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
     }
 
 
-    private String getStateDescr(ModuleState s){
+    public static String getStateDescr(Context c, ModuleState s){
         if (s.equals(ModuleState.error))
-            return _context.getString(R.string.error);
+            return c.getString(R.string.error);
         else if (s.equals(ModuleState.work))
-            return _context.getString(R.string.work);
+            return c.getString(R.string.work);
         else if (s.equals(ModuleState.initNeed))
-            return _context.getString(R.string.initNeed);
+            return c.getString(R.string.initNeed);
         else if (s.equals(ModuleState.initBegin))
-            return _context.getString(R.string.initBegin);
+            return c.getString(R.string.initBegin);
         else if (s.equals(ModuleState.startBegin))
-            return _context.getString(R.string.startBegin);
+            return c.getString(R.string.startBegin);
 
         else
             return "";

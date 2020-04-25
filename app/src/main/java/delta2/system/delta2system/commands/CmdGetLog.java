@@ -33,7 +33,7 @@ public class CmdGetLog extends ExeBaseCmd {
 
     @Override
     protected String RunCommand(ICmdParams params, String msgId) {
-        sender.RequestSendMessage( new MessageFile(msgId, L._LOG_PATH));
+        sender.RequestSendMessage( new MessageFile("main", msgId, L._LOG_PATH));
 
         return "";
     }

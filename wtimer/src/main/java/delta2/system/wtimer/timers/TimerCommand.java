@@ -14,6 +14,7 @@ import delta2.system.common.commands.Command;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.messages.MessageCommand;
 import delta2.system.common.messages.MessageText;
+import delta2.system.wtimer.Module;
 
 public class TimerCommand extends Timer {
 
@@ -61,7 +62,7 @@ public class TimerCommand extends Timer {
             }
 
         }catch (Exception ex){
-            sender.RequestSendMessage(new MessageText(ex.getMessage()));
+            sender.RequestSendMessage(new MessageText(Module._MODULE_CODE, ex.getMessage()));
             L.log.error("", ex);
         }
 
@@ -103,7 +104,7 @@ public class TimerCommand extends Timer {
         private MessageCommand message;
         public AtTimerTask(IRequestSendMessage s, String c) {
             requestSendMessage = s;
-            message = new MessageCommand( new Command("", c));
+            message = new MessageCommand(Module._MODULE_CODE, new Command(c));
         }
 
         @Override

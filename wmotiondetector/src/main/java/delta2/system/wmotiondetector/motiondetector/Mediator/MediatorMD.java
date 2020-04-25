@@ -8,6 +8,7 @@ import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.messages.MessagePhoto;
 import delta2.system.common.messages.MessageText;
 import delta2.system.common.messages.MessageVoiceCall;
+import delta2.system.wmotiondetector.Module;
 import delta2.system.wmotiondetector.motiondetector.Common.RawPicture;
 import delta2.system.wmotiondetector.motiondetector.Detector.CamearaProps;
 
@@ -103,11 +104,11 @@ public class MediatorMD {
     }
 
     public static void  sendPhoto(String msgId, String fileUri, String caption, int h, int w) {
-        requestSendMessage.RequestSendMessage(new MessagePhoto(msgId, caption, fileUri, h, w));
+        requestSendMessage.RequestSendMessage(new MessagePhoto(Module._MODULE_CODE, msgId, caption, fileUri, h, w));
     }
 
     public static void  callVoice() {
-        requestSendMessage.RequestSendMessage(new MessageVoiceCall(IMessage._NO_MSG_ID));
+        requestSendMessage.RequestSendMessage(new MessageVoiceCall(Module._MODULE_CODE, IMessage._NO_MSG_ID));
     }
 
 

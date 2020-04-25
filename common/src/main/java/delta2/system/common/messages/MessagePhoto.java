@@ -7,8 +7,15 @@ import delta2.system.common.interfaces.messages.IMessage;
 public class MessagePhoto implements IMessage {
 
     private String msgId;
+    private String module;
+
     public String getMsgId(){
         return msgId;
+    }
+
+    @Override
+    public String getSrcModule() {
+        return module;
     }
 
     private String caption;
@@ -31,17 +38,14 @@ public class MessagePhoto implements IMessage {
         return Width;
     }
 
-    public MessagePhoto(String m, String c, String f, int h, int w){
+    public MessagePhoto(String md, String m, String c, String f, int h, int w){
         caption = c;
         file = f;
         Height = h;
         Width = w;
         msgId = m;
+        module = md;
     }
-
-
-
-
 
     @NonNull
     @Override

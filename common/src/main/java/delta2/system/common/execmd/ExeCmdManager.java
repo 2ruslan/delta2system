@@ -37,16 +37,16 @@ public abstract class ExeCmdManager {
         String cmdText = GetNormalizeCommand(command.GetCommand());
 
         if (cmdText.equals("help") || cmdText.equals("?")){
-            GetHelp(command.getMsgId());
+            GetHelp(command.GetSrcMessage().getSrcModule(), command.GetSrcMessage().getMsgId());
             return true;
         }
 
         for (ExeBaseCmd c : commands){
-            ExeCmdResult result = c.Run(cmdText, command.getMsgId());
+            ExeCmdResult result = c.Run(cmdText, command.GetSrcMessage().getMsgId());
 
             if (result.GetState() != ExeCmdResult.enState.none) {
                 if (result.IsNeedAnswer())
-                    SendMessage(GetMessage(c, result), command.getMsgId());
+                    SendMessage(command.GetSrcMessage().getSrcModule(), GetMessage(c, result), command.GetSrcMessage().getMsgId());
                 return true;
             }
         }
@@ -65,16 +65,16 @@ public abstract class ExeCmdManager {
             return "";
     }
 
-    private void GetHelp(String msgId){
+    private void GetHelp(String module, String msgId){
         StringBuilder sb = new StringBuilder(GetHelpHeader());
         for (ExeBaseCmd c : commands)
             sb.append(String.format("%s\n\n", c.GetHelp()));
 
-        SendMessage(sb.toString(), msgId);
+        SendMessage(module, sb.toString(), msgId);
     }
 
-    private void SendMessage(String msg, String msgId){
-        sender.RequestSendMessage(new MessageText(msgId, msg));
+    private void SendMessage(String md, String msg, String msgId){
+        sender.RequestSendMessage(new MessageText(md, msgId, msg));
     }
 
     private String GetNormalizeCommand(String c){

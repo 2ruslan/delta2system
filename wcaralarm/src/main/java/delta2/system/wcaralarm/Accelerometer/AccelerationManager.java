@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import delta2.system.common.Helper;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
 import delta2.system.common.messages.MessageText;
+import delta2.system.wcaralarm.Module;
 import delta2.system.wcaralarm.Preferences.PreferencesHelper;
 
 
@@ -88,7 +89,7 @@ public class AccelerationManager {
                 if (res.acceleration > PreferencesHelper.getAccLevel()) {
                     if (PreferencesHelper.getIsStarted() &&
                         PreferencesHelper.getIsAccActive()) {
-                        requestSendMessage.RequestSendMessage( new MessageText(String.format("acceleration=%s", res.acceleration)));
+                        requestSendMessage.RequestSendMessage(new MessageText(Module._MODULE_CODE, String.format("acceleration=%s", res.acceleration)));
                     }
                 }
 
