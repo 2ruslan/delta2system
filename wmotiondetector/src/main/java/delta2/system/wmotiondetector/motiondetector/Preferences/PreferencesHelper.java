@@ -20,6 +20,7 @@ public class PreferencesHelper extends PreferencesHelperBase {
     public static final String CAMERA_SIZE_IDX = "CAMERA_SIZE_IDX";
     public static final String CAMERA_ANGLE_IDX = "CAMERA_ANGLE_IDX";
 
+    public static final String FRAME_INTERVAL = "FRAME_INTERVAL";
 
 
     private static SharedPreferences mSettings;
@@ -32,6 +33,8 @@ public class PreferencesHelper extends PreferencesHelperBase {
     private static PreferenceValue _cameraIdx;
     private static PreferenceValue _cameraSizeIdx;
     private static PreferenceValue _cameraAngleIdx;
+
+    private static PreferenceValue _frameInterval;
 
 
     static {

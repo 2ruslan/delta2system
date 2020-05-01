@@ -59,6 +59,7 @@ public class ModuleManager implements IRequestSendMessage, IReceiveMessage, IIni
         modulesAll.add(new delta2.system.ttelegram.Module(c));
         modulesAll.add(new delta2.system.ttelephony.Module(c));
         modulesAll.add(new delta2.system.tftp.Module(c));
+        modulesAll.add(new delta2.system.tmail.Module(c));
       //  modulesAll.add(new delta2.system.tline.Module(c));
 
         // worker

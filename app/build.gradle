@@ -50,4 +50,5 @@ dependencies {
     implementation project(":wsu")
     implementation project(":wtimer")
     implementation project(":tsignal")
+    implementation project(":tmail")
 }
