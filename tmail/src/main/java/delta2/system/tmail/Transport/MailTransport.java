@@ -14,12 +14,7 @@ import delta2.system.common.messages.MessagePhoto;
 import delta2.system.common.messages.MessageText;
 import delta2.system.tmail.Preferences.PreferencesHelper;
 
-// send
-// https://gist.github.com/wfng92/f131ea2d96d0d90338bb496aac97cfdc
-// https://medium.com/better-programming/how-to-send-an-email-with-attachments-in-android-b2d75123f7e7
-
-//read
-// https://www.tutorialspoint.com/javamail_api/javamail_api_checking_emails.htm
+// https://www.tutorialspoint.com/javamail_api/javamail_api_environment_setup.htm
 
 public class MailTransport {
 
