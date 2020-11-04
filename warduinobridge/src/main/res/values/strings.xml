@@ -3,4 +3,8 @@
 
     <string name="wab_arduino_device">Select arduino device</string>
 
+    <string name="wab_mqtt_addr">mqtt address</string>
+    <string name="wab_mqtt_user">mqtt user</string>
+    <string name="wab_mqtt_pass">mqtt pass</string>
+
 </resources>

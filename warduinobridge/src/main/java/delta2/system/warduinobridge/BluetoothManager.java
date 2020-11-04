@@ -31,6 +31,8 @@ public class BluetoothManager {
 
     private boolean needReconect = false;
 
+    private MQTT mqtt = new MQTT();
+
     public BluetoothManager(Context c){
         _context = c;
 
@@ -81,13 +83,27 @@ public class BluetoothManager {
             if (msg.startsWith("<cmd>")) {
                 requestSendMessage.RequestSendMessage(
                         new MessageCommand(Module._MODULE_NAME, new Command(msg.replace("<cmd>", "").trim() ) ));
-            } else {
+            }
+            else if (msg.startsWith("<mqtt>")) {
+                sendMqtt(msg.replace("<mqtt>", "").trim());
+            }
+            else {
                 requestSendMessage.RequestSendMessage(
                         new MessageText(Module._MODULE_NAME, msg)
                 );
             }
     }
 
+
+    private void sendMqtt(String value){
+        try {
+            String[] parts = value.split("=");
+            mqtt.sendData(parts[0], parts[1]);
+        }catch (Exception e)
+        {
+            L.log.error(e.getMessage());
+        }
+    }
 
     public void connect(){
         if(!PreferencesHelper.getDeviceAddress().equals("") ){

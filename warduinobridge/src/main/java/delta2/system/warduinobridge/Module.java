@@ -127,6 +127,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public void init() {
+
         setModuleState(ModuleState.initBegin);
 
         CheckPermission p = new CheckPermission(context, this);

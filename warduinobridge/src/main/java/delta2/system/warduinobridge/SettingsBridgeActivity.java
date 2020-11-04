@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -72,9 +73,31 @@ public class SettingsBridgeActivity extends AppCompatActivity {
     private void ShowBTDevice(){
         TextView tv = findViewById(R.id.tvBTDevice);
         tv.setText(PreferencesHelper.getDeviceName());
+
+        tv = findViewById(R.id.tvMqttPass);
+        tv.setText(PreferencesHelper.getMqttPass());
+
+        tv = findViewById(R.id.tvMqttUser);
+        tv.setText(PreferencesHelper.getMqttUser());
+
+        tv = findViewById(R.id.tvMqttAddr);
+        tv.setText(PreferencesHelper.getMqttAdr());
     }
 
     public void onMinimizeClick(View view) {
         finish();
     }
+
+    public void onMqttAddr(View v) {
+        PreferencesHelper.setMqttAdr( ((EditText)findViewById(R.id.tvMqttAddr)).getText().toString());
+    }
+
+    public void onMqttUser(View v) {
+        PreferencesHelper.setMqttUser( ((EditText)findViewById(R.id.tvMqttUser)).getText().toString());
+    }
+
+    public void onMqttPass(View v) {
+        PreferencesHelper.setMqttPass( ((EditText)findViewById(R.id.tvMqttPass)).getText().toString());
+    }
+
 }

@@ -2,4 +2,7 @@
 <resources>
     <string name="wab_module_name">Підключення Arduino</string>
     <string name="wab_arduino_device">Виберіть пристрій arduino</string>
+    <string name="wab_mqtt_addr">mqtt address</string>
+    <string name="wab_mqtt_user">mqtt user</string>
+    <string name="wab_mqtt_pass">mqtt pass</string>
 </resources>
