@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.3"
 
  //   compileOptions {
  //       sourceCompatibility JavaVersion.VERSION_1_8
@@ -14,8 +14,8 @@ android {
         multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 36
-        versionName "1.2.7"
+        versionCode 38
+        versionName "1.2.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -37,18 +37,19 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'com.github.tony19:logback-android:2.0.0'
 
+    implementation project(":framework")
     implementation project(":common")
-    implementation project(":tdropbox")
+  //  implementation project(":tdropbox")
     implementation project(":whardwareinfo")
     implementation project(":ttelegram")
-    implementation project(":wmotiondetector")
-    implementation project(":ttelephony")
-    implementation project(":warduinobridge")
-    implementation project(":wcaralarm")
-    implementation project(":tftp")
-    implementation project(":wtrinket")
-    implementation project(":wsu")
-    implementation project(":wtimer")
-    implementation project(":tsignal")
-    implementation project(":tmail")
+  //  implementation project(":wmotiondetector")
+  //  implementation project(":ttelephony")
+  //  implementation project(":warduinobridge")
+  //  implementation project(":wcaralarm")
+  //  implementation project(":tftp")
+  //  implementation project(":wtrinket")
+  //  implementation project(":wsu")
+  //  implementation project(":wtimer")
+  //  implementation project(":tsignal")
+  //  implementation project(":tmail")
 }

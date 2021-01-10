@@ -23,7 +23,13 @@ import delta2.system.delta2system.View.StarterApp;
 public class GlobalSettings extends AppCompatActivity {
 
     ListView modulesList;
+
     ModuleAllAdapter adapter;
+
+    private static ModuleManager moduleManager;
+    public static void init(ModuleManager m){
+        moduleManager = m;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +76,7 @@ public class GlobalSettings extends AppCompatActivity {
 
     private void connectToAdapter(){
         L.log.debug( "connectToAdapter start");
-        adapter = new ModuleAllAdapter(this, R.layout.list_item_select, ModuleManager.GetAllModules());
+        adapter = new ModuleAllAdapter(this, R.layout.list_item_select, moduleManager.GetAllModules());
         modulesList = findViewById(R.id.modulsList);
         modulesList.setAdapter(adapter);
         L.log.debug( "connectToAdapter stop");

@@ -10,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import delta2.system.common.Constants;
-import delta2.system.common.interfaces.IAcnivityCallback;
 import delta2.system.ttelegram.R;
-import delta2.system.ttelegram.transporttelegram.Preferences.PreferencesHelper;
-import delta2.system.ttelegram.transporttelegram.Transport.TelegramTransport;
+import delta2.system.ttelegram.transporttelegram.preferences.PreferencesHelper;
+import delta2.system.ttelegram.transporttelegram.transport.TelegramTransport;
 
 
 public class LoginActivity extends Activity {
@@ -51,7 +49,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_telegram_login);
 
         ImageView logo  = findViewById(R.id.ivLogo);
-        logo.setImageDrawable(getResources().getDrawable(R.drawable.logo));
+        //logo.setImageDrawable(getResources().getDrawable(R.drawable.logo));
 
         edPhone = findViewById(R.id.etPhoneNum);
         edCode = findViewById(R.id.etCode);

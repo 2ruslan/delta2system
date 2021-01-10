@@ -19,6 +19,7 @@ import delta2.system.warduinobridge.Preferences.PreferencesHelper;
 
 public class Module implements IModuleWorker, IError {
     public static final String _MODULE_NAME = "wab";
+    public static final String _ID = "8a3032bc-c689-4715-849e-781cef069bb9";
 
     private BluetoothManager bluetoothManager;
     Context context;
@@ -47,7 +48,7 @@ public class Module implements IModuleWorker, IError {
 
     @Override
     public String GetModuleID() {
-        return "8a3032bc-c689-4715-849e-781cef069bb9";
+        return _ID;
     }
 
     @Override

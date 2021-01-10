@@ -43,14 +43,11 @@ public class MainService extends Service {
                 "d2s::MainService");
         wakeLock.acquire();
 
-        moduleManager = new ModuleManager();
-
         startForeground(R.drawable.ic_notify_proc, "delta2system", 1100);
 
-        MainActivity.init(moduleManager);
-        Intent i = new Intent(this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
+        moduleManager = new ModuleManager(this);
+
+        showMainWindow();
 
         moduleManager.init();
     }
@@ -67,7 +64,15 @@ public class MainService extends Service {
             instance.stopSelf();
     }
 
-    protected  void startForeground(int ico, String title, int notifyId) {
+    private void showMainWindow(){
+        MainActivity.init(moduleManager);
+
+        Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+    }
+
+    private void startForeground(int ico, String title, int notifyId) {
 
 
         Notification.Builder builder = new Notification.Builder(this)
@@ -98,7 +103,6 @@ public class MainService extends Service {
 
         startForeground(notifyId, notification);
     }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private String createNotificationChannel(String channelId, String channelName){

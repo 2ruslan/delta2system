@@ -42,13 +42,18 @@ public class StarterApp extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        askAndroid10Perm();
+
         setContentView(R.layout.activity_starter_app);
 
         Helper.setWorkDir(this.getFilesDir());
 
-        ModuleManager.init(this);
+        this.startService(new Intent(this, MainService.class));
 
-        go (!ModuleManager.CheckExistsActiveModule() || getIntent().getBooleanExtra(_SHOW_SETTINGS, false));
+     //   ModuleManager.init(this);
+
+    //    go (!ModuleManager.CheckExistsActiveModule() || getIntent().getBooleanExtra(_SHOW_SETTINGS, false));
     }
 
     private void go(boolean isShowSettings){
@@ -64,4 +69,17 @@ public class StarterApp extends Activity {
             this.startService(new Intent(this, MainService.class));
         }
     }
+
+    private void askAndroid10Perm() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            intent.addFlags(
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                            | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                            | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
+            startActivityForResult(intent, 0);
+        }
+    }
+
 }

@@ -2,40 +2,28 @@ package delta2.system.whardwareinfo.hardwareinfo.commands;
 
 import android.content.Context;
 
-import delta2.system.common.Helper;
-import delta2.system.common.execmd.ExeBaseCmd;
-import delta2.system.common.execmd.ICmdParams;
-import delta2.system.common.interfaces.messages.IRequestSendMessage;
+import delta2.system.framework.abstraction.CommandBase;
+import delta2.system.framework.common.MessageFactory;
+import delta2.system.framework.interfaces.IMessage;
 import delta2.system.whardwareinfo.Module;
 import delta2.system.whardwareinfo.R;
-import delta2.system.whardwareinfo.hardwareinfo.Hardware.BatteryLevelReceiver;
-import delta2.system.whardwareinfo.hardwareinfo.Hardware.CpuStat;
-import delta2.system.whardwareinfo.hardwareinfo.Hardware.WifiReceiver;
+import delta2.system.whardwareinfo.hardwareinfo.hardware.BatteryLevelReceiver;
+import delta2.system.whardwareinfo.hardwareinfo.hardware.CpuStat;
+import delta2.system.whardwareinfo.hardwareinfo.hardware.WifiReceiver;
 
-public class CmdInfo extends ExeBaseCmd {
-
-    public CmdInfo(Context c, IRequestSendMessage s) {
-        super(c, s);
+public class CmdInfo extends CommandBase {
+    public CmdInfo(Context c) {
+        super(c);
     }
 
     @Override
-    protected String GetCommandText() {
+    public String GetCommandText() {
         return "info";
     }
 
     @Override
-    protected boolean IsNeedAnswer() {
-        return true;
-    }
-
-    @Override
-    protected String RunCommand(ICmdParams params, String msgId) {
-        return GetInfo();
-    }
-
-    @Override
-    protected ICmdParams ParseParams(String args) {
-        return EmptyCmdParams;
+    public IMessage Run(String params) {
+        return MessageFactory.GetMessageSendText(GetInfo());
     }
 
     @Override
@@ -44,7 +32,7 @@ public class CmdInfo extends ExeBaseCmd {
     }
 
     private String GetInfo(){
-        StringBuilder sb = new StringBuilder(Helper.GetMessageHeader(context.getString(R.string.whi_module_name), Module._MODULE_CODE));
+        StringBuilder sb = new StringBuilder(GetMessageHeader(context.getString(R.string.whi_module_name), Module._MODULE_CODE));
 
         try {
             String ci =new CpuStat().toString();
@@ -52,7 +40,7 @@ public class CmdInfo extends ExeBaseCmd {
                 sb.append("\n\n" + ci);
         }
         catch (Exception e){
-            Helper.Ex2Log(e);
+            logger.error(e);
         }
 
         sb.append("\n\n" + BatteryLevelReceiver.getBatInfo());

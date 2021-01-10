@@ -31,8 +31,6 @@ public class BluetoothManager {
 
     private boolean needReconect = false;
 
-    private MQTT mqtt = new MQTT();
-
     public BluetoothManager(Context c){
         _context = c;
 
@@ -97,8 +95,10 @@ public class BluetoothManager {
 
     private void sendMqtt(String value){
         try {
+
             String[] parts = value.split("=");
-            mqtt.sendData(parts[0], parts[1]);
+            MQTT.sendData(parts[0], parts[1]);
+
         }catch (Exception e)
         {
             L.log.error(e.getMessage());

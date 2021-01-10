@@ -1,6 +1,7 @@
 package delta2.system.common;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -11,6 +12,8 @@ import java.util.Calendar;
 import java.util.Comparator;
 
 import delta2.system.common.Log.L;
+
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class FileStructure {
     private static final int _OLD_FILES_QNT = 300;
@@ -56,9 +59,10 @@ public class FileStructure {
         File dir = new File(path);
 
         if (!dir.exists()) {
-            dir.mkdirs();
-            dir.setReadable(true, false);
-            dir.setWritable(true, false);
+            if (dir.mkdirs()) {
+                dir.setReadable(true, false);
+                dir.setWritable(true, false);
+            }
         }
 
         File nomediaDir = new File(String.format("%s/.nomedia", path));

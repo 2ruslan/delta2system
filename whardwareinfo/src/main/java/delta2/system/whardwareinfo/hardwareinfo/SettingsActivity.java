@@ -1,6 +1,5 @@
 package delta2.system.whardwareinfo.hardwareinfo;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -8,7 +7,7 @@ import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 
 import delta2.system.whardwareinfo.R;
-import delta2.system.whardwareinfo.hardwareinfo.Preferences.PreferencesHelper;
+import delta2.system.whardwareinfo.hardwareinfo.preferences.PreferencesHelper;
 
 
 public class SettingsActivity extends AppCompatActivity {

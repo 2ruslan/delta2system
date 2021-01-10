@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.3"
 
 
     defaultConfig {
@@ -35,5 +35,5 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'com.github.tony19:logback-android:2.0.0'
 
-    implementation project(":common")
+    implementation project(":framework")
 }

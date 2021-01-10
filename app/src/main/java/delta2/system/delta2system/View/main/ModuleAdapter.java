@@ -11,16 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import delta2.system.common.enums.ModuleState;
-import delta2.system.common.interfaces.module.IModule;
-import delta2.system.delta2system.ModulesList;
+
 import delta2.system.delta2system.R;
+import delta2.system.framework.interfaces.IModule;
 
 public class ModuleAdapter extends ArrayAdapter<IModule> {
     private LayoutInflater inflater;
     private int layout;
     Context _context;
 
-    ModuleAdapter(Context context, int resource, ModulesList plugins) {
+    ModuleAdapter(Context context, int resource, ArrayList<IModule> plugins) {
         super(context, resource,  plugins);
 
         _context = context;
@@ -44,12 +44,12 @@ public class ModuleAdapter extends ArrayAdapter<IModule> {
         final IModule module = this.getItem(position);
 
         viewHolder.nameView.setText(module.GetDescription());
-        viewHolder.codeView.setText(module.GetShortName());
+        viewHolder.codeView.setText(module.GetModuleName());
 
         //String workingTime = Helper.getWorkingTime(_context,  product.GetWorkingTime());
         //viewHolder.timeView.setText(workingTime);
 
-        viewHolder.infoViev.setText(String.valueOf(getStateDescr(_context, module.GetModuleState())));
+        //viewHolder.infoViev.setText(String.valueOf(getStateDescr(_context, module.GetModuleState())));
 
         //viewHolder.stateView.setText(product.getCurrentState() == 1 ? "state:OK" : "state:Bad" );
 

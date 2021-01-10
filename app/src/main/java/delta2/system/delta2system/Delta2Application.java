@@ -7,9 +7,13 @@ import androidx.multidex.MultiDex;
 import delta2.system.common.FileStructure;
 import delta2.system.common.Log.L;
 import delta2.system.common.preferences.PreferenceValue;
+import delta2.system.framework.common.Log;
+import delta2.system.framework.interfaces.ILogger;
 
 
 public class Delta2Application extends Application {
+    protected ILogger logger = Log.Instance();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,7 +24,7 @@ public class Delta2Application extends Application {
 
         PreferencesHelper.SetContext(this);
 
-        L.configureLogback(PreferencesHelper.getLogLevel());
+        Log.Configure(PreferencesHelper.getLogLevel(), FileStructure.getWorkFilesDir(this));
 
         Thread.setDefaultUncaughtExceptionHandler(new CustomExHandler());
     }
@@ -29,7 +33,7 @@ public class Delta2Application extends Application {
 
         @Override
         public void uncaughtException(Thread thread, Throwable ex) {
-            L.log.error("", ex);
+            logger.error(ex);
         }
     }
 }

@@ -4,11 +4,7 @@ import android.content.Context;
 
 import delta2.system.common.execmd.ExeBaseCmd;
 import delta2.system.common.execmd.ICmdParams;
-import delta2.system.common.interfaces.commands.ICommand;
-import delta2.system.common.interfaces.messages.IMessage;
 import delta2.system.common.interfaces.messages.IRequestSendMessage;
-import delta2.system.common.interfaces.module.IModule;
-import delta2.system.common.messages.MessageText;
 import delta2.system.delta2system.BuildConfig;
 import delta2.system.delta2system.InfoData;
 import delta2.system.delta2system.MainService;
@@ -16,6 +12,7 @@ import delta2.system.delta2system.ModuleManager;
 import delta2.system.delta2system.PreferencesHelper;
 import delta2.system.delta2system.R;
 import delta2.system.delta2system.View.main.ModuleAdapter;
+import delta2.system.framework.interfaces.IModule;
 
 public class CmdInfo extends ExeBaseCmd {
 
@@ -55,13 +52,14 @@ public class CmdInfo extends ExeBaseCmd {
         sb.append(context.getString(R.string.app_name ));
         sb.append(String.format("\n\n%s\n", context.getString(R.string.delimiter_line)));
 
+        /*
         sb.append(String.format("%s : \n", context.getString(R.string.app_active_modules )));
         for(IModule m : ModuleManager.GetAllModules()){
             if (PreferencesHelper.getIsActiveModule(m.GetModuleID())){
                 sb.append(String.format("  [%s] [%s] - %s\n", m.GetShortName(), ModuleAdapter.getStateDescr(context, m.GetModuleState()),  m.GetDescription() ));
             }
         }
-
+*/
         sb.append(String.format("\n%s: %s \n", context.getString(R.string.received), InfoData.GetReceive()));
         sb.append(String.format("%s: %s \n", context.getString(R.string.sended), InfoData.GetSend()));
 

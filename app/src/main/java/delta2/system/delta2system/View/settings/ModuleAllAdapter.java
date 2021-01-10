@@ -6,16 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import delta2.system.common.enums.ModuleState;
-import delta2.system.common.interfaces.module.IModule;
-import delta2.system.delta2system.ModulesList;
+
 import delta2.system.delta2system.PreferencesHelper;
 import delta2.system.delta2system.R;
+import delta2.system.framework.interfaces.IModule;
 
 public class ModuleAllAdapter extends ArrayAdapter<IModule> {
     private LayoutInflater inflater;
@@ -46,13 +44,13 @@ public class ModuleAllAdapter extends ArrayAdapter<IModule> {
         final IModule module = this.getItem(position);
 
         viewHolder.nameView.setText(module.GetDescription());
-        viewHolder.codeView.setText(module.GetShortName());
-        viewHolder.cbActive.setChecked(PreferencesHelper.getIsActiveModule(module.GetModuleID()));
+        viewHolder.codeView.setText(module.GetModuleName());
+        viewHolder.cbActive.setChecked(PreferencesHelper.getIsActiveModule(module.GetModuleId()));
 
         viewHolder.cbActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesHelper.setIsActiveModule(module.GetModuleID(), viewHolder.cbActive.isChecked());
+                PreferencesHelper.setIsActiveModule(module.GetModuleId(), viewHolder.cbActive.isChecked());
             }
         });
 

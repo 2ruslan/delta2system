@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application>
-        <receiver android:name=".hardwareinfo.Hardware.BatteryLevelReceiver">
+        <receiver android:name=".hardwareinfo.hardware.BatteryLevelReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
                 <action android:name="android.intent.action.BATTERY_LOW" />
@@ -17,7 +17,7 @@
 
             </intent-filter>
         </receiver>
-        <receiver android:name=".hardwareinfo.Hardware.WifiReceiver">
+        <receiver android:name=".hardwareinfo.hardware.WifiReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
